@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="white">#FFFFFF</color>
+    <color name="orange">#FFA000</color>
+    <color name="orange_dark">#FBA000</color>
+    <color name="orange_more_dark">#BB7000</color>
+    <color name="grey">#CCCCCC</color>
+    <color name="contents_text">#ff000000</color>
+    <color name="encode_view">#ffffffff</color>
+    <color name="possible_result_points">#c0ffbd21</color> <!-- Android standard ICS color -->
+    <color name="result_minor_text">#ffc0c0c0</color>
+    <color name="result_points">#c099cc00</color> <!-- Android standard ICS color -->
+    <color name="result_text">#ffffffff</color>
+    <color name="result_view">#b0000000</color>
+    <color name="status_text">#ffffffff</color>
+    <color name="transparent">#00000000</color>
+    <color name="viewfinder_laser">#ffcc0000</color> <!-- Android standard ICS color -->
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="green">#306D20</color>
+    <color name="red">#dd2010</color>
+    <color name="black">#000000</color>
+
+
+
+
+    <color name="textColorPrimary">#FFFFFF</color>
+    <color name="windowBackground">#FFFFFF</color>
+    <color name="navigationBarColor">#000000</color>
+
+
+    <color name="bg_view_sms">#ffd423</color>
+    <color name="bg_view_otp">#fc6d38</color>
+
+    <string-array name="colors">
+        <item>#FF2D9B28</item>
+        <item>#FFFFA208</item>
+        <item>#FFFB9D42</item>
+        <item>#FFF48E64</item>
+        <item>#FFE0974A</item>
+        <item>#FFFAAC16</item>
+        <item>#FF95A50C</item>
+        <item>#FFF57C16</item>
+        <item>#FFF24F28</item>
+        <item>#FFF19E1E</item>
+        <item>#FFF8C79D</item>
+    </string-array>
+
+
+    <color name="text">#ffffffff</color>
+    <color name="background_dark">#ff363636</color>
+    <color name="background_content">#ff454344</color>
+
+    <color name="custom_progress_background">#ff3c3a3b</color>
+
+    <color name="custom_progress_green_header">#ff99cc00</color>
+    <color name="custom_progress_green_progress">#ff669900</color>
+    <color name="custom_progress_green_progress_half">#7f669900</color>
+
+    <color name="custom_progress_orange_header">#ffffbb33</color>
+    <color name="custom_progress_orange_progress">#ffff8800</color>
+    <color name="custom_progress_orange_progress_half">#7fff8800</color>
+
+    <color name="custom_progress_blue_header">#ff33b5e5</color>
+    <color name="custom_progress_blue_progress">#ff0099cc</color>
+    <color name="custom_progress_blue_progress_half">#7f0099cc</color>
+
+    <color name="custom_progress_purple_header">#ffaa66cc</color>
+    <color name="custom_progress_purple_progress">#ff9933cc</color>
+    <color name="custom_progress_purple_progress_half">#7f9933cc</color>
+
+    <color name="custom_progress_red_header">#ffcc0000</color>
+    <color name="custom_progress_red_progress">#ffff4444</color>
+    <color name="custom_progress_red_progress_half">#7fff4444</color>
+
+</resources>

@@ -1,0 +1,34 @@
+{
+"rewards": [
+{
+"offer_id": 1, 
+"title": "Colgate Tooth Paste 500gm",
+"points":20
+},
+{
+"offer_id": 2, 
+"title": "Coca cola 1L",
+"points":30
+},
+{
+"offer_id": 3, 
+"title": "Maggi 250gm",
+"points":80
+},
+{
+"offer_id": 4, 
+"title": "M.D.H 1KG",
+"points":70
+},
+{
+"offer_id": 5, 
+"title": "Fortune Oil 2L",
+"points":100
+},
+{
+"offer_id": 6, 
+"title": "Lifebuoy 150gm",
+"points":120
+}
+], 
+"success": 1}

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey"
+    android:padding="3dp">
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        card_view:cardCornerRadius="0dp"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:padding="3dp"
+            android:layout_height="match_parent">
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1">
+                        <co.jlabs.cersei_retailer.custom_components.MyImageView
+                            android:id="@+id/pic"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="fitXY" />
+                        <TextView
+                            android:id="@+id/mask"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="#88222222"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <co.jlabs.cersei_retailer.custom_components.FontFitTextView
+                                android:id="@+id/text"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:textColor="#ffffff"
+                                android:textStyle="bold"
+                                android:padding="10dp"
+                                android:textSize="13dp"/>
+
+                        </LinearLayout>
+                    </FrameLayout>
+
+                    <LinearLayout
+                        android:paddingTop="8dp"
+                        android:layout_gravity="bottom"
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_height="40dp">
+                        <co.jlabs.cersei_retailer.custom_components.TextView_Black
+                            android:id="@+id/deliverable"
+                            android:layout_marginLeft="10dp"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:gravity="center"
+                            android:textSize="20sp"
+                            android:text="@string/ico_myorder"/>
+                        <co.jlabs.cersei_retailer.custom_components.AddOrRemoveCart
+                            android:id="@+id/add_or_remove_cart"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                </LinearLayout>
+                <co.jlabs.cersei_retailer.custom_components.MyLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </co.jlabs.cersei_retailer.custom_components.MyLinearLayout>
+                <co.jlabs.cersei_retailer.custom_components.TextView_Triangle
+                    android:layout_gravity="bottom"
+                    android:layout_width="58dp"
+                    android:layout_height="20dp"
+                    android:gravity="center"
+                    android:layout_marginBottom="30dp"
+                    android:textSize="9sp"
+                    android:text="@string/rating_points"/>
+            </FrameLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>
