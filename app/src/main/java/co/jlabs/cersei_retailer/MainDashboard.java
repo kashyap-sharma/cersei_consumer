@@ -2,7 +2,6 @@ package co.jlabs.cersei_retailer;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -37,7 +36,6 @@ import co.jlabs.cersei_retailer.custom_components.PagerSlidingStrip.IconTabProvi
 import co.jlabs.cersei_retailer.custom_components.Popup_Filter;
 import co.jlabs.cersei_retailer.custom_components.SmallBang;
 import co.jlabs.cersei_retailer.custom_components.SmallBangListener;
-import co.jlabs.cersei_retailer.custom_components.Sqlite_cart;
 import co.jlabs.cersei_retailer.custom_components.TabsView;
 
 
@@ -386,7 +384,7 @@ public class MainDashboard extends FragmentActivity implements View.OnClickListe
         } catch (JSONException e) {
             success=0;
         }
-        if(dialog==null)
+     //   if(dialog==null)
          dialog = new LocationPopup(this, R.style.alert_dialog);
 
         if(success==1)
@@ -448,10 +446,10 @@ public class MainDashboard extends FragmentActivity implements View.OnClickListe
 
     public void createFilterPopup()
     {
-        if(filter_popup==null)
-            filter_popup = new Popup_Filter(this, R.style.alert_dialog);
-        filter_popup.setUpLayout();
-
+       // if(filter_popup==null)
+  //      filter_popup = new Popup_Filter(this, R.style.alert_dialog);
+  //      filter_popup.setUpLayout();
+    Toast.makeText(this,"Filter To be Added",Toast.LENGTH_SHORT).show();
     }
 
 }

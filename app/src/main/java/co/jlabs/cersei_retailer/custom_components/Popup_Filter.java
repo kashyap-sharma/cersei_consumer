@@ -18,8 +18,8 @@ import co.jlabs.cersei_retailer.R;
 public class Popup_Filter extends Dialog {
 
     private View mDialogView;
-    private AnimationSet mModalInAnim;
-    private AnimationSet mModalOutAnim;
+  //  private AnimationSet mModalInAnim;
+  //  private AnimationSet mModalOutAnim;
 
     public Popup_Filter(Context context) {
         super(context);
@@ -38,7 +38,7 @@ public class Popup_Filter extends Dialog {
 
     public void setup(Context context)
     {
-        mModalInAnim = (AnimationSet) OptAnimationLoader.loadAnimation(getContext(), R.anim.modal_in);
+/*        mModalInAnim = (AnimationSet) OptAnimationLoader.loadAnimation(getContext(), R.anim.modal_in);
         mModalOutAnim = (AnimationSet) OptAnimationLoader.loadAnimation(getContext(), R.anim.modal_out);
         mModalOutAnim.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -48,15 +48,6 @@ public class Popup_Filter extends Dialog {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                mDialogView.setVisibility(View.GONE);
-                mDialogView.post(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        Popup_Filter.super.dismiss();
-
-                    }
-                });
             }
 
             @Override
@@ -64,7 +55,7 @@ public class Popup_Filter extends Dialog {
 
             }
         });
-    }
+*/    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,13 +63,28 @@ public class Popup_Filter extends Dialog {
         mDialogView = getWindow().getDecorView().findViewById(android.R.id.content);
     }
 
+    public void end()
+    {
+        mDialogView.setVisibility(View.GONE);
+        mDialogView.post(new Runnable() {
+            @Override
+            public void run() {
+
+                Popup_Filter.super.dismiss();
+
+            }
+        });
+
+    }
+
     protected void onStart() {
-        mDialogView.startAnimation(mModalInAnim);
+      //  mDialogView.startAnimation(mModalInAnim);
     }
 
     @Override
     public void cancel() {
-        mDialogView.startAnimation(mModalOutAnim);
+        end();
+//        mDialogView.startAnimation(mModalOutAnim);
     }
 
 
