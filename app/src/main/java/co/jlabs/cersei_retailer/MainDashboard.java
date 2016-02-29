@@ -160,6 +160,7 @@ public class MainDashboard extends FragmentActivity implements View.OnClickListe
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+        //ok
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
