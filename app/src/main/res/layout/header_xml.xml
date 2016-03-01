@@ -35,7 +35,7 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp">
-                <com.akexorcist.roundcornerprogressbar.IconRoundCornerProgressBar
+                <co.jlabs.cersei_retailer.RoundCornerProgressBar.IconRoundCornerProgressBar
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
@@ -43,8 +43,9 @@
                     app:rcBackgroundColor="@color/custom_progress_orange_progress_half"
                     app:rcBackgroundPadding="2dp"
                     app:rcIconBackgroundColor="@color/custom_progress_orange_header"
-                    app:rcIconPadding="2dp"
+                    app:rcIconPadding="6dp"
                     app:rcIconSize="30dp"
+
                     app:rcIconSrc="@drawable/happy"
                     app:rcMax="100"
                     app:rcProgress="90"
