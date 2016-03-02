@@ -17,6 +17,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 
 import com.google.zxing.BarcodeFormat;
@@ -73,7 +74,6 @@ public class BarCodeScannerFragment extends Fragment implements SurfaceHolder.Ca
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-
         hasSurface = false;
         inactivityTimer = new InactivityTimer(this.getActivity());
         beepManager = new BeepManager(this.getActivity());
@@ -85,7 +85,15 @@ public class BarCodeScannerFragment extends Fragment implements SurfaceHolder.Ca
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance) {
         View view = inflater.inflate(R.layout.capture, container, false);
-//
+        Button      bt=(Button)view.findViewById(R.id.whats);
+         bt.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+
+
+             }
+         });
+
 //        Window window = getActivity().getWindow();
 //        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 

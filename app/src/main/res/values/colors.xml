@@ -60,7 +60,7 @@
     <color name="background_dark">#ff363636</color>
     <color name="background_content">#ff454344</color>
 
-    <color name="custom_progress_background">#ff3c3a3b</color>
+    <color name="custom_progress_background">#fffefefe</color>
 
     <color name="custom_progress_green_header">#ff99cc00</color>
     <color name="custom_progress_green_progress">#ff669900</color>

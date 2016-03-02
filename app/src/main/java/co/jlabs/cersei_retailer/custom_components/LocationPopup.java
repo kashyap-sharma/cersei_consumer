@@ -137,6 +137,7 @@ public class LocationPopup extends Dialog {
     public void BuildDialog_2(String obj)
     {
         setContentView(R.layout.select_location_popup);
+       // findViewById(R.id.dismissifclickedhere).setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         findViewById(R.id.dismissifclickedhere).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -6,10 +6,23 @@
   <SurfaceView android:id="@+id/preview_view"
                android:layout_width="fill_parent"
                android:layout_height="fill_parent"/>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-  <co.jlabs.cersei_retailer.zxingfragmentlib.ViewfinderView
-      android:id="@+id/viewfinder_view"
-      android:layout_width="fill_parent"
-      android:layout_height="fill_parent"/>
+    <co.jlabs.cersei_retailer.zxingfragmentlib.ViewfinderView
+        android:id="@+id/viewfinder_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
+    <Button
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="15dp"
+        android:background="#ffffff"
+        android:id="@+id/whats"
+       android:layout_alignParentRight="true"
+        android:text="Q"/>
+</RelativeLayout>
+
 
 </FrameLayout>
