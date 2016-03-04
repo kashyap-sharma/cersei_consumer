@@ -307,7 +307,7 @@ public class Fragment_Points extends Fragment  implements ScrollTabHolder, ViewP
 
         @Override
         public boolean isViewFromObject(View arg0, Object arg1) {
-            return arg0 == ((View) arg1);
+            return arg0 == arg1;
 
         }
 
@@ -346,7 +346,7 @@ public class Fragment_Points extends Fragment  implements ScrollTabHolder, ViewP
 
     public void animateTextView(int initialValue, int finalValue, final TextView  textview) {
 
-        ValueAnimator valueAnimator = ValueAnimator.ofInt((int)initialValue, (int)finalValue);
+        ValueAnimator valueAnimator = ValueAnimator.ofInt(initialValue, finalValue);
         valueAnimator.setDuration(1500);
         valueAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
 
@@ -439,7 +439,7 @@ public class Fragment_Points extends Fragment  implements ScrollTabHolder, ViewP
                         public void onResponse(final JSONObject response) {
                             try {
                                 json = response.getJSONObject("data");
-                                createcontentforthispage(json.getString("total_balance"), "" + ((JSONArray) json.getJSONArray("active_rewards")).length(), json.getString("earning"), json.getString("total_redeemed"), json.getJSONArray("active_rewards"), json.getJSONArray("earning_list"), json.getJSONArray("redeemed"));
+                                createcontentforthispage(json.getString("total_balance"), "" + json.getJSONArray("active_rewards").length(), json.getString("earning"), json.getString("total_redeemed"), json.getJSONArray("active_rewards"), json.getJSONArray("earning_list"), json.getJSONArray("redeemed"));
                             } catch (JSONException e) {
                                 e.printStackTrace();
                                 tellThatLoadedSuccessfully(false);
@@ -457,7 +457,7 @@ public class Fragment_Points extends Fragment  implements ScrollTabHolder, ViewP
         else
         {
             try {
-                createcontentforthispage(json.getString("total_balance"), ""+((JSONArray)json.getJSONArray("active_rewards")).length(), json.getString("earning"), json.getString("total_redeemed"), json.getJSONArray("active_rewards"), json.getJSONArray("earning_list"), json.getJSONArray("redeemed"));
+                createcontentforthispage(json.getString("total_balance"), ""+ json.getJSONArray("active_rewards").length(), json.getString("earning"), json.getString("total_redeemed"), json.getJSONArray("active_rewards"), json.getJSONArray("earning_list"), json.getJSONArray("redeemed"));
             } catch (JSONException e) {
                 e.printStackTrace();
                 tellThatLoadedSuccessfully(false);

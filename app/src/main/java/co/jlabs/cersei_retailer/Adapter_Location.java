@@ -48,7 +48,7 @@ public class Adapter_Location extends BaseAdapter {
           //  gridView.setLayoutParams(new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT,AbsListView.LayoutParams.WRAP_CONTENT));
 
         } else {
-            gridView = (View) convertView;
+            gridView = convertView;
         }
         try {
             if(mainlocation)

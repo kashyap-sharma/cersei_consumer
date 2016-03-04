@@ -354,6 +354,6 @@ public class IconRoundCornerProgressBar extends BaseRoundCornerProgressBar imple
     }
 
     public interface OnIconClickListener {
-        public void onIconClick();
+        void onIconClick();
     }
 }

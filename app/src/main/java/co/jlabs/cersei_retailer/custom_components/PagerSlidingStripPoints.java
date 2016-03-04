@@ -33,7 +33,7 @@ import co.jlabs.cersei_retailer.R;
 public class PagerSlidingStripPoints extends HorizontalScrollView {
 
     public interface IconTabProvider {
-        public CharSequence getPageIconResId(int position);
+        CharSequence getPageIconResId(int position);
     }
 
     // @formatter:off

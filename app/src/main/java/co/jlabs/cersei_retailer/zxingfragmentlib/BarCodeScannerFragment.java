@@ -18,15 +18,12 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
-
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.DecodeHintType;
 import com.google.zxing.Result;
 import com.google.zxing.ResultPoint;
 import co.jlabs.cersei_retailer.R;
 import co.jlabs.cersei_retailer.zxingfragmentlib.camera.CameraManager;
-
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;
@@ -309,10 +306,7 @@ public class BarCodeScannerFragment extends Fragment implements SurfaceHolder.Ca
     }
     
     private boolean isPortrait() {
-    	if (getView().getWidth() < getView().getHeight()) 
-    		return true;
-    	else
-    		return false;
+        return getView().getWidth() < getView().getHeight();
     }
 
     /**

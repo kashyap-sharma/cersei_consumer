@@ -76,7 +76,6 @@ public class Fragment_Barcode extends BarCodeScannerFragment implements Fragment
                 }
             }
 
-            ;
         }, 200);
     }
 

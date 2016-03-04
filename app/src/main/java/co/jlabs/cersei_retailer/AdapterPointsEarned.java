@@ -36,7 +36,7 @@ public class AdapterPointsEarned extends BaseAdapter {
             // get layout from mobile.xml
             gridView = inflater.inflate(R.layout.adap_points_earned, null);
         } else {
-            gridView = (View) convertView;
+            gridView = convertView;
         }
         try {
             ((TextView)gridView.findViewById(R.id.title)).setText(((JSONObject)jsonArray.get(position)).getString("title"));

@@ -661,7 +661,7 @@ public class LoginActivity extends FragmentActivity {
         }
     }
     public boolean isNetworkAvailable() {
-        ConnectivityManager cm=(ConnectivityManager)getSystemService(this.CONNECTIVITY_SERVICE);
+        ConnectivityManager cm=(ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
         return cm.getActiveNetworkInfo()!=null&&cm.getActiveNetworkInfo().isConnectedOrConnecting();
     }
 

@@ -45,7 +45,7 @@ public class AdapterReward_Redeemed extends BaseAdapter {
             // get layout from mobile.xml
             gridView = inflater.inflate(R.layout.adap_reward, null);
         } else {
-            gridView = (View) convertView;
+            gridView = convertView;
         }
         //new java.util.Date(Long.parseLong(timeInMillis))
         if(type==0)
