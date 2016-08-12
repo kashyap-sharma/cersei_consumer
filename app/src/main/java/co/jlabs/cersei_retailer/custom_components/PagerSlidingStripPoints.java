@@ -226,7 +226,7 @@ public class PagerSlidingStripPoints extends HorizontalScrollView {
 
         TextView_Appcolor tab = new TextView_Appcolor(getContext());
         tab.setText(resId);
-        tab.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
+        tab.setTextSize(TypedValue.COMPLEX_UNIT_SP, 8);
         tab.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         tab.setGravity(Gravity.CENTER);
         tv.add(tab);

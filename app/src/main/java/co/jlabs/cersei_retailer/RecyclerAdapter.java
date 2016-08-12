@@ -10,20 +10,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.toolbox.ImageLoader;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import co.jlabs.cersei_retailer.ActivityTransition.ActivityTransitionLauncher;
+import co.jlabs.cersei_retailer.Rounded.RoundedImageView;
 import co.jlabs.cersei_retailer.custom_components.AddOrRemoveCart;
 import co.jlabs.cersei_retailer.custom_components.MyImageView;
+import co.jlabs.cersei_retailer.custom_components.ShoppingView;
 import co.jlabs.cersei_retailer.custom_components.Sqlite_cart;
+import co.jlabs.cersei_retailer.custom_components.TextViewModernM;
 import co.jlabs.cersei_retailer.custom_components.VolleyImageInterface;
+
 
 /**
  * Created by Pradeep on 12/31/2015.
@@ -34,12 +41,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private static final int VIEW_NORMAL = 1;
     private View headerView;
     ImageLoader imageLoader;
+
     JSONArray json_offers;
     Sqlite_cart cart;
     Context context;
     RecyclerAdapter adapter;
     FragmentsEventInitialiser eventInitialiser;
     //private int lastPosition = -1;
+    int appcolor;
 
 
     public class HeaderViewHolder extends RecyclerView.ViewHolder {
@@ -49,21 +58,30 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
-
+            RelativeLayout upper;
             View gridItem;
-            TextView text,deliverable;
+            TextViewModernM text,desc,text_price;
+            TextView deliverable,points;
             View mask;
-            MyImageView Pic;
+            ShoppingView newADD;
+            ImageView dashed;
+            RoundedImageView Pic;
             AddOrRemoveCart addOrRemoveCart;
 
 
             public ViewHolder(View v) {
                 super(v);
                 gridItem = v;
-                text=((TextView)v.findViewById(R.id.text));
-                Pic=(MyImageView) v.findViewById(R.id.pic);
+                text=((TextViewModernM)v.findViewById(R.id.pro_name));
+                desc=((TextViewModernM)v.findViewById(R.id.pro_desc));
+                Pic=(RoundedImageView) v.findViewById(R.id.pro_icon);
+                text_price=((TextViewModernM)v.findViewById(R.id.price));
+                dashed=((ImageView)v.findViewById(R.id.dashed));
                 deliverable= (TextView) v.findViewById(R.id.deliverable);
+                points= (TextView) v.findViewById(R.id.points);
+                upper= (RelativeLayout) v.findViewById(R.id.upper);
                 mask=v.findViewById(R.id.mask);
+                newADD=(ShoppingView)v.findViewById(R.id.newAdd);
                 addOrRemoveCart= (AddOrRemoveCart) v.findViewById(R.id.add_or_remove_cart);
             }
         }
@@ -75,6 +93,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             this.json_offers=json;
             cart = new Sqlite_cart(context);
             this.context=context;
+            appcolor=context.getResources().getColor(R.color.result_view1);
             imageLoader = AppController.getInstance().getImageLoader();
             this.eventInitialiser=eventInitialiser;
         }
@@ -110,7 +129,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
             } else {
 
-                View textView = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_item, parent, false);
+                View textView = LayoutInflater.from(parent.getContext()).inflate(R.layout.adap_products, parent, false);
                 return new ViewHolder(textView);
             }
         }
@@ -127,18 +146,62 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 String s1,s2,s3;
 
                 try {
-                    s1=((JSONObject) json_offers.get(position - 1)).getString("title");
-                    s2=((JSONObject) json_offers.get(position - 1)).getString("weight");
-                    s3=((JSONObject) json_offers.get(position - 1)).getString("price");
-                    holder.text.setText(StaticCatelog.SpanIt2(s1, s2, s3));
-                    holder.Pic.setImageUrl(((JSONObject) json_offers.get(position - 1)).getString("img"), imageLoader);
-                    holder.deliverable.setTextColor(((JSONObject) json_offers.get(position - 1)).getBoolean("delivery")? 0xffFFA000:0xfff20022);
-                    holder.Pic.setOnImageChangeListner(new VolleyImageInterface() {
-                        @Override
-                        public void adjustColor(int color) {
-                            holder.mask.setBackgroundColor(color);
+                    //holder.deliverable.setTextColor(((JSONObject) json_offers.get(position - 1)).getBoolean("delivery") ? appcolor : 0xfff20022);
+                    JSONObject json=((JSONObject) json_offers.get(position - 1)).getJSONObject("item");
+                    s1=json.getString("name");
+                    s2=json.getString("desc");
+
+                    s3=json.getString("price");
+                   // holder.text.setText(StaticCatelog.SpanIt2(s1, s2, s3));
+                    holder.text.setText(s1);
+                    holder.desc.setText(s2);
+                    holder.text_price.setText("₹" + s3);
+                    holder.dashed.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+                    if(position==2||position==4){
+                        final int sdk = android.os.Build.VERSION.SDK_INT;
+                        if(sdk >android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                            holder.upper.setBackground( context.getResources().getDrawable(R.drawable.adap_pro_d));
+                            holder.newADD.mPaintBg.setColor(Color.parseColor("#DE463B"));
+                            holder.newADD.mPaintMinus.setColor(Color.parseColor("#DE463B"));
+
+                            holder.points.setBackground( context.getResources().getDrawable(R.drawable.adap_pro3d));
+
+                        } else {
+                            holder.upper.setBackgroundDrawable( context.getResources().getDrawable(R.drawable.adap_pro_d) );
+                            holder.newADD.mPaintBg.setColor(Color.parseColor("#DE463B"));
+                            holder.newADD.mPaintMinus.setColor(Color.parseColor("#DE463B"));
+                            holder.points.setBackgroundDrawable( context.getResources().getDrawable(R.drawable.adap_pro3d) );
                         }
-                    });
+
+                    }
+                   else if(position==3){
+                        final int sdk = android.os.Build.VERSION.SDK_INT;
+                        if(sdk >android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                            holder.upper.setBackground( context.getResources().getDrawable(R.drawable.adap_pro_c));
+                            holder.newADD.mPaintBg.setColor(Color.parseColor("#0193E6"));
+                            holder.newADD.mPaintMinus.setColor(Color.parseColor("#0193E6"));
+                            holder.points.setBackground( context.getResources().getDrawable(R.drawable.adap_pro3c));
+
+                        } else {
+                            holder.upper.setBackgroundDrawable( context.getResources().getDrawable(R.drawable.adap_pro_c) );
+                            holder.newADD.mPaintBg.setColor(Color.parseColor("#0193E6"));
+                            holder.newADD.mPaintMinus.setColor(Color.parseColor("#0193E6"));
+                            holder.points.setBackgroundDrawable( context.getResources().getDrawable(R.drawable.adap_pro3c) );
+                        }
+
+                    }
+                    // holder.Pic.setImageUrl(json.getString("img"), imageLoader);
+                    Picasso.with(context)
+                            .load(json.getString("img"))
+                            .into(holder.Pic);
+
+
+//                    holder.Pic.setOnImageChangeListner(new VolleyImageInterface() {
+//                        @Override
+//                        public void adjustColor(int color) {
+//                            holder.mask.setBackgroundColor(color);
+//                        }
+//                    });
                     holder.addOrRemoveCart.addOnItemClickListner(new AddOrRemoveCart.ItemsClickListener() {
                         @Override
                         public int addItemClicked(int position) {
@@ -187,10 +250,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public void onClick(View v) {
         //eventHandler.adjustCameraOrViewPager(false);
-        Intent i = new Intent(v.getContext(),Details.class);
-        i.putExtra("position",Integer.parseInt(v.getTag().toString()));
-        i.putExtra("offers",json_offers.toString());
-        ActivityTransitionLauncher.with(getActivity(v)).from(v).launch(i);
+//        Intent i = new Intent(v.getContext(),Details.class);
+//        i.putExtra("position",Integer.parseInt(v.getTag().toString()));
+//        i.putExtra("offers",json_offers.toString());
+//        ActivityTransitionLauncher.with(getActivity(v)).from(v).launch(i);
         //v.getContext().startActivity(i);
     }
 

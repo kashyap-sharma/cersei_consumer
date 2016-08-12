@@ -13,6 +13,7 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
@@ -88,6 +89,7 @@ public class PagerSlidingStrip extends HorizontalScrollView {
 
     private ArrayList<TabsView> tv;
     private View FilterIcon;
+    int selected_tab,unselected_tab=0xff777753;
 
     public PagerSlidingStrip(Context context) {
 
@@ -103,7 +105,7 @@ public class PagerSlidingStrip extends HorizontalScrollView {
 
         setFillViewport(true);
         setWillNotDraw(false);
-
+        selected_tab= ContextCompat.getColor(context,R.color.orange);
         tabsContainer = new LinearLayout(context);
         tabsContainer.setOrientation(LinearLayout.HORIZONTAL);
         tabsContainer.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
@@ -124,7 +126,7 @@ public class PagerSlidingStrip extends HorizontalScrollView {
         TypedArray a = context.obtainStyledAttributes(attrs, ATTRS);
 
         tabTextSize = a.getDimensionPixelSize(0, tabTextSize);
-        tabTextColor = a.getColor(1, tabTextColor);
+//        tabTextColor = a.getColor(1, tabTextColor);
 
         a.recycle();
 
@@ -170,7 +172,7 @@ public class PagerSlidingStrip extends HorizontalScrollView {
             throw new IllegalStateException("ViewPager does not have adapter instance.");
         }
 
-        pager.setOnPageChangeListener(pageListener);
+        pager.addOnPageChangeListener(pageListener);
 
         notifyDataSetChanged();
         select(0);
@@ -341,7 +343,7 @@ public class PagerSlidingStrip extends HorizontalScrollView {
 
             scrollToChild(position, (int) (positionOffset * tabsContainer.getChildAt(position).getWidth()));
              if(position==0)
-             manageFilterIconForScroll(1-positionOffset);
+//             manageFilterIconForScroll(1-positionOffset);
 
             invalidate();
 
@@ -377,11 +379,11 @@ public class PagerSlidingStrip extends HorizontalScrollView {
         {
             if(i==position)
             {
-                tv.get(i).setTextColor(Color.parseColor("#FFA000"));
+                tv.get(i).setTextColor(selected_tab);
             }
             else
             {
-                tv.get(i).setTextColor(Color.parseColor("#777753"));
+                tv.get(i).setTextColor(unselected_tab);
             }
         }
         if(position==0)
@@ -405,12 +407,12 @@ public class PagerSlidingStrip extends HorizontalScrollView {
                 FilterIcon.setVisibility(Visibility);
             }
     }
-    public void manageFilterIconForScroll(float currentPositionOffset)
-    {
-        if(FilterIcon.getVisibility()!=VISIBLE)
-            FilterIcon.setVisibility(VISIBLE);
-        FilterIcon.setAlpha(currentPositionOffset);
-    }
+//    public void manageFilterIconForScroll(float currentPositionOffset)
+//    {
+//        if(FilterIcon.getVisibility()!=VISIBLE)
+//            FilterIcon.setVisibility(VISIBLE);
+//        FilterIcon.setAlpha(currentPositionOffset);
+//    }
 
     public View returntab(int position)
     {

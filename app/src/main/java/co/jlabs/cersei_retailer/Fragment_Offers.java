@@ -24,6 +24,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+
 import co.jlabs.cersei_retailer.custom_components.AutoScrollViewPager;
 import co.jlabs.cersei_retailer.custom_components.Sqlite_cart;
 import co.jlabs.cersei_retailer.custom_components.transforms.*;
@@ -64,11 +68,11 @@ public class Fragment_Offers extends Fragment implements FragmentEventHandler {
         recyclerView = (RecyclerView) layoutView.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 1);
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                return position == 0 ? 2 : 1;
+                return position = 1;
             }
         });
         recyclerView.setLayoutManager(gridLayoutManager);
@@ -85,9 +89,9 @@ public class Fragment_Offers extends Fragment implements FragmentEventHandler {
     }
 
     @Override
-    public void startLoadbylocation(String location) {
+    public void startLoadbylocation(String Area,String location) {
         json=null;
-        download_offers(location);
+        download_offers(Area,location);
     }
 
  /*   class CustomPagerAdapter extends PagerAdapter {
@@ -160,7 +164,7 @@ public class Fragment_Offers extends Fragment implements FragmentEventHandler {
         if(eventInitialiser!=null)
             eventInitialiser.registerMyevent(fragVal,this);
         if(json==null)
-            download_offers(StaticCatelog.getStringProperty(getContext(),"location"));
+            download_offers(StaticCatelog.getStringProperty(getContext(),"area"),StaticCatelog.getStringProperty(getContext(),"location"));
 
 
     }
@@ -179,18 +183,17 @@ public class Fragment_Offers extends Fragment implements FragmentEventHandler {
     }
 
 
-    private void download_offers(String location) {
+    private void download_offers(String Area,String location) {
 
         String tag_json_obj = "json_obj_req_get_offers";
+        try {
+            location=URLEncoder.encode(location, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        Area = URLEncoder.encode(Area);
 
-        if(location.length()%2==0)
-        {
-            url=StaticCatelog.geturl()+"cersei/consumer/show_offers?location=2";
-        }
-        else
-        {
-            url=StaticCatelog.geturl()+"cersei/consumer/show_offers?location=1";
-        }
+        url=StaticCatelog.geturl()+"cersei/consumer/offers?area="+Area+"&location="+location;
 
         Log.i("Myapp", "Calling url " + url);
         if(json==null) {
@@ -202,6 +205,7 @@ public class Fragment_Offers extends Fragment implements FragmentEventHandler {
                         public void onResponse(final JSONObject response) {
                                     json = response;
                             try {
+                                json= (JSONObject) json.getJSONArray("data").get(0);
                                 show_offers(json.getJSONArray("banners"),json.getJSONArray("offers"));
                             } catch (JSONException e) {
                                 e.printStackTrace();

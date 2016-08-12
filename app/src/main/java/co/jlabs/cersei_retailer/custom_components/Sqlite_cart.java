@@ -116,12 +116,13 @@ public class Sqlite_cart extends SQLiteOpenHelper {
                 SQLiteDatabase db = this.getWritableDatabase();
                 ContentValues values = new ContentValues();
                 values.put(KEY_OFFER_ID, tp.getInt("offer_id"));
-                values.put(KEY_TITLE, tp.getString("title"));
-                values.put(KEY_WEIGHT, tp.getString("weight"));
-                values.put(KEY_PRICE, 80);
-                values.put(KEY_POINT, tp.getInt("points"));
-                values.put(KEY_IMG, tp.getString("img"));
                 values.put(KEY_DEL, tp.getBoolean("delivery")?1:0);
+                values.put(KEY_POINT, tp.getInt("points"));
+                JSONObject json=tp.getJSONObject("item");
+                values.put(KEY_TITLE, json.getString("name"));
+                values.put(KEY_WEIGHT, json.getString("weight"));
+                values.put(KEY_PRICE, json.getInt("price"));
+                values.put(KEY_IMG, json.getString("img"));
                 values.put(KEY_QUANTITY, 1);
                 db.insert(TABLE_Cart, null, values);
                 values.clear();

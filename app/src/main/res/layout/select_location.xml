@@ -4,11 +4,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".SelectLocation">
-<ImageView
-    android:layout_gravity="center"
-    android:layout_width="150dp"
-    android:layout_height="150dp"
-    android:src="@drawable/splash_image"/>
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/icon"/>
         <TextView
             android:id="@+id/select"
             android:layout_gravity="bottom"
@@ -21,5 +21,4 @@
             android:textColor="@color/white"
             android:textStyle="bold"
             android:text="Select Location"/>
-
 </FrameLayout>

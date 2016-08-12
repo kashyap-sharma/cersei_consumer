@@ -2,11 +2,11 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#FF3B3D</color>
     <color name="white">#FFFFFF</color>
-    <color name="orange">#FFA000</color>
-    <color name="orange_dark">#FBA000</color>
-    <color name="orange_more_dark">#BB7000</color>
+    <color name="orange">#E13B24</color>
+    <color name="orange_dark">#CE4032</color>
+    <color name="orange_more_dark">#FF5B3D</color>
     <color name="grey">#CCCCCC</color>
     <color name="contents_text">#ff000000</color>
     <color name="encode_view">#ffffffff</color>
@@ -15,6 +15,7 @@
     <color name="result_points">#c099cc00</color> <!-- Android standard ICS color -->
     <color name="result_text">#ffffffff</color>
     <color name="result_view">#b0000000</color>
+    <color name="result_view1">#90000000</color>
     <color name="status_text">#ffffffff</color>
     <color name="transparent">#00000000</color>
     <color name="viewfinder_laser">#ffcc0000</color> <!-- Android standard ICS color -->
@@ -22,6 +23,14 @@
     <color name="green">#306D20</color>
     <color name="red">#dd2010</color>
     <color name="black">#000000</color>
+    <color name="sv_blue">#688fdb</color>
+    <color name="sv_red">#DE463B</color>
+    <color name="sv_blues">#0193E6</color>
+
+    <color name="light_font">#FBFBFB</color>
+    <color name="grey_font">#ff9e9e9e</color>
+    <color name="text_shadow">#7Fffffff</color>
+    <color name="text_shadow_white">#FFFFFF</color>
 
 
 
@@ -43,15 +52,15 @@
 
     <string-array name="colors">
         <item>#FF2D9B28</item>
-        <item>#FFFFA208</item>
-        <item>#FFFB9D42</item>
-        <item>#FFF48E64</item>
-        <item>#FFE0974A</item>
-        <item>#FFFAAC16</item>
+        <item>#FF4081</item>
+        <item>#FF7081</item>
+        <item>#FF9081</item>
+        <item>#FF40A1</item>
+        <item>#FF4081</item>
         <item>#FF95A50C</item>
-        <item>#FFF57C16</item>
+        <item>#FF90C1</item>
         <item>#FFF24F28</item>
-        <item>#FFF19E1E</item>
+        <item>#DF8081</item>
         <item>#FFF8C79D</item>
     </string-array>
 

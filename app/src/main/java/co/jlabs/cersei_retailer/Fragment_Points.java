@@ -16,6 +16,7 @@ import android.support.v4.util.SparseArrayCompat;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -31,8 +32,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.Iterator;
 
 import co.jlabs.cersei_retailer.custom_components.PagerSlidingStripPoints;
 import co.jlabs.cersei_retailer.custom_components.SampleListView;
@@ -69,6 +68,7 @@ public class Fragment_Points extends Fragment  implements ScrollTabHolder, ViewP
     View from_balance,to_balance,from_point,to_point,from_rating,to_rating;
     String url = StaticCatelog.geturl()+"cersei/consumer/reward?userid=user_1";
     JSONObject json=null;
+    int x=0,scrollx=0;
 
 
     static Fragment_Points init(int val) {
@@ -107,13 +107,69 @@ public class Fragment_Points extends Fragment  implements ScrollTabHolder, ViewP
         from_balance=mHeader.findViewById(R.id.totalbalance);
         from_point=mHeader.findViewById(R.id.points);
         from_rating=mHeader.findViewById(R.id.rating);
+//        mHeader.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                ViewPagerEvent.adjustViewPager(event);
+//                return false;
+//            }
+//        });
 
         info = (TextView) layoutView.findViewById(R.id.info);
 
         mPagerSlidingTabStrip = (PagerSlidingStripPoints) layoutView.findViewById(R.id.tabs);
         mViewPager = (ViewPager) layoutView.findViewById(R.id.pager);
         mViewPager.setOffscreenPageLimit(3);
+        mHeader.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                final int action = event.getAction();
 
+             //   SampleListView.this.getParent().requestDisallowInterceptTouchEvent(true);
+
+
+                //  SampleListView.this.getParent().getParent().requestDisallowInterceptTouchEvent(true);
+                //  vp.requestDisallowInterceptTouchEvent(false);
+               switch (action) {
+                    case MotionEvent.ACTION_DOWN:
+                    //    ((CustomViewPager) mViewPager).setPaging(false);
+                        Log.i("Simple List View", "Touch Down ");
+                        x= (int) event.getX();
+                        scrollx=((ViewPager) v.getParent().getParent()).getScrollX();
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+                    //    ((CustomViewPager)mViewPager).setPaging(true);
+                        int finalscroll=scrollx-((ViewPager) v.getParent().getParent()).getScrollX();
+                        Log.i("Simple List View", "Touch Up " + finalscroll);
+
+                        //x=0;
+                        if(finalscroll>220||finalscroll<-220)
+                        {
+                            if(finalscroll>220)
+                                ((ViewPager)v.getParent().getParent()).setCurrentItem(0);
+                            else
+                                ((ViewPager)v.getParent().getParent()).setCurrentItem(2);
+                        }
+                        else
+                            ((ViewPager)v.getParent().getParent()).scrollBy(finalscroll,0);
+
+
+                        //	SampleListView.this.getParent().requestDisallowInterceptTouchEvent(false);
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        Log.i("Simple List View", "MotionEvent.ACTION_MOVE "+(x - event.getX()));
+                        ((ViewPager)v.getParent().getParent()).scrollBy((int) (x - event.getX()), 0);
+
+                        break;
+                    case MotionEvent.ACTION_CANCEL:
+                        Log.i("Simple List View", "MotionEvent.ACTION_CANCEL");
+                        break;
+                }
+
+                return true;
+            }
+        });
         return layoutView;
     }
 
@@ -215,7 +271,7 @@ public class Fragment_Points extends Fragment  implements ScrollTabHolder, ViewP
     }
 
     @Override
-    public void startLoadbylocation(String location) {
+    public void startLoadbylocation(String Area,String location) {
         //here I will load Only first list that shows offers based on location
         if(json==null)
             download_information("");
@@ -401,6 +457,8 @@ public class Fragment_Points extends Fragment  implements ScrollTabHolder, ViewP
     {
         this.eventInitialiser=eventInitialiser;
     }
+
+
 
     @Override
     public void onResume() {

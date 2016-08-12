@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:whatever="http://schemas.android.com/apk/res-auto"
+
+    android:background="#eeeeee"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/name_wrap"
+       android:paddingLeft="5dp"
+        android:layout_margin="5dp"
+       android:paddingRight="5dp"
+        android:background="@drawable/backky"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.andreabaccega.widget.FormEditText
+            whatever:testType="numeric"
+            whatever:emptyErrorString="Name Can't be empty."
+            whatever:testErrorString="Something phisy"
+            android:id="@+id/name"
+            whatever:maxNumber="6"
+            android:hint="Pin Code"
+            android:singleLine="true"
+            android:padding="5dp"
+            android:background="@android:color/transparent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+    </android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/full_add"
+        android:paddingLeft="5dp"
+        android:layout_below="@+id/name_wrap"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:paddingRight="5dp"
+        android:background="@drawable/backky"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.andreabaccega.widget.FormEditText
+            whatever:testType="nocheck"
+            whatever:emptyErrorString="Name Can't be empty."
+            whatever:testErrorString="Something phisy"
+            android:id="@+id/address"
+            android:hint="Address"
+            android:padding="5dp"
+            android:background="@android:color/transparent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+    </android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/landmark_"
+        android:paddingLeft="5dp"
+        android:layout_below="@+id/full_add"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:paddingRight="5dp"
+        android:background="@drawable/backky"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.andreabaccega.widget.FormEditText
+            whatever:testType="nocheck"
+            whatever:emptyErrorString="Name Can't be empty."
+            whatever:testErrorString="Something phisy"
+            android:id="@+id/landmark"
+            android:hint="Landmark"
+            android:singleLine="true"
+            android:padding="5dp"
+            android:background="@android:color/transparent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+    </android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/contact_"
+        android:paddingLeft="5dp"
+        android:layout_below="@+id/landmark_"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:paddingRight="5dp"
+        android:background="@drawable/backky"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.andreabaccega.widget.FormEditText
+            whatever:testType="phone"
+            whatever:emptyErrorString="Name Can't be empty."
+            whatever:testErrorString="Something phisy"
+            android:id="@+id/contact"
+            android:inputType="phone"
+            android:singleLine="true"
+            android:padding="5dp"
+            android:hint="Contact"
+            android:background="@android:color/transparent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+    </android.support.design.widget.TextInputLayout>
+    <co.jlabs.cersei_retailer.Ripple.MaterialRippleLayout
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_height="48dp">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="#DCDCDC"
+            android:textSize="15sp"
+            android:text="Place Order"
+            android:textColor="#ADADAD"
+
+            />
+    </co.jlabs.cersei_retailer.Ripple.MaterialRippleLayout>
+
+</RelativeLayout>

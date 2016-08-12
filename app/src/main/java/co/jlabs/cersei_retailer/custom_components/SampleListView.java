@@ -1,6 +1,8 @@
 package co.jlabs.cersei_retailer.custom_components;
 
 import android.content.Context;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,6 +22,7 @@ public class SampleListView extends ScrollTabHolderListView{
 	private ArrayList<String> mListItems;
 
 	private int mPosition;
+    ViewPager vp=null;
 
 	public SampleListView(Context context,LayoutInflater inflater,int mPosition) {
 		super(context);
@@ -30,6 +33,48 @@ public class SampleListView extends ScrollTabHolderListView{
         this.mPosition=mPosition;
         View placeHolderView = inflater.inflate(R.layout.view_header_placeholder, this, false);
         placeHolderView.setBackgroundColor(0xFFFFFFFF);
+
+//		placeHolderView.setOnTouchListener(new OnTouchListener() {
+//			@Override
+//			public boolean onTouch(View v, MotionEvent event) {
+//				final int action = event.getAction();
+//                if(vp==null)
+//                    vp=((ViewPager)SampleListView.this.getParent().getParent().getParent());
+//
+//                SampleListView.this.getParent().requestDisallowInterceptTouchEvent(true);
+//                SampleListView.this.requestDisallowInterceptTouchEvent(true);
+//
+//
+//
+//
+//              //  SampleListView.this.getParent().getParent().requestDisallowInterceptTouchEvent(true);
+//              //  vp.requestDisallowInterceptTouchEvent(false);
+//
+//                switch (action) {
+//					case MotionEvent.ACTION_DOWN:
+//                        ((CustomViewPager)SampleListView.this.getParent()).setPaging(false);
+//                        Log.i("Simple List View","Touch Down ");
+//						break;
+//
+//					case MotionEvent.ACTION_UP:
+//                        ((CustomViewPager)SampleListView.this.getParent()).setPaging(true);
+//                        Log.i("Simple List View", "Touch Up ");
+//
+//					//	SampleListView.this.getParent().requestDisallowInterceptTouchEvent(false);
+//						break;
+//                    case MotionEvent.ACTION_MOVE:
+//                        Log.i("Simple List View", "MotionEvent.ACTION_MOVE");
+//                        break;
+//                    case MotionEvent.ACTION_CANCEL:
+//                        Log.i("Simple List View", "MotionEvent.ACTION_CANCEL");
+//                        break;
+//				}
+//                vp.onTouchEvent(event);
+//
+//				return false;
+//			}
+//		});
+
         this.addHeaderView(placeHolderView);
 	}
 

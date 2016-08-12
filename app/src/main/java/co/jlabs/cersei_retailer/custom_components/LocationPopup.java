@@ -81,12 +81,12 @@ public class LocationPopup extends Dialog {
     }
 
     protected void onStart() {
-        mDialogView.startAnimation(mModalInAnim);
+       // mDialogView.startAnimation(mModalInAnim);
     }
 
     @Override
     public void cancel() {
-        mDialogView.startAnimation(mModalOutAnim);
+       // mDialogView.startAnimation(mModalOutAnim);
     }
 
     public void updateforlocation(String location)
@@ -134,7 +134,7 @@ public class LocationPopup extends Dialog {
         show();
     }
 
-    public void BuildDialog_2(String obj)
+    public void BuildDialog_2(final String obj)
     {
         setContentView(R.layout.select_location_popup);
        // findViewById(R.id.dismissifclickedhere).setLayerType(View.LAYER_TYPE_SOFTWARE, null);
@@ -151,7 +151,7 @@ public class LocationPopup extends Dialog {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 dismiss();
-                locationInterface.update_location((String) parent.getItemAtPosition(position));
+                locationInterface.update_location(obj,(String) parent.getItemAtPosition(position));
             }
         });
         show();
@@ -159,6 +159,6 @@ public class LocationPopup extends Dialog {
 
     public interface onLocationSelected
     {
-        void update_location(String location);
+        void update_location(String Area,String location);
     }
 }

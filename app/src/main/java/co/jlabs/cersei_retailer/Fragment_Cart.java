@@ -3,6 +3,7 @@ package co.jlabs.cersei_retailer;
 /**
  * Created by Pradeep on 12/25/2015.
  */
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,8 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
+import co.jlabs.cersei_retailer.activity.*;
+import co.jlabs.cersei_retailer.activity.AddressFiller;
 import co.jlabs.cersei_retailer.custom_components.Class_Cart;
 import co.jlabs.cersei_retailer.custom_components.Sqlite_cart;
 
@@ -83,6 +86,13 @@ public class Fragment_Cart extends Fragment implements FragmentEventHandler{
             @Override
             public void onClick(View v) {
                 Toast.makeText(getContext(),"Checkout",Toast.LENGTH_SHORT).show();
+                //check out page
+                Intent intent =new Intent(getContext(), AddressFiller.class);
+                  startActivity(intent);
+
+
+
+
             }
         });
         return layoutView;
@@ -113,7 +123,7 @@ public class Fragment_Cart extends Fragment implements FragmentEventHandler{
     }
 
     @Override
-    public void startLoadbylocation(String location) {
+    public void startLoadbylocation(String Area,String location) {
         //will be requiring to delete items on cart that are not in current location
         tellThatLoadedSuccessfully(true);
     }

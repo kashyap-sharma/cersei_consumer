@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#eeeeee"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/mask"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#88222222"/>
+    <android.support.v7.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/adap_pro"
+        android:layout_height="wrap_content">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="189dp"
+
+        android:background="@drawable/adap_pro"
+        android:shadowColor="#7F000000"
+        android:shadowDx="3"
+        android:shadowDy="3"
+        android:shadowRadius="5">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:background="@drawable/adap_pro1"
+            android:id="@+id/upper"
+            android:layout_height="125dp">
+            <co.jlabs.cersei_retailer.Rounded.RoundedImageView
+                android:layout_width="80dp"
+                android:id="@+id/pro_icon"
+                android:src="@drawable/icon"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp"
+
+                android:layout_height="80dp" />
+            <co.jlabs.cersei_retailer.custom_components.TextViewModernM
+                android:layout_width="wrap_content"
+                android:layout_toRightOf="@+id/pro_icon"
+                android:id="@+id/pro_name"
+                android:text="Act II Popcorn"
+                android:layout_toLeftOf="@+id/off_per"
+                android:textSize="18sp"
+                android:textColor="#ffffff"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="5dp"
+                android:layout_height="wrap_content" />
+            <co.jlabs.cersei_retailer.custom_components.TextViewModernM
+                android:layout_width="wrap_content"
+                android:layout_toRightOf="@+id/pro_icon"
+                android:layout_below="@id/pro_name"
+                android:id="@+id/pro_desc"
+                android:layout_marginTop="5dp"
+                android:text="Act II Popcorn"
+                android:layout_toLeftOf="@+id/off_per"
+                android:textSize="15sp"
+                android:textColor="#ffffff"
+                android:layout_marginLeft="5dp"
+                android:layout_height="wrap_content" />
+            <co.jlabs.cersei_retailer.custom_components.TextViewModernM
+                android:layout_width="wrap_content"
+                android:id="@+id/price"
+                android:text="₹30"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="30dp"
+                android:paddingRight="10dp"
+                android:textSize="20sp"
+                android:textColor="#ffffff"
+                android:layout_marginLeft="5dp"
+                android:layout_height="wrap_content" />
+            <co.jlabs.cersei_retailer.custom_components.TextViewModernM
+                android:layout_width="wrap_content"
+                android:id="@+id/off_per"
+                android:text="40% off"
+                android:visibility="gone"
+                android:layout_below="@+id/price"
+                android:layout_alignParentRight="true"
+                android:paddingRight="10dp"
+                android:textSize="15sp"
+                android:textColor="#B19FCC"
+                android:layout_marginLeft="5dp"
+                android:layout_height="wrap_content" />
+
+
+
+        </RelativeLayout>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="3.5dp"
+            android:id="@+id/dashed"
+            android:layout_marginTop="122dp"
+            android:background="@drawable/adap_pro5"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:id="@+id/points"
+            android:text="20%"
+            android:background="@drawable/adap_pro3"
+            android:padding="6dp"
+            android:textSize="13sp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginTop="12dp"
+            android:layout_below="@+id/upper"
+            android:textColor="#ffffff"
+            android:layout_height="wrap_content"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="Cashback"
+            android:layout_marginLeft="6dp"
+            android:textSize="14sp"
+            android:layout_marginTop="1dp"
+            android:layout_below="@+id/points"
+            android:layout_height="wrap_content"
+            />
+        <co.jlabs.cersei_retailer.custom_components.TextView_White
+            android:id="@+id/deliverable"
+            android:layout_marginTop="5dp"
+            android:visibility="gone"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@+id/points"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/upper"
+            android:shadowColor="@color/text_shadow"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:textStyle="bold"
+            android:shadowRadius="2"
+            android:layout_gravity="center_vertical"
+            android:textSize="15sp"
+            android:text="@string/ico_myorder"/>
+        <co.jlabs.cersei_retailer.custom_components.AddOrRemoveCart
+            android:id="@+id/add_or_remove_cart"
+            android:layout_width="wrap_content"
+            android:layout_below="@+id/upper"
+            android:paddingTop="15dp"
+            android:visibility="gone"
+            android:paddingRight="3dp"
+            android:layout_alignParentRight="true"
+            android:layout_height="wrap_content"/>
+        <co.jlabs.cersei_retailer.custom_components.ShoppingView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/upper"
+            app:sv_bg_color="#764BA5"
+            android:padding="10dp"
+            android:id="@+id/newAdd"
+            android:layout_marginRight="10dp"
+            app:sv_text="ADD"
+            android:layout_alignParentRight="true"
+            app:sv_text_size="15sp" />
+
+
+    </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+
+</LinearLayout>

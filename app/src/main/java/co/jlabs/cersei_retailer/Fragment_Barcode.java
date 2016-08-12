@@ -101,7 +101,7 @@ public class Fragment_Barcode extends BarCodeScannerFragment implements Fragment
     }
 
     @Override
-    public void startLoadbylocation(String location) {
+    public void startLoadbylocation(String Area,String location) {
         //Since this is barcode fragment hence will not be used
         tellThatLoadedSuccessfully();
     }

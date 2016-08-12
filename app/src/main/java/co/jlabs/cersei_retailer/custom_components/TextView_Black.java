@@ -13,7 +13,7 @@ public class TextView_Black extends TextView {
 
     public TextView_Black(Context context) {
       super(context);
-        Typeface tf = FontCache.get("fonts/icomoon.ttf", context);
+        Typeface tf = FontCache.get("fonts/icomoonq.ttf", context);
         if(tf != null) {
             this.setTypeface(tf,Typeface.BOLD);
             this.setTextColor(Color.parseColor("#777777"));
@@ -22,7 +22,7 @@ public class TextView_Black extends TextView {
 
     public TextView_Black(Context context, AttributeSet attrs) {
         super(context, attrs);
-        Typeface tf = FontCache.get("fonts/icomoon.ttf", context);
+        Typeface tf = FontCache.get("fonts/icomoonq.ttf", context);
         if(tf != null) {
             this.setTypeface(tf,Typeface.BOLD);
             this.setTextColor(Color.parseColor("#777777"));
@@ -31,7 +31,7 @@ public class TextView_Black extends TextView {
 
     public TextView_Black(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        Typeface tf = FontCache.get("fonts/icomoon.ttf", context);
+        Typeface tf = FontCache.get("fonts/icomoonq.ttf", context);
         if(tf != null) {
             this.setTypeface(tf,Typeface.BOLD);
             this.setTextColor(Color.parseColor("#777777"));

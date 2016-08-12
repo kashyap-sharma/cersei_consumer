@@ -42,14 +42,16 @@ public class SelectLocation extends Activity implements LocationPopup.onLocation
         }
         else
         {
-            ((TextView)findViewById(R.id.select)).setText(StaticCatelog.getStringProperty(this, "location"));
+//            ((TextView)findViewById(R.id.select)).setText(StaticCatelog.getStringProperty(this, "location"));
+//            ((TextView)findViewById(R.id.select)).setText(StaticCatelog.getStringProperty(this, "location"));
             start_activity();
         }
     }
 
     @Override
-    public void update_location(String location) {
+    public void update_location(String Area,String location) {
         ((TextView)findViewById(R.id.select)).setText(location);
+        StaticCatelog.setStringProperty(this, "area", Area);
         StaticCatelog.setStringProperty(this, "location", location);
         start_activity();
     }
@@ -69,14 +71,13 @@ public class SelectLocation extends Activity implements LocationPopup.onLocation
 
     public void getLocation()
     {
-
-        int success;
+        int success=0;
         try {
             success = json.getInt("success");
         } catch (JSONException e) {
             success=0;
         }
-     //   if(dialog==null)
+        if(dialog==null)
             dialog = new LocationPopup(context, R.style.alert_dialog);
 
         if(success==1)
@@ -84,7 +85,7 @@ public class SelectLocation extends Activity implements LocationPopup.onLocation
             findViewById(R.id.select).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                   // if(!dialog.isShowing())
+                    if(!dialog.isShowing())
                     dialog = new LocationPopup(context, R.style.alert_dialog);
                     dialog.BuildDialog(SelectLocation.this, json);
                 }

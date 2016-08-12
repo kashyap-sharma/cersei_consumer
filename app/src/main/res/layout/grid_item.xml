@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/grey"
-    android:padding="3dp">
+    android:padding="1px">
     <android.support.v7.widget.CardView
         android:id="@+id/card_view"
         android:layout_width="match_parent"
@@ -30,37 +30,24 @@
                             android:id="@+id/pic"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:scaleType="fitXY" />
+                            android:scaleType="centerCrop" />
                         <TextView
+                            android:visibility="gone"
                             android:id="@+id/mask"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="#88222222"/>
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical">
 
-                            <co.jlabs.cersei_retailer.custom_components.FontFitTextView
-                                android:id="@+id/text"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:textColor="#ffffff"
-                                android:textStyle="bold"
-                                android:padding="10dp"
-                                android:textSize="13dp"/>
-
-                        </LinearLayout>
                     </FrameLayout>
 
                     <LinearLayout
                         android:paddingTop="8dp"
+                        android:visibility="invisible"
                         android:layout_gravity="bottom"
                         android:layout_width="match_parent"
                         android:orientation="horizontal"
                         android:layout_height="40dp">
                         <co.jlabs.cersei_retailer.custom_components.TextView_Black
-                            android:id="@+id/deliverable"
                             android:layout_marginLeft="10dp"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
@@ -68,24 +55,79 @@
                             android:textSize="20sp"
                             android:text="@string/ico_myorder"/>
                         <co.jlabs.cersei_retailer.custom_components.AddOrRemoveCart
-                            android:id="@+id/add_or_remove_cart"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"/>
                     </LinearLayout>
                 </LinearLayout>
+                <TextView
+                    android:background="@drawable/black_gradient"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+                <LinearLayout
+                    android:paddingTop="8dp"
+                    android:layout_gravity="bottom"
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+
+                    android:layout_height="40dp">
+                    <co.jlabs.cersei_retailer.custom_components.TextView_White
+                        android:id="@+id/deliverable"
+                        android:layout_marginLeft="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:shadowColor="@color/text_shadow"
+                        android:shadowDx="1"
+                        android:shadowDy="1"
+                        android:textStyle="bold"
+                        android:shadowRadius="2"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="15sp"
+                        android:text="@string/ico_myorder"/>
+                    <TextView
+
+                        android:id="@+id/text_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="test me"
+                        android:textColor="@color/light_font"
+                        android:shadowColor="@color/text_shadow"
+                        android:shadowDx="1"
+                        android:shadowDy="1"
+                        android:shadowRadius="2"
+                        android:layout_gravity="center_vertical"
+
+                        android:textStyle="bold"
+                        android:paddingLeft="6dp"
+
+                        android:textSize="10sp"/>
+                    <co.jlabs.cersei_retailer.custom_components.AddOrRemoveCart
+                        android:id="@+id/add_or_remove_cart"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
                 <co.jlabs.cersei_retailer.custom_components.MyLinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                 </co.jlabs.cersei_retailer.custom_components.MyLinearLayout>
-                <co.jlabs.cersei_retailer.custom_components.TextView_Triangle
+                <co.jlabs.cersei_retailer.custom_components.TextView_White
+
+                    android:id="@+id/text"
                     android:layout_gravity="bottom"
-                    android:layout_width="58dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="20dp"
+                    android:layout_marginLeft="5dp"
                     android:gravity="center"
+                    android:shadowColor="@color/text_shadow"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="2"
                     android:layout_marginBottom="30dp"
-                    android:textSize="9sp"
-                    android:text="@string/rating_points"/>
+                    android:textSize="13sp"
+                    />
+
             </FrameLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>

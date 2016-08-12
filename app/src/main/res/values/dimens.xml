@@ -12,6 +12,35 @@
     <dimen name="header_logo_size">100dp</dimen>
     <dimen name="header_viewpager">150dp</dimen>
     <dimen name="header_viewpager_layout">168dp</dimen>
+    <dimen name="custom_error_padding_left">6.0dip</dimen>
+    <dimen name="custom_error_padding_right">8.0dip</dimen>
 
+
+    <dimen name="bid_card_title_text_size">22.0sp</dimen>
+    <dimen name="contacts_width">280.0dip</dimen>
+    <item name="login_container_horizontal_padding" type="dimen">3dp</item>
+    <item name="login_container_padding" type="dimen">3dp</item>
+    <dimen name="login_input_text_size">16.0sp</dimen>
+    <dimen name="loginpager_margin_top">20.0dip</dimen>
+    <dimen name="pie_graph_thickness">28.0dip</dimen>
+    <dimen name="signup_messenger_text_size">24.0sp</dimen>
+    <dimen name="user_profile_country_flag_margin">72.0dip</dimen>
+    <dimen name="user_profile_header_height">250.0dip</dimen>
+    <dimen name="user_profile_skill_graph_size">120.0dip</dimen>
+    <dimen name="user_profile_stick_text_size">20.0sp</dimen>
+    <dimen name="user_profile_sticky_height">64.0dip</dimen>
+    <dimen name="user_profile_username_size">24.0sp</dimen>
+    <dimen name="welcome_card_padding">16.0dip</dimen>
+    <dimen name="welcome_cards_margin_bottom">60.0dip</dimen>
+    <dimen name="welcome_cards_margin_horizontal">25.0dip</dimen>
+    <dimen name="welcome_cards_margin_top">40.0dip</dimen>
+    <dimen name="welcome_subtitle">18.0sp</dimen>
+    <dimen name="welcome_viewpager_margin">-48.0dip</dimen>
+    <dimen name="welcome_viewpager_margin_fix">24.0dip</dimen>
+    <dimen name="login_error_popup_triangle_width">14.0dip</dimen>
+
+    <dimen name="custom_error_xoff">3.0dip</dimen>
+    <dimen name="custom_error_yoff">-5.0dip</dimen>
+    <dimen name="com_facebook_picker_divider_width">1.0px</dimen>
 
 </resources>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_marginLeft="5dp"
+    android:padding="5dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:id="@+id/savvy"
+    android:layout_marginTop="5dp"
+
+
+    android:layout_height="wrap_content">
+    <RadioButton
+        android:id="@+id/radio"
+        android:clickable="false"
+        android:layout_width="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_height="wrap_content"
+        />
+    <co.jlabs.cersei_retailer.Rounded.MyIconFonts
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:layout_toLeftOf="@+id/edit"
+        android:layout_toRightOf="@+id/radio"
+        android:id="@+id/contact"
+        android:text="Contact: "/>
+    <co.jlabs.cersei_retailer.Rounded.MyIconFonts
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/contact"
+        android:layout_toRightOf="@+id/radio"
+        android:id="@+id/address"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:layout_toLeftOf="@+id/edit"
+        android:text="Address: "/>
+    <co.jlabs.cersei_retailer.Rounded.MyIconFonts
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/address"
+        android:id="@+id/area"
+        android:layout_toRightOf="@+id/radio"
+        android:layout_toLeftOf="@+id/edit"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:text="Area: "/>
+    <co.jlabs.cersei_retailer.Rounded.MyIconFonts
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/radio"
+        android:layout_toLeftOf="@+id/edit"
+        android:id="@+id/pincode"
+        android:clickable="false"
+        android:layout_below="@+id/area"
+        android:text="Pincode: "/>
+    <co.jlabs.cersei_retailer.Rounded.MyIconButton
+       android:layout_width="wrap_content"
+       android:layout_height="30dp"
+       android:textSize="20sp"
+        android:padding="5dp"
+        android:textColor="#000000"
+       android:id="@+id/edit"
+       android:text="@string/edit"
+       android:layout_alignParentRight="true"
+       android:background="@android:color/transparent"/>
+    <co.jlabs.cersei_retailer.Rounded.MyIconButton
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:textSize="20sp"
+        android:layout_marginTop="3dp"
+        android:padding="5dp"
+        android:textColor="#000000"
+        android:layout_below="@+id/edit"
+        android:id="@+id/remove"
+        android:text="@string/delete"
+        android:layout_alignParentRight="true"
+        android:background="@android:color/transparent"/>
+
+
+</RelativeLayout>

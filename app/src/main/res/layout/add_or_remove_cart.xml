@@ -3,30 +3,33 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="5dp"
         android:gravity="right|center_vertical">
         <co.jlabs.cersei_retailer.custom_components.TextView_Black
             android:id="@+id/removefromcart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
             android:padding="3dp"
             android:textSize="25sp"
             android:gravity="center"
-            android:text="@string/ico_remove"/>
-        <TextView
+            android:background="@drawable/minus"/>
+        <co.jlabs.cersei_retailer.custom_components.TextView_White
             android:layout_width="25dp"
             android:layout_height="30dp"
             android:textSize="18sp"
-            android:textColor="@color/black"
+
+            android:shadowColor="@color/text_shadow"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="2"
             android:gravity="center"
             android:text="0"/>
         <co.jlabs.cersei_retailer.custom_components.TextView_Black
             android:id="@+id/addtocart"
-            android:layout_width="wrap_content"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
             android:padding="3dp"
-            android:layout_height="wrap_content"
-            android:background="#ffff"
             android:textSize="25sp"
             android:gravity="center"
-            android:text="@string/ico_add"/>
+            android:background="@drawable/plus"/>
     </LinearLayout>

@@ -24,7 +24,7 @@ import co.jlabs.cersei_retailer.helper.PrefManager;
 
 
 /**
- * Created by Ravi on 04/04/15.
+ * Created by Kashyap on 04/04/15.
  */
 public class HttpService extends IntentService {
 
@@ -53,7 +53,7 @@ public class HttpService extends IntentService {
 
             @Override
             public void onResponse(String response) {
-                Log.d(TAG, response.toString());
+                Log.d(TAG+"Jeew", response.toString());
 
                 try {
 

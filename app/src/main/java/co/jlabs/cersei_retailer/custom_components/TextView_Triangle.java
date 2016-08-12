@@ -11,13 +11,17 @@ import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
+import co.jlabs.cersei_retailer.R;
+
 
 public class TextView_Triangle extends TextView {
 
+    int bg;
 
     public TextView_Triangle(Context context) {
       super(context);
         Typeface tf = FontCache.get("fonts/icomoon.ttf", context);
+        bg=context.getResources().getColor(R.color.result_view1);
         if(tf != null) {
             this.setTypeface(tf,Typeface.BOLD);
             this.setTextSize(12);
@@ -28,6 +32,7 @@ public class TextView_Triangle extends TextView {
     public TextView_Triangle(Context context, AttributeSet attrs) {
         super(context, attrs);
         Typeface tf = FontCache.get("fonts/icomoon.ttf", context);
+        bg=context.getResources().getColor(R.color.result_view1);
         if(tf != null) {
             this.setTypeface(tf,Typeface.BOLD);
             this.setTextSize(12);
@@ -38,6 +43,7 @@ public class TextView_Triangle extends TextView {
     public TextView_Triangle(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         Typeface tf = FontCache.get("fonts/icomoon.ttf", context);
+        bg=context.getResources().getColor(R.color.result_view1);
         if(tf != null) {
             this.setTypeface(tf,Typeface.BOLD);
             this.setTextSize(12);
@@ -54,9 +60,9 @@ public class TextView_Triangle extends TextView {
         int width=dpToPx(50),height=dpToPx(20);
         int extra=dpToPx(8);
         Point a = new Point(0, 0);
-        Point b = new Point(width, 0);
+        Point b = new Point(width+extra, 0);
         Point c = new Point(width+extra, height/2);
-        Point d = new Point(width, height);
+        Point d = new Point(width+extra, height);
         Point e = new Point(0, height);
 
 
@@ -67,7 +73,7 @@ public class TextView_Triangle extends TextView {
         path.lineTo(d.x, d.y);
         path.lineTo(e.x, e.y);
         Paint mPointedBackgroundPaint = new Paint();
-        mPointedBackgroundPaint.setColor(Color.parseColor("#FFA000"));
+        mPointedBackgroundPaint.setColor(bg);
         canvas.drawPath(path, mPointedBackgroundPaint);
     }
 

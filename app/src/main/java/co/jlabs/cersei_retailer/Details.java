@@ -100,7 +100,6 @@ public class Details extends Activity {
         LayoutInflater mLayoutInflater;
         ImageLoader imageLoader;
         JSONArray offers;
-
         public OffersPages(Context context,JSONArray offers) {
             mContext = context;
             this.offers=offers;
@@ -131,9 +130,10 @@ public class Details extends Activity {
             // Inflate the layout for the page
             View itemView = mLayoutInflater.inflate(R.layout.adap_details, container, false);
             try {
-                ((NetworkImageView) itemView.findViewById(R.id.pic)).setImageUrl(((JSONObject)offers.get(position)).getString("img"), imageLoader);
-                ((TextView) itemView.findViewById(R.id.title)).setText(((JSONObject) offers.get(position)).getString("title"));
-                ((TextView) itemView.findViewById(R.id.price)).setText(((JSONObject) offers.get(position)).getString("price"));
+                JSONObject json=((JSONObject)offers.get(position)).getJSONObject("item");
+                ((NetworkImageView) itemView.findViewById(R.id.pic)).setImageUrl(json.getString("img"), imageLoader);
+                ((TextView) itemView.findViewById(R.id.title)).setText(json.getString("name"));
+                ((TextView) itemView.findViewById(R.id.price)).setText(json.getString("price"));
                 ((AddOrRemoveCart)itemView.findViewById(R.id.add_or_remove_cart)).addOnItemClickListner(new AddOrRemoveCart.ItemsClickListener() {
                     @Override
                     public int addItemClicked(int position) {
@@ -149,7 +149,6 @@ public class Details extends Activity {
 
                         return quantity;
                     }
-
                     @Override
                     public int removeItemClicked(View v,int position) {
                         Toast.makeText(context, "Removed From Cart", Toast.LENGTH_SHORT).show();
@@ -163,8 +162,6 @@ public class Details extends Activity {
                         return quantity;
                     }
                 }, position, cart.findIfOfferAlreadyExistsInCart(((JSONObject) offers.get((position))).getInt("offer_id")));
-
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }
