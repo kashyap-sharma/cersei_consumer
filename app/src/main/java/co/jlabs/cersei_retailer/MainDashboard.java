@@ -205,7 +205,6 @@ public class MainDashboard extends FragmentActivity implements View.OnClickListe
         fift.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Log.e("click","fift");
             }
         });

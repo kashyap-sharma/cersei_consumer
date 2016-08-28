@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingTop="60dp"
     android:id="@+id/dismissifclickedhere"
     android:paddingBottom="40dp"
@@ -15,6 +16,16 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:paddingLeft="20dp"/>
+    <com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:icvp_center_page_scale_offset="30dp"
+        app:icvp_max_page_scale="0.8"
+        app:icvp_medium_scaled="true"
+        app:icvp_min_page_scale="0.5"
+        app:icvp_min_page_scale_offset="5dp"
+        app:icvp_scroll_duration="500"/>
+
         <!--android:paddingRight="12dp"/>-->
     <TextView
         android:id="@+id/position"

@@ -109,5 +109,6 @@
     <string name="preferences_supplemental_title">Retrieve more info</string>
     <string name="preferences_vibrate_title">Vibrate</string>
     <string name="title_activity_address_filler">AddressFiller</string>
+    <string name="title_activity_swipe_test">SwipeTest</string>
 
 </resources>

@@ -18,6 +18,13 @@
     </style>
 
 
+    <style name="SwipeFling">
+        <item name="rotation_degrees">15</item>
+        <item name="min_adapter_stack">6</item>
+        <item name="max_visible">4</item>
+    </style>
+
+
     <!-- Dialog 背景透明-->
     <style name="Translucent_NoTitle">
 

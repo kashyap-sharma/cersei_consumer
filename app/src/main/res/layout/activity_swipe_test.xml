@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00000000"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context="co.jlabs.cersei_retailer.activity.SwipeTest">
+    <co.jlabs.cersei_retailer.swipecardlib.SwipeCardView
+        android:id="@+id/card_stack_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#00000000"
+        app:rotation_degrees="15.5"
+        app:max_visible="5"
+        app:bottom_swipe_detect="false"
+        tools:context=".activity.SwipeTest" />
+</LinearLayout>
