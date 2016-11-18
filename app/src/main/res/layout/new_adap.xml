@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_vertical"
+    android:background="#00000000"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/container">
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        app:cardBackgroundColor="#6B5C7A"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+
+            android:padding="10dp"
+            >
+
+            <com.android.volley.toolbox.NetworkImageView
+                android:id="@+id/pic"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+
+                />
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:text="15% off on Maggi Noodles"/>
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:text="Rs 180"/>
+            <LinearLayout
+                android:paddingTop="8dp"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="40dp">
+                <co.jlabs.cersei_retailer.custom_components.TextView_Black
+                    android:layout_width="25dp"
+                    android:layout_height="30dp"
+                    android:textSize="18sp"
+                    android:gravity="center"
+                    android:text="@string/ico_myorder"/>
+                <co.jlabs.cersei_retailer.custom_components.AddOrRemoveCart
+                    android:id="@+id/add_or_remove_cart"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textSize="15sp"
+                android:textColor="#888888"
+                android:text="Description"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textSize="15sp"
+                android:id="@+id/descri"
+                android:textColor="#888888"
+                android:text="50% less fat. 30% fewer calories.*  100% butter flavor."/>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+    </LinearLayout>
+
+    <co.jlabs.cersei_retailer.Rounded.CircularImageView
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:src="@drawable/icon"
+        app:civ_border_color="#6B5C7A"
+        app:civ_border_width="4dp"
+        app:civ_shadow="true"
+        android:scaleType="centerCrop"
+        android:padding="5dp"
+        android:shadowColor="@color/text_shadow"
+        android:shadowDx="5"
+        android:shadowDy="5"
+        android:textStyle="bold"
+        android:shadowRadius="4"
+        android:paddingTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="-70dp"
+        app:civ_shadow_radius="10"
+        app:civ_shadow_color="#8BC34A"/>
+
+</RelativeLayout>

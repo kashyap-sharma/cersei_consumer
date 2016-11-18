@@ -66,6 +66,18 @@
                 android:layout_height="wrap_content" />
             <co.jlabs.cersei_retailer.custom_components.TextViewModernM
                 android:layout_width="wrap_content"
+                android:layout_toRightOf="@+id/pro_icon"
+                android:layout_below="@id/pro_desc"
+                android:id="@+id/retailer"
+                android:layout_marginTop="3dp"
+                android:text="Bigger Baazarj"
+                android:layout_toLeftOf="@+id/off_per"
+                android:textSize="13sp"
+                android:textColor="#b4b4b4"
+                android:layout_marginLeft="5dp"
+                android:layout_height="wrap_content" />
+            <co.jlabs.cersei_retailer.custom_components.TextViewModernM
+                android:layout_width="wrap_content"
                 android:id="@+id/price"
                 android:text="₹30"
                 android:layout_alignParentRight="true"
@@ -150,7 +162,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:layout_below="@+id/upper"
-            app:sv_bg_color="#764BA5"
+            app:sv_bg_color="#6B5C7A"
             android:padding="10dp"
             android:id="@+id/newAdd"
             android:layout_marginRight="10dp"

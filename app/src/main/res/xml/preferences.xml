@@ -98,7 +98,7 @@
         <CheckBoxPreference
             android:key="preferences_disable_exposure"
             android:defaultValue="false"
-            android:title="@string/preferences_disable_exposure_title"/>
+            android:retailer_name="@string/preferences_disable_exposure_title"/>
          -->
     </PreferenceCategory>
 </PreferenceScreen>

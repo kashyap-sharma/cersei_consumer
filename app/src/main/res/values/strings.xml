@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Thiscounted</string>
+    <string name="app_name">Thiscounts</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -30,7 +30,13 @@
     <string name="contact">&#xf4e1;</string>
     <string name="addresses">&#xf440;</string>
     <string name="area">&#xf444;</string>
+    <string name="burger">&#xf44e;</string>
     <string name="pincode">&#xf5de;</string>
+    <string name="wallet">&#xf671;</string>
+    <string name="cashout">&#xF6A9;</string>
+    <string name="achieve">&#xF6AA;</string>
+    <string name="settings">&#xF6AB;</string>
+    <string name="informa">&#xF6AC;</string>
     <!--<string name="curr_loc">&#xe600;</string>-->
     <!--<string name="add_dust">&#xe601;</string>-->
     <!--<string name="back">&#xe602;</string>-->

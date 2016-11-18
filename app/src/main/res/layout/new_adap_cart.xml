@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_marginLeft="3dp"
+    android:layout_marginRight="3dp"
+    android:layout_marginBottom="3dp"
+
+    android:layout_height="wrap_content">
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="5dp"
+            android:background="#90D8CA"
+            android:layout_marginLeft="3dp"
+            android:id="@+id/bar"
+            android:layout_height="56dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="RETAILER"
+            android:textColor="#C1E8E1"
+            android:textSize="12sp"
+            android:paddingTop="7dp"
+            android:id="@+id/ret"
+            android:paddingLeft="10dp"
+            android:layout_toRightOf="@+id/bar"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="RETAILER"
+            android:textSize="16sp"
+            android:textColor="#B6B6B6"
+            android:paddingTop="3dp"
+            android:paddingLeft="10dp"
+            android:id="@+id/retailer_name"
+            android:layout_below="@+id/ret"
+            android:layout_toRightOf="@+id/bar"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:background="#90D8CA"
+            android:orientation="vertical"
+            android:gravity="center"
+
+            android:layout_alignParentRight="true"
+            android:layout_height="56dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:textColor="#ffffff"
+                android:layout_height="wrap_content"
+                android:text="Min Order"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:textColor="#ffffff"
+                android:layout_height="wrap_content"
+                android:text="Rs 200"/>
+
+        </LinearLayout>
+        <TextView
+            android:layout_marginTop="-1dp"
+            android:layout_below="@+id/bar"
+            android:layout_width="match_parent"
+            android:id="@+id/bar2"
+            android:background="#F9F9F9"
+            android:layout_height="1dp" />
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_below="@+id/bar"
+            android:id="@+id/recycler_view"
+            android:layout_height="wrap_content">
+
+        </android.support.v7.widget.RecyclerView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:textColor="#A3A3A3"
+            android:layout_below="@+id/recycler_view"
+            android:paddingLeft="5dp"
+            android:id="@+id/am"
+            android:gravity="center"
+            android:textSize="10sp"
+            android:text="TOTAL AMOUNT"
+            android:layout_height="56dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:textColor="#C7EBE5"
+            android:layout_below="@+id/recycler_view"
+            android:paddingLeft="5dp"
+            android:gravity="center"
+            android:id="@+id/total"
+            android:textSize="12sp"
+
+            android:layout_toRightOf="@+id/am"
+            android:text="₹100"
+            android:layout_height="56dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:textColor="#ffffff"
+            android:layout_below="@+id/am"
+            android:padding="5dp"
+            android:gravity="left|center_vertical"
+            android:background="#D93425"
+            android:textSize="12sp"
+
+            android:text="*Add more items or call the retailer to avoid delivery charges"
+            android:layout_height="wrap_content" />
+        <Button
+            android:layout_width="76dp"
+            android:textColor="#fff"
+            android:layout_below="@+id/recycler_view"
+            android:layout_alignParentRight="true"
+            android:id="@+id/call"
+            android:textStyle="normal"
+            android:layout_marginTop="13dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="13dp"
+            android:textSize="15sp"
+            android:background="@drawable/call"
+            android:text="Call"
+            android:layout_height="30dp" />
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

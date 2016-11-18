@@ -78,6 +78,10 @@
             android:label="@string/title_activity_address_filler"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".MainActivity"
+            android:label="@string/title_activity_address_filler"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".activity.BillActivity"
             android:label="@string/title_activity_address_filler"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -88,7 +92,8 @@
         <activity
             android:name=".VerticalAdapter.VerticalActivity"
             android:label="@string/title_activity_swipe_test"
-            android:theme="@style/AppTheme">
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Transparent">
         </activity>
     </application>
 

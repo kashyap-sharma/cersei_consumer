@@ -38,7 +38,7 @@ public class AdapterPointsEarned extends BaseAdapter {
             gridView = convertView;
         }
         try {
-            ((TextView)gridView.findViewById(R.id.title)).setText(((JSONObject)jsonArray.get(position)).getString("title"));
+            ((TextView)gridView.findViewById(R.id.title)).setText(((JSONObject)jsonArray.get(position)).getString("retailer_name"));
             ((TextView)gridView.findViewById(R.id.points)).setText(((JSONObject) jsonArray.get(position)).getString("points"));
         } catch (JSONException e) {
             e.printStackTrace();

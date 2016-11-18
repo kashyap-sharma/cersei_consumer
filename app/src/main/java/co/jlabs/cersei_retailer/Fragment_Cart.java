@@ -110,6 +110,7 @@ public class Fragment_Cart extends Fragment implements FragmentEventHandler{
             for (int i=0;i<items.size();i++)
             {
                 total_item=total_item+items.get(i).quantity;
+                Log.e("some",""+total_item);
                 total_price=total_price+items.get(i).price*items.get(i).quantity;
             }
             ((TextView)getView().findViewById(R.id.num_of_items_in_cart)).setText(""+total_item);

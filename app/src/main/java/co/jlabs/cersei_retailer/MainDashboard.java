@@ -44,6 +44,7 @@ import org.json.JSONObject;
 
 import co.jlabs.cersei_retailer.LoadingCool.CoolAnimView;
 
+import co.jlabs.cersei_retailer.changes.*;
 import co.jlabs.cersei_retailer.custom_components.LocationPopup;
 import co.jlabs.cersei_retailer.custom_components.NoInternetDialogBox;
 import co.jlabs.cersei_retailer.custom_components.PagerSlidingStrip;
@@ -177,7 +178,7 @@ public class MainDashboard extends FragmentActivity implements View.OnClickListe
 //                    CameraHandler.adjustCameraOrViewPager(false);
                 if (position == page_cart) {
                     //(tab_point);
-
+                    if(CartHandler!=null)
                     CartHandler.adjustCameraOrViewPager(true);
                     ((TabsView) tab_cart).removeCartNotification();
                 }
@@ -635,17 +636,23 @@ public class MainDashboard extends FragmentActivity implements View.OnClickListe
                     firstPage.addInitialisationEvent(MainDashboard.this);
                     return firstPage;
                 case page_points :
-                    Fragment_Points pointsFragment = Fragment_Points.init(position);
+                    co.jlabs.cersei_retailer.changes.Fragment_Points pointsFragment=  co.jlabs.cersei_retailer.changes.Fragment_Points.init(position);
+                   // Fragment_Points pointsFragment = Fragment_Points.init(position);
                     pointsFragment.addInitialisationEvent(MainDashboard.this);
                     return pointsFragment;
 //                case page_barcode :
 //                    Fragment_Barcode fragment= Fragment_Barcode.init(position);
 //                    fragment.addInitialisationEvent(MainDashboard.this);
 //                    return fragment;
-                default:
+                case page_cart:
                     Fragment_Cart cartFragment = Fragment_Cart.init(position);
                     cartFragment.addInitialisationEvent(MainDashboard.this);
                     return cartFragment;
+
+                default:
+                    Fragment_Cart cartFr = Fragment_Cart.init(position);
+                    cartFr.addInitialisationEvent(MainDashboard.this);
+                    return cartFr;
             }
         }
 

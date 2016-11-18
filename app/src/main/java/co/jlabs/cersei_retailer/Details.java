@@ -155,13 +155,13 @@ public class Details extends Activity {
                         int quantity = 0;
 
                         try {
-                            quantity = cart.removeFromCart(((JSONObject) offers.get((position))).getInt("offer_id"));
+                            quantity = cart.removeFromCart(((JSONObject) offers.get((position))).getString("detail"));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                         return quantity;
                     }
-                }, position, cart.findIfOfferAlreadyExistsInCart(((JSONObject) offers.get((position))).getInt("offer_id")));
+                }, position, cart.findIfOfferAlreadyExistsInCart(((JSONObject) offers.get((position))).getString("detail")));
             } catch (JSONException e) {
                 e.printStackTrace();
             }

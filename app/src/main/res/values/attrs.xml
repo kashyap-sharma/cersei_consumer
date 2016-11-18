@@ -16,8 +16,24 @@
 
 
 
+    <declare-styleable name="CircularImageView">
+        <attr name="civ_border" format="boolean"/>
+        <attr name="civ_border_width" format="dimension"/>
+        <attr name="civ_border_color" format="color"/>
+        <attr name="civ_shadow" format="boolean"/>
+        <attr name="civ_shadow_color" format="color"/>
+        <attr name="civ_shadow_radius" format="float"/>
+    </declare-styleable>
 
-
+    <declare-styleable name="CircleImageView">
+        <attr name="civ_border_width1" format="dimension" />
+        <attr name="civ_border_color1" format="color" />
+        <attr name="civ_border_overlay1" format="boolean" />
+        <attr name="civ_shadow1" format="boolean"/>
+        <attr name="civ_shadow_color1" format="color"/>
+        <attr name="civ_shadow_radius1" format="float"/>
+        <attr name="civ_fill_color1" format="color" />
+    </declare-styleable>
 
     <declare-styleable name="SwipeCardView">
         <attr name="SwipeFlingStyle" format="reference"/>

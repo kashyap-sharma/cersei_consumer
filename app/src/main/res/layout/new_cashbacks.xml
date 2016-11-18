@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="#203E53"
+    android:weightSum="1.2"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_weight="0.5"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:background="#152A38"
+            android:id="@+id/upper"
+            android:layout_height="wrap_content">
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/pica"
+                android:padding="5dp"
+                android:layout_height="wrap_content">
+                <co.jlabs.cersei_retailer.Rounded.CircularImageView
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+                    android:src="@drawable/jwwd"
+                    app:civ_border_color="#345E7C"
+                    app:civ_border_width="9dp"/>
+                <com.gigamole.library.ArcProgressStackView
+                    app:apsv_draw_width="20dp"
+                    app:apsv_preview_bg="#fff"
+                    android:id="@+id/apsv"
+                    app:apsv_dragged="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    app:apsv_preview_colors="@array/polluted_waves"
+                    app:apsv_model_bg_enabled="true"/>
+
+
+            </FrameLayout>
+
+            <co.jlabs.cersei_retailer.custom_components.TextViewModernM
+                android:layout_width="wrap_content"
+                android:layout_below="@+id/pica"
+                android:id="@+id/name"
+                android:paddingTop="5dp"
+                android:textSize="12sp"
+                android:textColor="#A4A8AB"
+                android:text="Jawwad Zafar"
+                android:layout_centerHorizontal="true"
+                android:layout_height="wrap_content" />
+            <co.jlabs.cersei_retailer.custom_components.TextViewModernM
+                android:layout_width="wrap_content"
+                android:layout_below="@+id/name"
+                android:id="@+id/level"
+                android:paddingTop="5dp"
+                android:textSize="18sp"
+                android:textColor="#EAEBEC"
+                android:text="Level 4"
+                android:textAllCaps="true"
+                android:layout_centerHorizontal="true"
+                android:layout_height="wrap_content" />
+            <co.jlabs.cersei_retailer.custom_components.TextViewModernM
+                android:layout_width="wrap_content"
+                android:layout_below="@+id/level"
+                android:id="@+id/next"
+                android:paddingTop="5dp"
+                android:layout_marginBottom="10dp"
+                android:textSize="15sp"
+                android:textColor="#A4A8AB"
+                android:text="+35 CB untill next level"
+                android:textAllCaps="true"
+                android:layout_centerHorizontal="true"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+        <co.jlabs.cersei_retailer.custom_components.TextViewModernM
+            android:layout_width="wrap_content"
+            android:layout_below="@+id/upper"
+            android:id="@+id/avail"
+            android:paddingTop="8dp"
+            android:layout_marginBottom="10dp"
+            android:textSize="16sp"
+            android:textColor="#12A7AE"
+            android:text="Cashback Available"
+            android:textAllCaps="false"
+            android:layout_centerHorizontal="true"
+            android:layout_height="wrap_content" />
+
+        <co.jlabs.cersei_retailer.Rounded.MyIconFonts
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/cashback"
+            android:text="@string/wallet"
+            android:layout_below="@+id/avail"
+            android:textColor="#00FFFF"
+            android:textSize="25sp"
+            android:layout_centerHorizontal="true"/>
+
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_weight="0.7"
+        android:background="#203E53"
+        android:orientation="vertical"
+        android:weightSum="2"
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#375265"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="#203E53"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_weight="0.5"
+                android:background="#203E53"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_height="match_parent">
+                <co.jlabs.cersei_retailer.Rounded.MyIconFonts
+                    android:layout_width="wrap_content"
+                    android:textColor="#FFFFFF"
+                    android:textSize="35sp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/achieve"/>
+                <co.jlabs.cersei_retailer.custom_components.TextViewModernM
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#fff"
+                    android:paddingTop="5dp"
+                    android:textAllCaps="true"
+                    android:text="Achievements"/>
+
+            </LinearLayout>
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#375265"/>
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:background="#203E53"
+                    android:orientation="vertical"
+                    android:layout_height="match_parent">
+                <co.jlabs.cersei_retailer.Rounded.MyIconFonts
+                    android:layout_width="wrap_content"
+                    android:textColor="#FFFFFF"
+                    android:textSize="35sp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cashout"/>
+                <co.jlabs.cersei_retailer.custom_components.TextViewModernM
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#fff"
+                    android:paddingTop="5dp"
+                    android:textAllCaps="true"
+                    android:text="Cashout"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#375265"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:background="#203E53"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_weight="0.5"
+                android:background="#203E53"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_height="match_parent">
+                <co.jlabs.cersei_retailer.Rounded.MyIconFonts
+                    android:layout_width="wrap_content"
+                    android:textColor="#FFFFFF"
+                    android:textSize="35sp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings"/>
+                <co.jlabs.cersei_retailer.custom_components.TextViewModernM
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#fff"
+                    android:paddingTop="5dp"
+                    android:textAllCaps="true"
+                    android:text="settings"/>
+
+            </LinearLayout>
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#375265"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_weight="0.5"
+                android:background="#203E53"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_height="match_parent">
+                <co.jlabs.cersei_retailer.Rounded.MyIconFonts
+                    android:layout_width="wrap_content"
+                    android:textColor="#FFFFFF"
+                    android:textSize="35sp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/informa"/>
+                <co.jlabs.cersei_retailer.custom_components.TextViewModernM
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#fff"
+                    android:paddingTop="5dp"
+                    android:textAllCaps="true"
+                    android:text="Information"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

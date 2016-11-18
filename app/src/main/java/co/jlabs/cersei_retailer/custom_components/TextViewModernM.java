@@ -26,7 +26,6 @@ public class TextViewModernM extends TextView {
         Typeface tf = FontCache.get("fonts/DINWeb-Cond.ttf", context);
         if(tf != null) {
             this.setTypeface(tf);
-
         }
     }
 

@@ -1,11 +1,13 @@
-package co.jlabs.cersei_retailer;
+package co.jlabs.cersei_retailer.changes;
 
 /**
  * Created by Pradeep on 12/25/2015.
  */
 import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.RectF;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,17 +24,28 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.AbsListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.gigamole.library.ArcProgressStackView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
+import co.jlabs.cersei_retailer.AdapterPointsEarned;
+import co.jlabs.cersei_retailer.AdapterReward_Redeemed;
+import co.jlabs.cersei_retailer.AppController;
+import co.jlabs.cersei_retailer.FragmentEventHandler;
+import co.jlabs.cersei_retailer.FragmentsEventInitialiser;
+import co.jlabs.cersei_retailer.R;
+import co.jlabs.cersei_retailer.StaticCatelog;
 import co.jlabs.cersei_retailer.custom_components.PagerSlidingStripPoints;
 import co.jlabs.cersei_retailer.custom_components.SampleListView;
 import co.jlabs.cersei_retailer.custom_components.ScrollTabHolder;
@@ -44,20 +57,25 @@ public class Fragment_Points extends Fragment  implements ScrollTabHolder, ViewP
 
 
     public static final boolean NEEDS_PROXY = Integer.valueOf(Build.VERSION.SDK_INT).intValue() < 11;
+    public final static int MODEL_COUNT = 1;
+    private int[] mStartColors = new int[MODEL_COUNT];
+    private int[] mEndColors = new int[MODEL_COUNT];
 
-    private View mHeader;
+    //    private View mHeader;
+//
+//    private PagerSlidingStripPoints mPagerSlidingTabStrip;
+//    private ViewPager mViewPager;
+//    private PagerAdapter mPagerAdapter;
+//
+//    private int mMinHeaderHeight;
+//    private int mHeaderHeight;
+//    private int mMinHeaderTranslation;
+//    private StarBang mSmallBang;
+//
+//    private TextView info;
+//    private int mLastY;
+    private ArcProgressStackView mArcProgressStackView;
 
-    private PagerSlidingStripPoints mPagerSlidingTabStrip;
-    private ViewPager mViewPager;
-    private PagerAdapter mPagerAdapter;
-
-    private int mMinHeaderHeight;
-    private int mHeaderHeight;
-    private int mMinHeaderTranslation;
-    private StarBang mSmallBang;
-
-    private TextView info;
-    private int mLastY;
     FragmentsEventInitialiser eventInitialiser=null;
 
 
@@ -65,13 +83,13 @@ public class Fragment_Points extends Fragment  implements ScrollTabHolder, ViewP
     private RectF mRect2 = new RectF();
     private AccelerateDecelerateInterpolator mSmoothInterpolator;
 
-    View from_balance,to_balance,from_point,to_point,from_rating,to_rating;
+ //   View from_balance,to_balance,from_point,to_point,from_rating,to_rating;
     String url = StaticCatelog.geturl()+"cersei/consumer/reward?userid=user_1";
     JSONObject json=null;
     int x=0,scrollx=0;
 
 
-    static Fragment_Points init(int val) {
+   public static Fragment_Points init(int val) {
         Fragment_Points truitonFrag = new Fragment_Points();
         // Supply val input as an argument.
         Bundle args = new Bundle();
@@ -83,30 +101,67 @@ public class Fragment_Points extends Fragment  implements ScrollTabHolder, ViewP
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mSmallBang = StarBang.attach2Window(getActivity());
+       // mSmallBang = StarBang.attach2Window(getActivity());
         fragVal = getArguments() != null ? getArguments().getInt("val") : 2;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View layoutView = inflater.inflate(R.layout.lay_points, container,
+        View layoutView = inflater.inflate(R.layout.new_cashbacks, container,
                 false);
+        final String[] bgColors = getResources().getStringArray(R.array.medical_express);
+        final String[] endColors = getResources().getStringArray(R.array.default_preview);
+        final String[] startColors = getResources().getStringArray(R.array.polluted_waves);
+        mArcProgressStackView = (ArcProgressStackView) layoutView.findViewById(R.id.apsv);
 
-        mSmoothInterpolator = new AccelerateDecelerateInterpolator();
+        for (int i = 0; i < MODEL_COUNT; i++) {
+            mStartColors[i] = Color.parseColor(startColors[i]);
+            mEndColors[i] = Color.parseColor(endColors[i]);
+        }
 
-        mMinHeaderHeight = getResources().getDimensionPixelSize(R.dimen.min_header_height);
-        mHeaderHeight = getResources().getDimensionPixelSize(R.dimen.header_height);
-        mMinHeaderTranslation = -mMinHeaderHeight;
+        final ArrayList<ArcProgressStackView.Model> models = new ArrayList<>();
 
+        models.add(new ArcProgressStackView.Model("Circle", 0, Color.parseColor(bgColors[0]), mStartColors[0]));
+        mArcProgressStackView.setModels(models);
 
-        to_balance=layoutView.findViewById(R.id.to_balance);
-        to_point=layoutView.findViewById(R.id.to_points);
-        to_rating=layoutView.findViewById(R.id.to_rating);
-        mHeader = layoutView.findViewById(R.id.header);
-        from_balance=mHeader.findViewById(R.id.totalbalance);
-        from_point=mHeader.findViewById(R.id.points);
-        from_rating=mHeader.findViewById(R.id.rating);
+        // Set animator listener
+        mArcProgressStackView.setAnimatorUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(final ValueAnimator animation) {
+                // Update goes here
+                Log.d("onAnimationUpdate: ", String.valueOf(animation.getAnimatedValue()));
+            }
+        });
+        mArcProgressStackView.setAnimatorListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(final Animator animation) {
+                Toast.makeText(getActivity(), "ANIMATION", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Start apsv animation on start
+        mArcProgressStackView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+//                btnAnimate.performClick();
+            }
+        }, 333);
+        mArcProgressStackView.setSweepAngle(50);
+//        mSmoothInterpolator = new AccelerateDecelerateInterpolator();
+//
+//        mMinHeaderHeight = getResources().getDimensionPixelSize(R.dimen.min_header_height);
+//        mHeaderHeight = getResources().getDimensionPixelSize(R.dimen.header_height);
+//        mMinHeaderTranslation = -mMinHeaderHeight;
+//
+//
+//        to_balance=layoutView.findViewById(R.id.to_balance);
+//        to_point=layoutView.findViewById(R.id.to_points);
+//        to_rating=layoutView.findViewById(R.id.to_rating);
+//        mHeader = layoutView.findViewById(R.id.header);
+//        from_balance=mHeader.findViewById(R.id.totalbalance);
+//        from_point=mHeader.findViewById(R.id.points);
+//        from_rating=mHeader.findViewById(R.id.rating);
 //        mHeader.setOnTouchListener(new View.OnTouchListener() {
 //            @Override
 //            public boolean onTouch(View v, MotionEvent event) {
@@ -115,63 +170,63 @@ public class Fragment_Points extends Fragment  implements ScrollTabHolder, ViewP
 //            }
 //        });
 
-        info = (TextView) layoutView.findViewById(R.id.info);
-
-        mPagerSlidingTabStrip = (PagerSlidingStripPoints) layoutView.findViewById(R.id.tabs);
-        mViewPager = (ViewPager) layoutView.findViewById(R.id.pager);
-        mViewPager.setOffscreenPageLimit(3);
-        mHeader.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return true;
+//        info = (TextView) layoutView.findViewById(R.id.info);
 //
-//                final int action = event.getAction();
-//
-//             //   SampleListView.this.getParent().requestDisallowInterceptTouchEvent(true);
-//
-//
-//                //  SampleListView.this.getParent().getParent().requestDisallowInterceptTouchEvent(true);
-//                //  vp.requestDisallowInterceptTouchEvent(false);
-//               switch (action) {
-//                    case MotionEvent.ACTION_DOWN:
-//                    //    ((CustomViewPager) mViewPager).setPaging(false);
-//                        Log.i("Simple List View", "Touch Down ");
-//                        x= (int) event.getX();
-//                        scrollx=((ViewPager) v.getParent().getParent()).getScrollX();
-//                        break;
-//
-//                    case MotionEvent.ACTION_UP:
-//                    //    ((CustomViewPager)mViewPager).setPaging(true);
-//                        int finalscroll=scrollx-((ViewPager) v.getParent().getParent()).getScrollX();
-//                        Log.i("Simple List View", "Touch Up " + finalscroll);
-//
-//                        //x=0;
-//                        if(finalscroll>220||finalscroll<-220)
-//                        {
-//                            if(finalscroll>220)
-//                                ((ViewPager)v.getParent().getParent()).setCurrentItem(0);
-//                            else
-//                                ((ViewPager)v.getParent().getParent()).setCurrentItem(2);
-//                        }
-//                        else
-//                            ((ViewPager)v.getParent().getParent()).scrollBy(finalscroll,0);
-//
-//
-//                        //	SampleListView.this.getParent().requestDisallowInterceptTouchEvent(false);
-//                        break;
-//                    case MotionEvent.ACTION_MOVE:
-//                        Log.i("Simple List View", "MotionEvent.ACTION_MOVE "+(x - event.getX()));
-//                      //  ((ViewPager)v.getParent().getParent()).scrollBy((int) (x - event.getX()), 0);
-//
-//                        break;
-//                    case MotionEvent.ACTION_CANCEL:
-//                        Log.i("Simple List View", "MotionEvent.ACTION_CANCEL");
-//                        break;
-//                }
-//
+//        mPagerSlidingTabStrip = (PagerSlidingStripPoints) layoutView.findViewById(R.id.tabs);
+//        mViewPager = (ViewPager) layoutView.findViewById(R.id.pager);
+//        mViewPager.setOffscreenPageLimit(3);
+//        mHeader.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
 //                return true;
-            }
-        });
+////
+////                final int action = event.getAction();
+////
+////             //   SampleListView.this.getParent().requestDisallowInterceptTouchEvent(true);
+////
+////
+////                //  SampleListView.this.getParent().getParent().requestDisallowInterceptTouchEvent(true);
+////                //  vp.requestDisallowInterceptTouchEvent(false);
+////               switch (action) {
+////                    case MotionEvent.ACTION_DOWN:
+////                    //    ((CustomViewPager) mViewPager).setPaging(false);
+////                        Log.i("Simple List View", "Touch Down ");
+////                        x= (int) event.getX();
+////                        scrollx=((ViewPager) v.getParent().getParent()).getScrollX();
+////                        break;
+////
+////                    case MotionEvent.ACTION_UP:
+////                    //    ((CustomViewPager)mViewPager).setPaging(true);
+////                        int finalscroll=scrollx-((ViewPager) v.getParent().getParent()).getScrollX();
+////                        Log.i("Simple List View", "Touch Up " + finalscroll);
+////
+////                        //x=0;
+////                        if(finalscroll>220||finalscroll<-220)
+////                        {
+////                            if(finalscroll>220)
+////                                ((ViewPager)v.getParent().getParent()).setCurrentItem(0);
+////                            else
+////                                ((ViewPager)v.getParent().getParent()).setCurrentItem(2);
+////                        }
+////                        else
+////                            ((ViewPager)v.getParent().getParent()).scrollBy(finalscroll,0);
+////
+////
+////                        //	SampleListView.this.getParent().requestDisallowInterceptTouchEvent(false);
+////                        break;
+////                    case MotionEvent.ACTION_MOVE:
+////                        Log.i("Simple List View", "MotionEvent.ACTION_MOVE "+(x - event.getX()));
+////                      //  ((ViewPager)v.getParent().getParent()).scrollBy((int) (x - event.getX()), 0);
+////
+////                        break;
+////                    case MotionEvent.ACTION_CANCEL:
+////                        Log.i("Simple List View", "MotionEvent.ACTION_CANCEL");
+////                        break;
+////                }
+////
+////                return true;
+//            }
+//        });
         return layoutView;
     }
 
@@ -185,59 +240,59 @@ public class Fragment_Points extends Fragment  implements ScrollTabHolder, ViewP
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
         if (positionOffsetPixels > 0) {
-            int currentItem = mViewPager.getCurrentItem();
+          //  int currentItem = mViewPager.getCurrentItem();
 
-            SparseArrayCompat<ScrollTabHolder> scrollTabHolders = mPagerAdapter.getScrollTabHolders();
-            ScrollTabHolder currentHolder;
-
-            if (position < currentItem) {
-                currentHolder = scrollTabHolders.valueAt(position);
-            } else {
-                currentHolder = scrollTabHolders.valueAt(position + 1);
-            }
-
-            if (NEEDS_PROXY) {
-                // TODO is not good
-                currentHolder.adjustScroll(mHeader.getHeight() - mLastY);
-                mHeader.postInvalidate();
-            } else {
-                currentHolder.adjustScroll((int) (mHeader.getHeight() + mHeader.getTranslationY()));
-            }
+//            SparseArrayCompat<ScrollTabHolder> scrollTabHolders = mPagerAdapter.getScrollTabHolders();
+//            ScrollTabHolder currentHolder;
+//
+//            if (position < currentItem) {
+//                currentHolder = scrollTabHolders.valueAt(position);
+//            } else {
+//                currentHolder = scrollTabHolders.valueAt(position + 1);
+//            }
+//
+//            if (NEEDS_PROXY) {
+//                // TODO is not good
+//                currentHolder.adjustScroll(mHeader.getHeight() - mLastY);
+//                mHeader.postInvalidate();
+//            } else {
+//                currentHolder.adjustScroll((int) (mHeader.getHeight() + mHeader.getTranslationY()));
+//            }
         }
     }
 
     @Override
     public void onPageSelected(int position) {
-        SparseArrayCompat<ScrollTabHolder> scrollTabHolders = mPagerAdapter.getScrollTabHolders();
-        ScrollTabHolder currentHolder = scrollTabHolders.valueAt(position);
-        if(NEEDS_PROXY){
-            //TODO is not good
-            currentHolder.adjustScroll(mHeader.getHeight()-mLastY);
-            mHeader.postInvalidate();
-        }else{
-            currentHolder.adjustScroll((int) (mHeader.getHeight() + mHeader.getTranslationY()));
-        }
+//        SparseArrayCompat<ScrollTabHolder> scrollTabHolders = mPagerAdapter.getScrollTabHolders();
+//        ScrollTabHolder currentHolder = scrollTabHolders.valueAt(position);
+//        if(NEEDS_PROXY){
+//            //TODO is not good
+//            currentHolder.adjustScroll(mHeader.getHeight()-mLastY);
+//            mHeader.postInvalidate();
+//        }else{
+//            currentHolder.adjustScroll((int) (mHeader.getHeight() + mHeader.getTranslationY()));
+//        }
     }
 
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount, int pagePosition) {
-        if (mViewPager.getCurrentItem() == pagePosition) {
-            int scrollY = getScrollY(view);
-            if(NEEDS_PROXY){
-                mLastY=-Math.max(-scrollY, mMinHeaderTranslation);
-                info.setText(String.valueOf(scrollY));
-                mHeader.scrollTo(0, mLastY);
-                mHeader.postInvalidate();
-            }else{
-                mHeader.setTranslationY(Math.max(-scrollY, mMinHeaderTranslation));
-            }
-
-            float ratio = clamp(mHeader.getTranslationY() / mMinHeaderTranslation, 0.0f, 1.0f);
-
-            interpolate( from_balance,to_balance, mSmoothInterpolator.getInterpolation(ratio));
-            interpolate(from_point,to_point, mSmoothInterpolator.getInterpolation(ratio));
-            interpolate(from_rating,to_rating, mSmoothInterpolator.getInterpolation(ratio));
-        }
+//        if (mViewPager.getCurrentItem() == pagePosition) {
+//            int scrollY = getScrollY(view);
+//            if(NEEDS_PROXY){
+//                mLastY=-Math.max(-scrollY, mMinHeaderTranslation);
+//                info.setText(String.valueOf(scrollY));
+//                mHeader.scrollTo(0, mLastY);
+//                mHeader.postInvalidate();
+//            }else{
+//                mHeader.setTranslationY(Math.max(-scrollY, mMinHeaderTranslation));
+//            }
+//
+//            float ratio = clamp(mHeader.getTranslationY() / mMinHeaderTranslation, 0.0f, 1.0f);
+//
+//            interpolate( from_balance,to_balance, mSmoothInterpolator.getInterpolation(ratio));
+//            interpolate(from_point,to_point, mSmoothInterpolator.getInterpolation(ratio));
+//            interpolate(from_rating,to_rating, mSmoothInterpolator.getInterpolation(ratio));
+//        }
     }
 
     @Override
@@ -256,7 +311,7 @@ public class Fragment_Points extends Fragment  implements ScrollTabHolder, ViewP
 
         int headerHeight = 0;
         if (firstVisiblePosition >= 1) {
-            headerHeight = mHeaderHeight;
+          //  headerHeight = mHeaderHeight;
         }
 
         return -top + firstVisiblePosition * c.getHeight() + headerHeight;
@@ -392,7 +447,7 @@ public class Fragment_Points extends Fragment  implements ScrollTabHolder, ViewP
         float translationY = 0.5F * (interpolation * (mRect2.top + mRect2.bottom - mRect1.top - mRect1.bottom));
 
         view1.setTranslationX(translationX);
-        view1.setTranslationY(translationY - mHeader.getTranslationY());
+        //view1.setTranslationY(translationY - mHeader.getTranslationY());
         view1.setScaleX(scaleX);
         view1.setScaleY(scaleY);
     }
@@ -424,7 +479,7 @@ public class Fragment_Points extends Fragment  implements ScrollTabHolder, ViewP
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                redText(from_point);
+                //redText(from_point);
             }
 
             @Override
@@ -442,16 +497,16 @@ public class Fragment_Points extends Fragment  implements ScrollTabHolder, ViewP
 
     public void redText(View view){
         //((TextView)tab_point).setTextColor(0xFFCD8BF8);
-        mSmallBang.bang(view, 300, new SmallBangListener() {
-            @Override
-            public void onAnimationStart() {
-            }
-
-            @Override
-            public void onAnimationEnd() {
-                // Toast.makeText(MainDashboard.this,"Added",Toast.LENGTH_SHORT).show();
-            }
-        });
+//        mSmallBang.bang(view, 300, new SmallBangListener() {
+//            @Override
+//            public void onAnimationStart() {
+//            }
+//
+//            @Override
+//            public void onAnimationEnd() {
+//                // Toast.makeText(MainDashboard.this,"Added",Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 
 
@@ -498,7 +553,7 @@ public class Fragment_Points extends Fragment  implements ScrollTabHolder, ViewP
                         @Override
                         public void onResponse(final JSONObject response) {
                             try {
-                                json = response.getJSONObject("data");
+                                 json = response.getJSONObject("data");
                                 createcontentforthispage(json.getString("total_balance"), "" + json.getJSONArray("active_rewards").length(), json.getString("earning"), json.getString("total_redeemed"), json.getJSONArray("active_rewards"), json.getJSONArray("earning_list"), json.getJSONArray("redeemed"));
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -527,17 +582,17 @@ public class Fragment_Points extends Fragment  implements ScrollTabHolder, ViewP
 
     public void createcontentforthispage(String total_balance,String num_rewards,String num_points_earned,String num_points_redeemed,JSONArray rewards,JSONArray points_earned,JSONArray points_redeemed)
     {
-
-        mPagerAdapter = new PagerAdapter(getContext(),num_rewards,num_points_earned,num_points_redeemed,rewards,points_earned,points_redeemed);
-        mPagerAdapter.setTabHolderScrollingContent(this);
-
-        mViewPager.setAdapter(mPagerAdapter);
-
-        mPagerSlidingTabStrip.setViewPager(mViewPager);
-        mPagerSlidingTabStrip.setOnPageChangeListener(this);
-        animateTextView(100, Integer.parseInt(total_balance), (TextView) from_point);
-        ((TextView)to_point).setText(total_balance);
-        mLastY=0;
-        tellThatLoadedSuccessfully(true);
+//
+//        mPagerAdapter = new PagerAdapter(getContext(),num_rewards,num_points_earned,num_points_redeemed,rewards,points_earned,points_redeemed);
+//        mPagerAdapter.setTabHolderScrollingContent(this);
+//
+//        mViewPager.setAdapter(mPagerAdapter);
+//
+//        mPagerSlidingTabStrip.setViewPager(mViewPager);
+//        mPagerSlidingTabStrip.setOnPageChangeListener(this);
+//        animateTextView(100, Integer.parseInt(total_balance), (TextView) from_point);
+//        ((TextView)to_point).setText(total_balance);
+//        mLastY=0;
+//        tellThatLoadedSuccessfully(true);
     }
 }

@@ -1,18 +1,17 @@
 package co.jlabs.cersei_retailer.custom_components;
 
-//Created by pradeep kumar (Jussconnect)
+
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -34,15 +33,19 @@ public class Sqlite_cart extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
  		String CREATE_CartED_TABLE = "CREATE TABLE Cart ( " +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " + 
-                "offer_id INTEGER, " +
-				"title TEXT, "+
-				"weight TEXT,"+
+                "detail TEXT, " +
                 "price INTEGER,"+
-				"point INTEGER,"+
-				"img TEXT,"+
-                "deliverable INTEGER,"+
-				"quantity INTEGER);";
-
+                "retailer_name TEXT, " +
+				"item_id TEXT, "+
+                "img TEXT,"+
+                "offer_id TEXT,"+
+                "category_name TEXT,"+
+                "company_name TEXT,"+
+				"cashback INTEGER,"+
+                "product_name TEXT,"+
+                "weight TEXT,"+
+                "quantity INTEGER, " +
+                "retailer_id TEXT);";
  		db.execSQL(CREATE_CartED_TABLE);
     }
 
@@ -61,13 +64,18 @@ public class Sqlite_cart extends SQLiteOpenHelper {
     private static final String TABLE_Cart = "Cart";
 
     private static final String KEY_ID = "id";
-    private static final String KEY_OFFER_ID = "offer_id";
-    private static final String KEY_TITLE = "title";
-    private static final String KEY_WEIGHT = "weight";
+    private static final String KEY_DETAIL = "detail";
     private static final String KEY_PRICE = "price";
-    private static final String KEY_POINT = "point";
+    private static final String KEY_REATAILER_NAME = "retailer_name";
+    private static final String KEY_ITEM_ID = "item_id";
     private static final String KEY_IMG = "img";
-    private static final String KEY_DEL = "deliverable";
+    private static final String KEY_OFFER_ID = "offer_id";
+    private static final String KEY_CATEGORY_NAME = "category_name";
+    private static final String KEY_COMPANY_NAME = "company_name";
+    private static final String KEY_PRODUCT_NAME = "product_name";
+    private static final String KEY_WEIGHT = "weight";
+    private static final String KEY_RETAILER_ID = "retailer_id";
+    private static final String KEY_CASHBACK = "cashback";
     private static final String KEY_QUANTITY = "quantity";
 
     public int addToCart(Class_Cart tp){
@@ -82,13 +90,18 @@ public class Sqlite_cart extends SQLiteOpenHelper {
         else {
             SQLiteDatabase db = this.getWritableDatabase();
             ContentValues values = new ContentValues();
-            values.put(KEY_OFFER_ID, tp.offer_id);
-            values.put(KEY_TITLE, tp.title);
-            values.put(KEY_WEIGHT, tp.weight);
+            values.put(KEY_DETAIL, tp.detail);
             values.put(KEY_PRICE, tp.price);
-            values.put(KEY_POINT, tp.point);
+            values.put(KEY_REATAILER_NAME, tp.retailer_name);
+            values.put(KEY_ITEM_ID, tp.item_id);
             values.put(KEY_IMG, tp.img);
-            values.put(KEY_DEL, tp.deliverable);
+            values.put(KEY_OFFER_ID, tp.offer_id);
+            values.put(KEY_CATEGORY_NAME, tp.category_name);
+            values.put(KEY_COMPANY_NAME, tp.company_name);
+            values.put(KEY_PRODUCT_NAME, tp.product_name);
+            values.put(KEY_WEIGHT, tp.weight);
+            values.put(KEY_RETAILER_ID, tp.retailer_id);
+            values.put(KEY_CASHBACK, tp.cashback);
             values.put(KEY_QUANTITY, 1);
             db.insert(TABLE_Cart, null, values);
             values.clear();
@@ -105,28 +118,32 @@ public class Sqlite_cart extends SQLiteOpenHelper {
 
         try {
 
-            quantity= findIfOfferAlreadyExistsInCart(tp.getInt("offer_id"));
+            quantity= findIfOfferAlreadyExistsInCart(tp.getString("offer_id"));
 
             if(quantity>0)
             {
-                UpdateQuantity(tp.getInt("offer_id"),quantity+1);
+                UpdateQuantity(tp.getString("offer_id"),quantity+1);
                 quantity=quantity+1;
             }
             else {
                 SQLiteDatabase db = this.getWritableDatabase();
                 ContentValues values = new ContentValues();
-                values.put(KEY_OFFER_ID, tp.getInt("offer_id"));
-                values.put(KEY_DEL, tp.getBoolean("delivery")?1:0);
-                values.put(KEY_POINT, tp.getInt("points"));
-                JSONObject json=tp.getJSONObject("item");
-                values.put(KEY_TITLE, json.getString("name"));
-                values.put(KEY_WEIGHT, json.getString("weight"));
-                values.put(KEY_PRICE, json.getInt("price"));
-                values.put(KEY_IMG, json.getString("img"));
+                values.put(KEY_DETAIL, tp.getString("detail"));
+                values.put(KEY_PRICE, Integer.parseInt((tp.getString("price"))) );
+                values.put(KEY_REATAILER_NAME, tp.getString("retailer_name"));
+                values.put(KEY_ITEM_ID, tp.getString("item_id"));
+                String imga=tp.getJSONArray("img").getString(0);
+                values.put(KEY_IMG, imga);
+                values.put(KEY_OFFER_ID, tp.getString("offer_id"));
+                values.put(KEY_CATEGORY_NAME, tp.getString("category_name"));
+                values.put(KEY_COMPANY_NAME, tp.getString("company_name"));
+                values.put(KEY_PRODUCT_NAME, tp.getString("product_name"));
+                values.put(KEY_WEIGHT, tp.getString("weight"));
+                values.put(KEY_RETAILER_ID, tp.getString("retailer_id"));
+                values.put(KEY_CASHBACK, tp.getInt("cashback"));
                 values.put(KEY_QUANTITY, 1);
                 db.insert(TABLE_Cart, null, values);
                 values.clear();
-
                 db.close();
                 quantity=1;
             }
@@ -152,14 +169,22 @@ public class Sqlite_cart extends SQLiteOpenHelper {
             do {
             	tp = new Class_Cart();
                 tp.id=(Integer.parseInt(cursor.getString(0)));
-            	tp.offer_id=(Integer.parseInt(cursor.getString(1)));
-                tp.title=cursor.getString(2);
-                tp.weight=cursor.getString(3);
-                tp.price=(Integer.parseInt(cursor.getString(4)));
-                tp.point=(Integer.parseInt(cursor.getString(5)));
-                tp.img=cursor.getString(6);
-                tp.deliverable=(Integer.parseInt(cursor.getString(7)));
-                tp.quantity=(Integer.parseInt(cursor.getString(8)));
+            	tp.detail =(cursor.getString(1));
+                tp.price =(Integer.parseInt(cursor.getString(2)));
+                tp.retailer_name=cursor.getString(3);
+                tp.item_id=cursor.getString(4);
+                tp.img=cursor.getString(5);
+                tp.offer_id=cursor.getString(6);
+                tp.category_name=cursor.getString(7);
+                tp.company_name=cursor.getString(8);
+                tp.cashback=(Integer.parseInt(cursor.getString(9)));
+                tp.product_name=cursor.getString(10);
+                tp.weight=cursor.getString(11);
+                tp.quantity=(Integer.parseInt(cursor.getString(12)));
+                tp.retailer_id=cursor.getString(13);
+
+
+
                 Carted.add(tp);
             } while (cursor.moveToNext());
         }
@@ -167,7 +192,7 @@ public class Sqlite_cart extends SQLiteOpenHelper {
         return Carted;
     }
 
-    public int removeFromCart(int Offer_id)
+    public int removeFromCart(String Offer_id)
     {
         int quantity = findIfOfferAlreadyExistsInCart(Offer_id);
         if(quantity>1)
@@ -185,7 +210,7 @@ public class Sqlite_cart extends SQLiteOpenHelper {
         return quantity;
     }
 
-    public int deleteFromCart(int Offer_id)
+    public int deleteFromCart(String Offer_id)
     {
         int quantity = findIfOfferAlreadyExistsInCart(Offer_id);
         if(quantity>=1)
@@ -197,10 +222,10 @@ public class Sqlite_cart extends SQLiteOpenHelper {
         return quantity;
     }
 
-    public int findIfOfferAlreadyExistsInCart(int offer_id)
+    public int findIfOfferAlreadyExistsInCart(String offer_id)
     {
         int quantity=0;
-        String query = "SELECT  "+KEY_QUANTITY+" FROM " + TABLE_Cart + " WHERE "+KEY_OFFER_ID+" = "+offer_id+"";
+        String query = "SELECT  "+KEY_QUANTITY+" FROM " + TABLE_Cart + " WHERE "+KEY_OFFER_ID+" = '"+offer_id+"'";
         SQLiteDatabase db = this.getWritableDatabase();
         while(db.inTransaction())
         {
@@ -213,10 +238,11 @@ public class Sqlite_cart extends SQLiteOpenHelper {
             quantity=Integer.parseInt(cursor.getString(0));
         }
         db.close();
+        Log.e("quan"+query,"::"+quantity);
         return quantity;
     }
 
-    public void UpdateQuantity(int offer_id,int quantity){
+    public void UpdateQuantity(String offer_id,int quantity){
         //String query = "UPDATE "+TABLE_Notification+" set "+KEY_Seen+"='0' WHERE "+KEY_ID+">=0";
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -225,7 +251,7 @@ public class Sqlite_cart extends SQLiteOpenHelper {
         {
 
         }
-        db.update(TABLE_Cart, values, KEY_OFFER_ID + " = " + offer_id, null);
+        db.update(TABLE_Cart, values, KEY_OFFER_ID + " = " + "'"+offer_id+"'", null);
         db.close();
     }
 

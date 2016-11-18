@@ -58,7 +58,7 @@ public class AdapterReward_Redeemed extends BaseAdapter {
             ((TextView)gridView.findViewById(R.id.points)).setTextColor(context.getResources().getColor(R.color.red));
         }
         try {
-            ((TextView)gridView.findViewById(R.id.title)).setText(((JSONObject)jsonArray.get(position)).getString("title"));
+            ((TextView)gridView.findViewById(R.id.title)).setText(((JSONObject)jsonArray.get(position)).getString("retailer_name"));
             ((TextView)gridView.findViewById(R.id.points)).setText(((JSONObject) jsonArray.get(position)).getString("points"));
             ((MyImageView) gridView.findViewById(R.id.pic)).setImageUrl(((JSONObject) jsonArray.get(position)).getString("img"), imageLoader);
 

@@ -1,10 +1,9 @@
 package co.jlabs.cersei_retailer;
 
 /**
- * Created by Wadi on 19-12-2015.
+ * Created by ` on 19-12-2015.
  */
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,20 +12,13 @@ import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.volley.toolbox.ImageLoader;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-
 import co.jlabs.cersei_retailer.custom_components.AddOrRemoveCart;
 import co.jlabs.cersei_retailer.custom_components.Class_Cart;
 import co.jlabs.cersei_retailer.custom_components.MyImageView;
 import co.jlabs.cersei_retailer.custom_components.Sqlite_cart;
 import co.jlabs.cersei_retailer.custom_components.TextView_Triangle;
-import co.jlabs.cersei_retailer.custom_components.VolleyImageInterface;
 
 
 public class Adapter_Cart extends BaseAdapter {
@@ -81,17 +73,17 @@ public class Adapter_Cart extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) gridView.getTag();
         }
-        viewHolder.title.setText(offers_list.get(position).title);
+        viewHolder.title.setText(offers_list.get(position).retailer_name);
         viewHolder.weight.setText(offers_list.get(position).weight);
         viewHolder.price.setText("Rs " + offers_list.get(position).price);
-        viewHolder.points.setText("" + context.getResources().getString(R.string.rating) + offers_list.get(position).point);
+        viewHolder.points.setText("" + context.getResources().getString(R.string.rating) + offers_list.get(position).cashback);
         viewHolder.Pic.setImageUrl(offers_list.get(position).img, imageLoader);
         viewHolder.Close.setTag(position);
         viewHolder.Close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
                 Toast.makeText(context, "Removed From Cart", Toast.LENGTH_SHORT).show();
-                int quantity = cart.deleteFromCart(offers_list.get((int) v.getTag()).offer_id);
+                int quantity = cart.deleteFromCart(offers_list.get((int) v.getTag()).detail);
                 double price=offers_list.get((int) v.getTag()).price;
                 totalItemInCartTextHandler.handleText_cart(-quantity,price*-quantity);
                 View main = ((ViewGroup) v.getParent().getParent().getParent().getParent());
@@ -130,7 +122,7 @@ public class Adapter_Cart extends BaseAdapter {
             public int removeItemClicked(View v,final int position) {
                 Toast.makeText(context, "Removed From Cart", Toast.LENGTH_SHORT).show();
 
-                int quantity = cart.removeFromCart(offers_list.get(position).offer_id);
+                int quantity = cart.removeFromCart(offers_list.get(position).detail);
                 if (quantity == 0) {
                     View main = ((ViewGroup) v.getParent().getParent().getParent().getParent().getParent().getParent().getParent());
                     //Log.i("Myapp", "" + main.getId());

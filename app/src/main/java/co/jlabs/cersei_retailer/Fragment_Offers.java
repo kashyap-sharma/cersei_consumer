@@ -38,7 +38,7 @@ public class Fragment_Offers extends Fragment implements FragmentEventHandler {
   //  AutoScrollViewPager vpPager=null;
     FragmentsEventInitialiser eventInitialiser=null;
     String url = StaticCatelog.geturl()+"cersei/consumer/show_offers";
-    JSONObject json=null;
+    JSONArray json=null;
     View header;
     RecyclerView recyclerView;
 
@@ -193,7 +193,8 @@ public class Fragment_Offers extends Fragment implements FragmentEventHandler {
         }
         Area = URLEncoder.encode(Area);
 
-        url=StaticCatelog.geturl()+"cersei/consumer/offers?area="+Area+"&location="+location;
+        url=StaticCatelog.geturl()+"cersei/consumer/list_offers?location=Dwarka&area=sector%202";
+        //url=StaticCatelog.geturl()+"cersei/consumer/list_offers?location=Dwarka"+Area+"&location="+location;
 
         Log.i("Myapp", "Calling url " + url);
         if(json==null) {
@@ -203,10 +204,10 @@ public class Fragment_Offers extends Fragment implements FragmentEventHandler {
 
                         @Override
                         public void onResponse(final JSONObject response) {
-                                    json = response;
+                                    //json = response;
                             try {
-                                json= (JSONObject) json.getJSONArray("data").get(0);
-                                show_offers(json.getJSONArray("banners"),json.getJSONArray("offers"));
+                                json= (JSONArray) response.getJSONArray("data");
+                                show_offers(json);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                                 tellThatLoadedSuccessfully(false);
@@ -223,18 +224,18 @@ public class Fragment_Offers extends Fragment implements FragmentEventHandler {
             });
             AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
         }
-        else
-        {
-            try {
-                show_offers(json.getJSONArray("banners"),json.getJSONArray("offers"));
-            } catch (JSONException e) {
-                e.printStackTrace();
-                tellThatLoadedSuccessfully(false);
-            }
-        }
+//        else
+//        {
+//            try {
+//               // show_offers(json.getJSONArray("banners"),json.getJSONArray("offers"));
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//                tellThatLoadedSuccessfully(false);
+//            }
+//        }
     }
 
-    public void show_offers(JSONArray banners,JSONArray offers)
+    public void show_offers(JSONArray offers)
     {
 
         final RecyclerAdapter elementsAdapter = new RecyclerAdapter(getContext(),offers,eventInitialiser);

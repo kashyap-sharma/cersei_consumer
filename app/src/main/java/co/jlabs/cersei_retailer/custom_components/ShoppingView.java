@@ -211,6 +211,9 @@ public class ShoppingView extends View {
                 if (mState == STATE_NONE) {
                     mNum++;
                     startMoveAnim();
+                    if (mShoppingClickListener != null) {
+                        mShoppingClickListener.onAddClick(mNum);
+                    }
                 } else if (mState == STATE_ROTATE_OVER) {
                     if (isPointInCircle(new PointF(event.getX(), event.getY()), new PointF(MAX_WIDTH - MAX_HEIGHT / 2, MAX_HEIGHT / 2), MAX_HEIGHT / 2)) {
                         if (mNum > 0) {

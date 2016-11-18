@@ -5,22 +5,34 @@ package co.jlabs.cersei_retailer.custom_components;
  */
 public class Class_Cart {
     int id;
-    public Integer offer_id;
-    public String title;
+    public String detail;
+    public String retailer_name;
+    public String retailer_id;
+    public String item_id;
     public String weight;
+    public String offer_id;
+    public String category_name;
+    public String company_name;
+    public String product_name;
     public Integer price;
-    public Integer point;
-    public String img;
-    public Integer deliverable;
+    public Integer cashback;
     public Integer quantity;
+    public String img;
+
     Class_Cart(){
-        offer_id = new Integer("0");
-        title = new String();
+        detail = new String();
+        retailer_name = new String();
         weight= new String();
         price= new Integer("0");
-        point = new Integer("0");
-        img= new String();
-        deliverable = new Integer("0");
+        cashback = new Integer("0");
         quantity = new Integer("0");
+        img= new String();
+        retailer_id= new String();
+        item_id= new String();
+        offer_id= new String();
+        category_name= new String();
+        company_name= new String();
+        product_name= new String();
+
     }
 }

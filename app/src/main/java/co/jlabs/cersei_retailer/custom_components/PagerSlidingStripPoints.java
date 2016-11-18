@@ -57,11 +57,11 @@ public class PagerSlidingStripPoints extends HorizontalScrollView {
     private int currentPosition = 0;
     private float currentPositionOffset = 0f;
 
-    private Paint rectPaint;
+    //private Paint rectPaint;
     private Paint dividerPaint;
 
     private int indicatorColor = 0xFFFFFFFF;
-    private int underlineColor = 0x1A000000;
+   // private int underlineColor = 0x1A000000;
     private int dividerColor = 0x1A000000;
 
     private boolean shouldExpand = false;
@@ -69,7 +69,7 @@ public class PagerSlidingStripPoints extends HorizontalScrollView {
 
     private int scrollOffset = 52;
     private int indicatorHeight = 10;
-    private int underlineHeight = 7;
+  //  private int underlineHeight = 7;
     private int dividerPadding = 12;
     private int tabPadding = 24;
     private int dividerWidth = 1;
@@ -108,7 +108,7 @@ public class PagerSlidingStripPoints extends HorizontalScrollView {
 
         scrollOffset = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, scrollOffset, dm);
         indicatorHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, indicatorHeight, dm);
-        underlineHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, underlineHeight, dm);
+      //  underlineHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, underlineHeight, dm);
         dividerPadding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dividerPadding, dm);
         tabPadding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, tabPadding, dm);
         dividerWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dividerWidth, dm);
@@ -127,10 +127,10 @@ public class PagerSlidingStripPoints extends HorizontalScrollView {
         a = context.obtainStyledAttributes(attrs, R.styleable.PagerSlidingTabStrip);
 
         indicatorColor = a.getColor(R.styleable.PagerSlidingTabStrip_pstsIndicatorColor, indicatorColor);
-        underlineColor = a.getColor(R.styleable.PagerSlidingTabStrip_pstsUnderlineColor, underlineColor);
+     //   underlineColor = a.getColor(R.styleable.PagerSlidingTabStrip_pstsUnderlineColor, underlineColor);
         dividerColor = a.getColor(R.styleable.PagerSlidingTabStrip_pstsDividerColor, dividerColor);
         indicatorHeight = a.getDimensionPixelSize(R.styleable.PagerSlidingTabStrip_pstsIndicatorHeight, indicatorHeight);
-        underlineHeight = a.getDimensionPixelSize(R.styleable.PagerSlidingTabStrip_pstsUnderlineHeight, underlineHeight);
+     //   underlineHeight = a.getDimensionPixelSize(R.styleable.PagerSlidingTabStrip_pstsUnderlineHeight, underlineHeight);
         dividerPadding = a.getDimensionPixelSize(R.styleable.PagerSlidingTabStrip_pstsDividerPadding, dividerPadding);
         tabPadding = a.getDimensionPixelSize(R.styleable.PagerSlidingTabStrip_pstsTabPaddingLeftRight, tabPadding);
         tabBackgroundResId = a.getResourceId(R.styleable.PagerSlidingTabStrip_pstsTabBackground, tabBackgroundResId);
@@ -140,9 +140,9 @@ public class PagerSlidingStripPoints extends HorizontalScrollView {
 
         a.recycle();
 
-        rectPaint = new Paint();
-        rectPaint.setAntiAlias(true);
-        rectPaint.setStyle(Paint.Style.FILL);
+       // rectPaint = new Paint();
+     //   rectPaint.setAntiAlias(true);
+      //  rectPaint.setStyle(Paint.Style.FILL);
 
         dividerPaint = new Paint();
         dividerPaint.setAntiAlias(true);
@@ -291,7 +291,7 @@ public class PagerSlidingStripPoints extends HorizontalScrollView {
 
         // draw indicator line
 
-        rectPaint.setColor(indicatorColor);
+    //    rectPaint.setColor(indicatorColor);
 
         // default: line below current tab
         View currentTab = tabsContainer.getChildAt(currentPosition);
@@ -311,12 +311,12 @@ public class PagerSlidingStripPoints extends HorizontalScrollView {
 
         int add_sub = (int)(lineRight-lineLeft-100)/2;
 
-        canvas.drawRect(lineLeft+add_sub, height - indicatorHeight, lineRight-add_sub, height, rectPaint);
+     //   canvas.drawRect(lineLeft+add_sub, height - indicatorHeight, lineRight-add_sub, height, rectPaint);
 
         // draw underline
 
-        rectPaint.setColor(underlineColor);
-        canvas.drawRect(0, height - underlineHeight, tabsContainer.getWidth(), height, rectPaint);
+     //   rectPaint.setColor(underlineColor);
+     //   canvas.drawRect(0, height - underlineHeight, tabsContainer.getWidth(), height, rectPaint);
 
         // draw divider
 
