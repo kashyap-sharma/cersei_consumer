@@ -742,11 +742,11 @@ public class MainDashboard extends FragmentActivity implements View.OnClickListe
                 s=s+" Third ";
 //            if(!was_success_loaded_forth_page)
 //                s=s+" Fourth ";
-            Toast.makeText(this,"An Error occurred during loading data for page:"+s,Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this,"An Error occurred during loading data for page:"+s,Toast.LENGTH_SHORT).show();
 
-            if(noInternetDialogBox==null)
-                noInternetDialogBox= new NoInternetDialogBox(this, R.style.alert_dialog);
-            noInternetDialogBox.setUpLayout(this);
+//            if(noInternetDialogBox==null)
+//                noInternetDialogBox= new NoInternetDialogBox(this, R.style.alert_dialog);
+//            noInternetDialogBox.setUpLayout(this);
 
         }
     }

@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.android.volley.toolbox.ImageLoader;
@@ -41,9 +43,11 @@ public class Adapter_Cart extends BaseAdapter {
 
     static class ViewHolder
     {
-        TextView title;
-        TextView weight;
-        TextView price;
+        TextView retailer_name;
+        TextView minOrder;
+        TextView total,add_more;
+        LinearLayout min_back;
+        Button call;
         TextView_Triangle points;
         MyImageView Pic;
         AddOrRemoveCart addOrRemoveCart;
@@ -59,104 +63,111 @@ public class Adapter_Cart extends BaseAdapter {
 
         if (gridView == null) {
 
-            gridView = inflater.inflate(R.layout.adap_cart, null);
+            gridView = inflater.inflate(R.layout.new_adap_cart, null);
             viewHolder = new ViewHolder();
-            viewHolder.title = (TextView) gridView.findViewById(R.id.title);
-            viewHolder.weight = (TextView) gridView.findViewById(R.id.weight);
-            viewHolder.price = (TextView) gridView.findViewById(R.id.price);
-            viewHolder.points = (TextView_Triangle) gridView.findViewById(R.id.points);
-            viewHolder.Pic= (MyImageView) gridView.findViewById(R.id.pic);
-            viewHolder.addOrRemoveCart= (AddOrRemoveCart) gridView.findViewById(R.id.add_or_remove_cart);
+            viewHolder.retailer_name = (TextView) gridView.findViewById(R.id.retailer_name);
+            viewHolder.minOrder = (TextView) gridView.findViewById(R.id.min_order);
+            viewHolder.total = (TextView) gridView.findViewById(R.id.total);
+            viewHolder.call = (Button) gridView.findViewById(R.id.call);
+            viewHolder.add_more = (TextView) gridView.findViewById(R.id.am);
+            viewHolder.min_back = (LinearLayout) gridView.findViewById(R.id.min_order_back);
+//            viewHolder.points = (TextView_Triangle) gridView.findViewById(R.id.points);
+//            viewHolder.Pic= (MyImageView) gridView.findViewById(R.id.pic);
+//            viewHolder.addOrRemoveCart= (AddOrRemoveCart) gridView.findViewById(R.id.add_or_remove_cart);
             viewHolder.Close=gridView.findViewById(R.id.close);
             gridView.setTag(viewHolder);
 
         } else {
             viewHolder = (ViewHolder) gridView.getTag();
         }
-        viewHolder.title.setText(offers_list.get(position).retailer_name);
-        viewHolder.weight.setText(offers_list.get(position).weight);
-        viewHolder.price.setText("Rs " + offers_list.get(position).price);
-        viewHolder.points.setText("" + context.getResources().getString(R.string.rating) + offers_list.get(position).cashback);
-        viewHolder.Pic.setImageUrl(offers_list.get(position).img, imageLoader);
-        viewHolder.Close.setTag(position);
-        viewHolder.Close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                Toast.makeText(context, "Removed From Cart", Toast.LENGTH_SHORT).show();
-                int quantity = cart.deleteFromCart(offers_list.get((int) v.getTag()).detail);
-                double price=offers_list.get((int) v.getTag()).price;
-                totalItemInCartTextHandler.handleText_cart(-quantity,price*-quantity);
-                View main = ((ViewGroup) v.getParent().getParent().getParent().getParent());
-                Animation animation = AnimationUtils.loadAnimation(context, R.anim.fade_out);
-                main.startAnimation(animation);
-                animation.setAnimationListener(new Animation.AnimationListener() {
-                    @Override
-                    public void onAnimationStart(Animation animation) {
+        viewHolder.retailer_name.setText(offers_list.get(position).retailer_name);
+        viewHolder.minOrder.setText(offers_list.get(position).retailer_id);
 
-                    }
 
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                        offers_list.remove((int) v.getTag());
-                        notifyDataSetChanged();
-                    }
 
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {
 
-                    }
-                });
+//        viewHolder.price.setText("Rs " + offers_list.get(position).price);
+//        viewHolder.points.setText("" + context.getResources().getString(R.string.rating) + offers_list.get(position).cashback);
+//        viewHolder.Pic.setImageUrl(offers_list.get(position).img, imageLoader);
+//        viewHolder.Close.setTag(position);
+//        viewHolder.Close.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(final View v) {
+//                Toast.makeText(context, "Removed From Cart", Toast.LENGTH_SHORT).show();
+//                int quantity = cart.deleteFromCart(offers_list.get((int) v.getTag()).detail);
+//                double price=offers_list.get((int) v.getTag()).price;
+//                totalItemInCartTextHandler.handleText_cart(-quantity,price*-quantity);
+//                View main = ((ViewGroup) v.getParent().getParent().getParent().getParent());
+//                Animation animation = AnimationUtils.loadAnimation(context, R.anim.fade_out);
+//                main.startAnimation(animation);
+//                animation.setAnimationListener(new Animation.AnimationListener() {
+//                    @Override
+//                    public void onAnimationStart(Animation animation) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onAnimationEnd(Animation animation) {
+//                        offers_list.remove((int) v.getTag());
+//                        notifyDataSetChanged();
+//                    }
+//
+//                    @Override
+//                    public void onAnimationRepeat(Animation animation) {
+//
+//                    }
+//                });
+//
+//            }
+//        });
 
-            }
-        });
-
-        viewHolder.addOrRemoveCart.addOnItemClickListner(new AddOrRemoveCart.ItemsClickListener() {
-            @Override
-            public int addItemClicked(int position) {
-                Toast.makeText(context, "Added To Cart", Toast.LENGTH_SHORT).show();
-                totalItemInCartTextHandler.handleText_cart(1,offers_list.get(position).price);
-                return cart.addToCart(offers_list.get(position));
-            }
-
-            @Override
-            public int removeItemClicked(View v,final int position) {
-                Toast.makeText(context, "Removed From Cart", Toast.LENGTH_SHORT).show();
-
-                int quantity = cart.removeFromCart(offers_list.get(position).detail);
-                if (quantity == 0) {
-                    View main = ((ViewGroup) v.getParent().getParent().getParent().getParent().getParent().getParent().getParent());
-                    //Log.i("Myapp", "" + main.getId());
-                    Animation animation = AnimationUtils.loadAnimation(context, R.anim.fade_out);
-                    main.startAnimation(animation);
-
-                    animation.setAnimationListener(new Animation.AnimationListener() {
-                        @Override
-                        public void onAnimationStart(Animation animation) {
-
-                        }
-
-                        @Override
-                        public void onAnimationEnd(Animation animation) {
-                            offers_list.remove(position);
-                            notifyDataSetChanged();
-                        }
-
-                        @Override
-                        public void onAnimationRepeat(Animation animation) {
-
-                        }
-                    });
-
-                }
-                totalItemInCartTextHandler.handleText_cart(-1,-offers_list.get(position).price);
-                return quantity;
-            }
-        }, position, offers_list.get(position).quantity);
-        if((position > lastPosition)) {
-            animation = AnimationUtils.loadAnimation(context, R.anim.up_from_bottom);
-            gridView.startAnimation(animation);
-        }
-        lastPosition = position;
+//        viewHolder.addOrRemoveCart.addOnItemClickListner(new AddOrRemoveCart.ItemsClickListener() {
+//            @Override
+//            public int addItemClicked(int position) {
+//                Toast.makeText(context, "Added To Cart", Toast.LENGTH_SHORT).show();
+//                totalItemInCartTextHandler.handleText_cart(1,offers_list.get(position).price);
+//                return cart.addToCart(offers_list.get(position));
+//            }
+//
+//            @Override
+//            public int removeItemClicked(View v,final int position) {
+//                Toast.makeText(context, "Removed From Cart", Toast.LENGTH_SHORT).show();
+//
+//                int quantity = cart.removeFromCart(offers_list.get(position).detail);
+//                if (quantity == 0) {
+//                    View main = ((ViewGroup) v.getParent().getParent().getParent().getParent().getParent().getParent().getParent());
+//                    //Log.i("Myapp", "" + main.getId());
+//                    Animation animation = AnimationUtils.loadAnimation(context, R.anim.fade_out);
+//                    main.startAnimation(animation);
+//
+//                    animation.setAnimationListener(new Animation.AnimationListener() {
+//                        @Override
+//                        public void onAnimationStart(Animation animation) {
+//
+//                        }
+//
+//                        @Override
+//                        public void onAnimationEnd(Animation animation) {
+//                            offers_list.remove(position);
+//                            notifyDataSetChanged();
+//                        }
+//
+//                        @Override
+//                        public void onAnimationRepeat(Animation animation) {
+//
+//                        }
+//                    });
+//
+//                }
+//                totalItemInCartTextHandler.handleText_cart(-1,-offers_list.get(position).price);
+//                return quantity;
+//            }
+//        }, position, offers_list.get(position).quantity);
+//        if((position > lastPosition)) {
+//            animation = AnimationUtils.loadAnimation(context, R.anim.up_from_bottom);
+//            gridView.startAnimation(animation);
+//        }
+//        lastPosition = position;
 
         return gridView;
     }

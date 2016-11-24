@@ -15,6 +15,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import co.jlabs.cersei_retailer.Class_retailer;
+
 public class Sqlite_cart extends SQLiteOpenHelper {
 
 	// Database Version
@@ -32,7 +34,7 @@ public class Sqlite_cart extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
  		String CREATE_CartED_TABLE = "CREATE TABLE Cart ( " +
-                "id INTEGER PRIMARY KEY AUTOINCREMENT, " + 
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "detail TEXT, " +
                 "price INTEGER,"+
                 "retailer_name TEXT, " +
@@ -47,11 +49,33 @@ public class Sqlite_cart extends SQLiteOpenHelper {
                 "quantity INTEGER, " +
                 "retailer_id TEXT);";
  		db.execSQL(CREATE_CartED_TABLE);
+        String CREATE_RETAILER_LIST = "CREATE TABLE Retailer ( " +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "retailer_name TEXT, " +
+                "contact TEXT, " +
+                "min_order TEXT, " +
+                "address TEXT, " +
+                "retailer_id TEXT);";
+        db.execSQL(CREATE_RETAILER_LIST);
+        String CREATE_RETAILER_AREAS = "CREATE TABLE RetailerArea ( " +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "shipping_charges INTEGER, " +
+                "locality TEXT, " +
+                "sub_locality TEXT, " +
+                "areas TEXT, " +
+                "retailer_id TEXT);";
+        db.execSQL(CREATE_RETAILER_AREAS);
+
+
+
     }
+
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS Cart");
+        db.execSQL("DROP TABLE IF EXISTS Retailer");
+        db.execSQL("DROP TABLE IF EXISTS RetailerArea");
 
         this.onCreate(db);
 	}
@@ -62,6 +86,7 @@ public class Sqlite_cart extends SQLiteOpenHelper {
      */
 
     private static final String TABLE_Cart = "Cart";
+    private static final String TABLE_Retailer = "Retailer";
 
     private static final String KEY_ID = "id";
     private static final String KEY_DETAIL = "detail";
@@ -77,6 +102,25 @@ public class Sqlite_cart extends SQLiteOpenHelper {
     private static final String KEY_RETAILER_ID = "retailer_id";
     private static final String KEY_CASHBACK = "cashback";
     private static final String KEY_QUANTITY = "quantity";
+
+
+
+
+    private static final String KEY_CONTACT = "contact";
+    private static final String KEY_MIN_ORDER = "min_order";
+    private static final String KEY_ADDRESS = "address";
+
+    private static final String KEY_SHIPPING_CHARGES = "shipping_charges";
+    private static final String KEY_LOCALITY = "locality";
+    private static final String KEY_SUB_LOCALITY = "sub_locality";
+    private static final String KEY_AREAS = "areas";
+
+
+
+
+
+
+
 
     public int addToCart(Class_Cart tp){
 
@@ -112,17 +156,83 @@ public class Sqlite_cart extends SQLiteOpenHelper {
         return quantity;
     }
 
+
+    public int addRetailer(Class_retailer cr){
+
+        int quantity = 0;
+        //int quantity = findIfRetailerExist(cr.retailer_id);
+
+        if(quantity>0)
+        {
+            UpdateQuantity(cr.retailer_id,quantity+1);
+            quantity=quantity+1;
+        }
+        else {
+            SQLiteDatabase db = this.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put(KEY_REATAILER_NAME, cr.retailer_name);
+            values.put(KEY_RETAILER_ID, cr.retailer_id);
+            values.put(KEY_CONTACT, cr.contact);
+            values.put(KEY_MIN_ORDER, cr.min_order);
+            values.put(KEY_ADDRESS, cr.address);
+            db.insert(TABLE_Retailer, null, values);
+            values.clear();
+
+            db.close();
+            quantity=1;
+        }
+        return quantity;
+    }
+
+
+
+
+
+//    public int addRetailer(JSONObject tp){
+//
+//        int quantity =0;
+//
+//        try {
+//
+//          //  quantity= findIfRetailerExist(tp.getString("retailer_id"));
+//
+//            if(quantity>0)
+//            {
+//                UpdateRQuantity(tp.getString("retailer_id"),quantity+1);
+//                quantity=quantity+1;
+//            }
+//            else {
+//                SQLiteDatabase db = this.getWritableDatabase();
+//                ContentValues values = new ContentValues();
+//                values.put(KEY_REATAILER_NAME, tp.getString("name"));
+//                values.put(KEY_RETAILER_ID, (tp.getString("retailer_id")) );
+//                values.put(KEY_CONTACT, tp.getString("contact"));
+//                values.put(KEY_MIN_ORDER, tp.getString("min_order"));
+//                values.put(KEY_ADDRESS, tp.getString("address"));
+//                values.put(KEY_QUANTITY, 1);
+//                db.insert(TABLE_Retailer, null, values);
+//                values.clear();
+//                db.close();
+//                quantity=1;
+//            }
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//        return quantity;
+//    }
+
+
     public int addToCart(JSONObject tp){
 
         int quantity =0;
 
         try {
 
-            quantity= findIfOfferAlreadyExistsInCart(tp.getString("offer_id"));
+            quantity= findIfOfferAlreadyExistsInCart(tp.getString("offer_id")+tp.getString("retailer_id"));
 
             if(quantity>0)
             {
-                UpdateQuantity(tp.getString("offer_id"),quantity+1);
+                UpdateQuantity(tp.getString("offer_id")+tp.getString("retailer_id"),quantity+1);
                 quantity=quantity+1;
             }
             else {
@@ -134,7 +244,7 @@ public class Sqlite_cart extends SQLiteOpenHelper {
                 values.put(KEY_ITEM_ID, tp.getString("item_id"));
                 String imga=tp.getJSONArray("img").getString(0);
                 values.put(KEY_IMG, imga);
-                values.put(KEY_OFFER_ID, tp.getString("offer_id"));
+                values.put(KEY_OFFER_ID, tp.getString("offer_id")+tp.getString("retailer_id"));
                 values.put(KEY_CATEGORY_NAME, tp.getString("category_name"));
                 values.put(KEY_COMPANY_NAME, tp.getString("company_name"));
                 values.put(KEY_PRODUCT_NAME, tp.getString("product_name"));
@@ -242,6 +352,32 @@ public class Sqlite_cart extends SQLiteOpenHelper {
         return quantity;
     }
 
+
+    public ArrayList<Class_Cart> findIfRetailerExist()
+    {
+        ArrayList<Class_Cart> Carted = new ArrayList<>();
+        int quantity=0;
+        String query = "SELECT DISTINCT  "+KEY_RETAILER_ID+" FROM " + " TABLE_Retailer ";
+        SQLiteDatabase db = this.getWritableDatabase();
+        while(db.inTransaction())
+        {
+
+        }
+        db.beginTransaction();
+        Cursor cursor = db.rawQuery(query, null);
+        db.endTransaction();
+        if (cursor.moveToFirst()) {
+            quantity=Integer.parseInt(cursor.getString(0));
+        }
+        db.close();
+        Log.e("quan"+query,"::"+quantity);
+        return Carted;
+    }
+
+
+
+
+
     public void UpdateQuantity(String offer_id,int quantity){
         //String query = "UPDATE "+TABLE_Notification+" set "+KEY_Seen+"='0' WHERE "+KEY_ID+">=0";
         SQLiteDatabase db = this.getWritableDatabase();
@@ -252,6 +388,19 @@ public class Sqlite_cart extends SQLiteOpenHelper {
 
         }
         db.update(TABLE_Cart, values, KEY_OFFER_ID + " = " + "'"+offer_id+"'", null);
+        db.close();
+    }
+
+    public void UpdateRQuantity(String retailer_id,int quantity){
+        //String query = "UPDATE "+TABLE_Notification+" set "+KEY_Seen+"='0' WHERE "+KEY_ID+">=0";
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_QUANTITY, quantity);
+        while(db.inTransaction())
+        {
+
+        }
+        db.update(TABLE_Retailer, values, KEY_RETAILER_ID + " = " + "'"+retailer_id+"'", null);
         db.close();
     }
 
