@@ -15,7 +15,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import co.jlabs.cersei_retailer.Class_retailer;
+
 
 public class Sqlite_cart extends SQLiteOpenHelper {
 
@@ -102,14 +102,9 @@ public class Sqlite_cart extends SQLiteOpenHelper {
     private static final String KEY_RETAILER_ID = "retailer_id";
     private static final String KEY_CASHBACK = "cashback";
     private static final String KEY_QUANTITY = "quantity";
-
-
-
-
     private static final String KEY_CONTACT = "contact";
     private static final String KEY_MIN_ORDER = "min_order";
     private static final String KEY_ADDRESS = "address";
-
     private static final String KEY_SHIPPING_CHARGES = "shipping_charges";
     private static final String KEY_LOCALITY = "locality";
     private static final String KEY_SUB_LOCALITY = "sub_locality";
@@ -157,17 +152,13 @@ public class Sqlite_cart extends SQLiteOpenHelper {
     }
 
 
-    public int addRetailer(Class_retailer cr){
+    public void addRetailer(Class_retailer cr){
 
-        int quantity = 0;
+
         //int quantity = findIfRetailerExist(cr.retailer_id);
 
-        if(quantity>0)
-        {
-            UpdateQuantity(cr.retailer_id,quantity+1);
-            quantity=quantity+1;
-        }
-        else {
+
+
             SQLiteDatabase db = this.getWritableDatabase();
             ContentValues values = new ContentValues();
             values.put(KEY_REATAILER_NAME, cr.retailer_name);
@@ -179,47 +170,41 @@ public class Sqlite_cart extends SQLiteOpenHelper {
             values.clear();
 
             db.close();
-            quantity=1;
-        }
-        return quantity;
+
+
     }
 
 
 
 
 
-//    public int addRetailer(JSONObject tp){
-//
-//        int quantity =0;
-//
-//        try {
-//
-//          //  quantity= findIfRetailerExist(tp.getString("retailer_id"));
-//
-//            if(quantity>0)
-//            {
-//                UpdateRQuantity(tp.getString("retailer_id"),quantity+1);
-//                quantity=quantity+1;
-//            }
-//            else {
-//                SQLiteDatabase db = this.getWritableDatabase();
-//                ContentValues values = new ContentValues();
-//                values.put(KEY_REATAILER_NAME, tp.getString("name"));
-//                values.put(KEY_RETAILER_ID, (tp.getString("retailer_id")) );
-//                values.put(KEY_CONTACT, tp.getString("contact"));
-//                values.put(KEY_MIN_ORDER, tp.getString("min_order"));
-//                values.put(KEY_ADDRESS, tp.getString("address"));
-//                values.put(KEY_QUANTITY, 1);
-//                db.insert(TABLE_Retailer, null, values);
-//                values.clear();
-//                db.close();
-//                quantity=1;
-//            }
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//        return quantity;
-//    }
+    public void addRetailer(JSONObject tp){
+
+
+        try {
+
+          //  quantity= findIfRetailerExist(tp.getString("retailer_id"));
+
+
+                SQLiteDatabase db = this.getWritableDatabase();
+                ContentValues values = new ContentValues();
+                values.put(KEY_REATAILER_NAME, tp.getString("name"));
+                values.put(KEY_RETAILER_ID, (tp.getString("retailer_id")) );
+                values.put(KEY_CONTACT, tp.getString("contact"));
+                values.put(KEY_MIN_ORDER, tp.getString("min_order"));
+                values.put(KEY_ADDRESS, tp.getString("address"));
+                db.insert(TABLE_Retailer, null, values);
+                values.clear();
+                db.close();
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
 
 
     public int addToCart(JSONObject tp){
@@ -263,6 +248,105 @@ public class Sqlite_cart extends SQLiteOpenHelper {
         return quantity;
     }
 
+    public ArrayList<Class_Cart> getDistinctRetailer() {
+        ArrayList<Class_Cart> Carted = new ArrayList<>();
+        String query = "SELECT  DISTINCT  retailer_id  FROM Cart ";
+        SQLiteDatabase db = this.getWritableDatabase();
+        while(db.inTransaction())
+        {
+
+        }
+        db.beginTransaction();
+        Cursor cursor = db.rawQuery(query, null);
+        db.endTransaction();
+        Class_Cart tp = null;
+        if (cursor.moveToFirst()) {
+            do {
+                tp = new Class_Cart();
+                tp.retailer_id=cursor.getString(0);
+                Log.e("somedata",":"+cursor.getString(0));
+                Log.e("somedata1",":"+cursor.getColumnName(0));
+
+                Carted.add(tp);
+            } while (cursor.moveToNext());
+        }
+
+
+
+        db.close();
+
+
+
+
+        return Carted;
+
+
+
+
+    }
+
+
+
+
+
+    public ArrayList<Class_Cart> getRetailerdata(String s) {
+        ArrayList<Class_Cart> Carted = new ArrayList<>();
+        String query = "SELECT  *   FROM Cart where retailer_id = "+"'"+s+"'" ;
+        SQLiteDatabase db = this.getWritableDatabase();
+        while(db.inTransaction())
+        {
+
+        }
+        db.beginTransaction();
+        Cursor cursor = db.rawQuery(query, null);
+        db.endTransaction();
+        Class_Cart tp = null;
+        if (cursor.moveToFirst()) {
+            do {
+                tp = new Class_Cart();
+                tp.id=(Integer.parseInt(cursor.getString(0)));
+                tp.detail =(cursor.getString(1));
+                tp.price =(Integer.parseInt(cursor.getString(2)));
+                tp.retailer_name=cursor.getString(3);
+                tp.item_id=cursor.getString(4);
+                tp.img=cursor.getString(5);
+                tp.offer_id=cursor.getString(6);
+                tp.category_name=cursor.getString(7);
+                tp.company_name=cursor.getString(8);
+                tp.cashback=(Integer.parseInt(cursor.getString(9)));
+                tp.product_name=cursor.getString(10);
+                tp.weight=cursor.getString(11);
+                tp.quantity=(Integer.parseInt(cursor.getString(12)));
+                tp.retailer_id=cursor.getString(13);
+                Log.e("somedata",":"+cursor.getColumnName(0));
+                Log.e("somedata",":"+cursor.getString(1));
+                Carted.add(tp);
+            } while (cursor.moveToNext());
+        }
+
+
+
+        db.close();
+
+
+
+
+        return Carted;
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
     public ArrayList<Class_Cart> getAllCart() {
     	ArrayList<Class_Cart> Carted = new ArrayList<>();
         String query = "SELECT  * FROM " + TABLE_Cart + " ORDER BY id desc";
@@ -292,9 +376,6 @@ public class Sqlite_cart extends SQLiteOpenHelper {
                 tp.weight=cursor.getString(11);
                 tp.quantity=(Integer.parseInt(cursor.getString(12)));
                 tp.retailer_id=cursor.getString(13);
-
-
-
                 Carted.add(tp);
             } while (cursor.moveToNext());
         }

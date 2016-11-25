@@ -270,9 +270,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     JSONArray pic=((JSONObject) json_offers.get(position - 1)).getJSONArray("img");
                     String picas=pic.get(0).toString();
                     Log.e("Picas",picas);
-                    Picasso.with(context)
-                            .load(picas)
-                            .into(holder.Pic);
+//                    Picasso.with(context)
+//                            .load(picas)
+//                            .into(holder.Pic);
 
 
 //                    holder.Pic.setOnImageChangeListner(new VolleyImageInterface() {

@@ -59,6 +59,7 @@ public class Fragment_Cart extends Fragment implements FragmentEventHandler{
         checkout_lay=layoutView.findViewById(R.id.lay_checkout);
         checkout=layoutView.findViewById(R.id.checkout);
         ArrayList<Class_Cart> items = cart.getAllCart();
+        ArrayList<Class_Cart> itema = cart.getDistinctRetailer();
         for (int i=0;i<items.size();i++)
         {
             total_item=total_item+items.get(i).quantity;
@@ -79,7 +80,7 @@ public class Fragment_Cart extends Fragment implements FragmentEventHandler{
         };
         View no_item_cart_view = layoutView.findViewById(R.id.emptycartview);
         lv.setEmptyView(no_item_cart_view);
-        Adapter_Cart adapter_cart = new Adapter_Cart(getContext(),items,handler);
+        Adapter_Cart adapter_cart = new Adapter_Cart(getContext(),items,itema,handler);
         lv.setAdapter(adapter_cart);
         handleCheckoutVisibility();
         checkout.setOnClickListener(new View.OnClickListener() {
@@ -105,6 +106,7 @@ public class Fragment_Cart extends Fragment implements FragmentEventHandler{
         if(on)
         {
             ArrayList<Class_Cart> items = cart.getAllCart();
+            ArrayList<Class_Cart> itema = cart.getDistinctRetailer();
             int total_item=0;
             double total_price=0.0;
             for (int i=0;i<items.size();i++)
@@ -117,7 +119,7 @@ public class Fragment_Cart extends Fragment implements FragmentEventHandler{
             ((TextView)layoutView.findViewById(R.id.money_foot)).setText(""+total_price);
             this.total_item=total_item;
             this.total_pice=total_price;
-            Adapter_Cart adapter_cart = new Adapter_Cart(getContext(),items,handler);
+            Adapter_Cart adapter_cart = new Adapter_Cart(getContext(),items,itema,handler);
             lv.setAdapter(adapter_cart);
             handleCheckoutVisibility();
         }

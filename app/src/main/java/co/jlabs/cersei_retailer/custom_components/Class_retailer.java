@@ -1,4 +1,4 @@
-package co.jlabs.cersei_retailer;
+package co.jlabs.cersei_retailer.custom_components;
 
 /**
  * Created by JLabs on 11/24/16.

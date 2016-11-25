@@ -40,6 +40,9 @@ public class Fragment_Offers extends Fragment implements FragmentEventHandler {
     String url = StaticCatelog.geturl()+"cersei/consumer/show_offers";
     JSONArray json=null;
     View header;
+    JSONArray json_retailer;
+    Context context;
+    Sqlite_cart cart;
     RecyclerView recyclerView;
 
     static Fragment_Offers init(int val) {
@@ -54,6 +57,7 @@ public class Fragment_Offers extends Fragment implements FragmentEventHandler {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         fragVal = getArguments() != null ? getArguments().getInt("val") : 0;
     }
 
@@ -62,7 +66,7 @@ public class Fragment_Offers extends Fragment implements FragmentEventHandler {
                              Bundle savedInstanceState) {
         View layoutView = inflater.inflate(R.layout.firstpage, container,
                 false);
-
+        cart = new Sqlite_cart(getContext());
         header = inflater.inflate(R.layout.header_xml, null, false);
 
         recyclerView = (RecyclerView) layoutView.findViewById(R.id.recycler_view);
@@ -235,6 +239,60 @@ public class Fragment_Offers extends Fragment implements FragmentEventHandler {
 //        }
     }
 
+
+
+    private void download_retailer(String Area,String location) {
+
+        String tag_json_obj = "json_obj_req_get_offers";
+        try {
+            location=URLEncoder.encode(location, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        Area = URLEncoder.encode(Area);
+
+        url=StaticCatelog.geturl()+"cersei/consumer/retailer/list_offers?location=Dwarka&area=sector%202";
+        //url=StaticCatelog.geturl()+"cersei/consumer/list_offers?location=Dwarka"+Area+"&location="+location;
+
+        Log.i("Myapp", "Calling url " + url);
+        if(json==null) {
+            JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
+                    url, null,
+                    new Response.Listener<JSONObject>() {
+
+                        @Override
+                        public void onResponse(final JSONObject response) {
+                            //json = response;
+                            try {
+                                json= (JSONArray) response.getJSONArray("data");
+                                save_retailer(json);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                tellThatLoadedSuccessfully(false);
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    VolleyLog.d("Error", "Error: " + error.getMessage());
+                    tellThatLoadedSuccessfully(false);
+                }
+            });
+            AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
+        }
+//        else
+//        {
+//            try {
+//               // show_offers(json.getJSONArray("banners"),json.getJSONArray("offers"));
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//                tellThatLoadedSuccessfully(false);
+//            }
+//        }
+    }
+
     public void show_offers(JSONArray offers)
     {
 
@@ -255,6 +313,35 @@ public class Fragment_Offers extends Fragment implements FragmentEventHandler {
 
         recyclerView.setAdapter(elementsAdapter);
         tellThatLoadedSuccessfully(true);
+
+    }
+    public void save_retailer(JSONArray offers)
+
+    {
+
+        int position= offers.length();
+
+
+        try {
+            cart.addRetailer( offers.getJSONObject(position));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+/*        CustomPagerAdapter adapter = new CustomPagerAdapter(getContext(),banners);
+
+        vpPager = (AutoScrollViewPager) header.findViewById(R.id.pager);
+
+        vpPager.setAdapter(adapter);
+        vpPager.setCurrentItem(500);
+        vpPager.setAutoScrollDurationFactor(8);
+        vpPager.setSwipeScrollDurationFactor(3);
+        vpPager.setInterval(2000);
+        vpPager.startAutoScroll();
+        vpPager.setPageTransformer(true, new ZoomOutTranformer());*/
+
+
 
     }
 }
