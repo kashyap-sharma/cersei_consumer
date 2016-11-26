@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <ImageView
+    <co.jlabs.cersei_retailer.custom_components.MyImageView
         android:id="@+id/pic"
         android:layout_width="56dp"
         android:layout_margin="10dp"
@@ -29,6 +29,7 @@
         android:layout_marginTop="3dp"
         android:layout_toLeftOf="@+id/add_or_remove_cart"
         android:textSize="16sp"
+        android:id="@+id/money"
         android:layout_marginLeft="10dp"
         android:text="₹100"/>
     <co.jlabs.cersei_retailer.custom_components.AddOrRemoveCart

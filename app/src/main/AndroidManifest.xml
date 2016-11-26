@@ -60,7 +60,8 @@
             android:label="Details"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Transparent" />
-        <activity android:name=".SelectLocation">
+        <activity android:name=".SelectLocation"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
