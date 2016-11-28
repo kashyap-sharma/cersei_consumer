@@ -96,6 +96,8 @@ public class Fragment_Offers extends Fragment implements FragmentEventHandler {
     public void startLoadbylocation(String Area,String location) {
         json=null;
         download_offers(Area,location);
+        download_retailer(Area,location);
+
     }
 
  /*   class CustomPagerAdapter extends PagerAdapter {
@@ -169,6 +171,7 @@ public class Fragment_Offers extends Fragment implements FragmentEventHandler {
             eventInitialiser.registerMyevent(fragVal,this);
         if(json==null)
             download_offers(StaticCatelog.getStringProperty(getContext(),"area"),StaticCatelog.getStringProperty(getContext(),"location"));
+            download_retailer(StaticCatelog.getStringProperty(getContext(),"area"),StaticCatelog.getStringProperty(getContext(),"location"));
 
 
     }
@@ -320,10 +323,15 @@ public class Fragment_Offers extends Fragment implements FragmentEventHandler {
     {
 
         int position= offers.length();
-
+        Log.e("Length",""+offers.length());
 
         try {
-            cart.addRetailer( offers.getJSONObject(position));
+            for(int i=0;i<position;i++){
+                cart.addRetailer( offers.getJSONObject(i));
+                Log.e("Lengths",""+i);
+
+            }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

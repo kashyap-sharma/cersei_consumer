@@ -4,6 +4,8 @@ package co.jlabs.cersei_retailer;
  * Created by ` on 19-12-2015.
  */
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +14,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,9 +25,7 @@ import co.jlabs.cersei_retailer.custom_components.Class_retailer;
 import co.jlabs.cersei_retailer.custom_components.MyImageView;
 import co.jlabs.cersei_retailer.custom_components.Sqlite_cart;
 import co.jlabs.cersei_retailer.custom_components.TextView_Triangle;
-
 import static co.jlabs.cersei_retailer.R.id.father;
-import static com.facebook.FacebookSdk.getApplicationContext;
 
 
 public class Adapter_Cart extends BaseAdapter {
@@ -93,10 +92,26 @@ public class Adapter_Cart extends BaseAdapter {
 
 
 
-        viewHolder.retailer_name.setText(offers_list.get(position).retailer_name);
-        viewHolder.minOrder.setText(offers_list.get(position).retailer_id);
-     final   ArrayList<Class_Cart> tots = cart.getRetailerdata(offers_list.get(position).retailer_id);
+
+
+     final   ArrayList<Class_Cart> tots = cart.getRetailerOrderData(offers_list.get(position).retailer_id);
+     final   ArrayList<Class_retailer> ret = cart.getRetailerData(offers_list.get(position).retailer_id);
+        int M= ret.size();
+        Log.e("geet",""+ret.get(0).retailer_name);
+        viewHolder.retailer_name.setText(ret.get(0).retailer_name);
+        viewHolder.minOrder.setText(ret.get(0).min_order);
+        //viewHolder.total = (TextView) gridView.findViewById(R.id.total);
+        viewHolder.call.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent callIntent = new Intent(Intent.ACTION_CALL,Uri.parse("tel:"+ret.get(0).contact));
+                context.startActivity(callIntent);
+            }
+        });
+//        viewHolder.add_more = (TextView) gridView.findViewById(R.id.am);
+//        viewHolder.min_back = (LinearLayout) gridView.findViewById(R.id.min_order_back);
         N=tots.size();
+
        //final TextView[] myTextViews = new TextView[N];
 
 

@@ -62,6 +62,7 @@ public class Fragment_Cart extends Fragment implements FragmentEventHandler{
         ArrayList<Class_Cart> itema = cart.getDistinctRetailer();
         for (int i=0;i<items.size();i++)
         {
+
             total_item=total_item+items.get(i).quantity;
             total_pice=total_pice+items.get(i).price*items.get(i).quantity;
         }

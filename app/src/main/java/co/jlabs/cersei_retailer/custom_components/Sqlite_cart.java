@@ -185,7 +185,7 @@ public class Sqlite_cart extends SQLiteOpenHelper {
 
           //  quantity= findIfRetailerExist(tp.getString("retailer_id"));
 
-
+                Log.e("log",""+tp.toString());
                 SQLiteDatabase db = this.getWritableDatabase();
                 ContentValues values = new ContentValues();
                 values.put(KEY_REATAILER_NAME, tp.getString("name"));
@@ -289,7 +289,7 @@ public class Sqlite_cart extends SQLiteOpenHelper {
 
 
 
-    public ArrayList<Class_Cart> getRetailerdata(String s) {
+    public ArrayList<Class_Cart> getRetailerOrderData(String s) {
         ArrayList<Class_Cart> Carted = new ArrayList<>();
         String query = "SELECT  *   FROM Cart where retailer_id = "+"'"+s+"'" ;
         SQLiteDatabase db = this.getWritableDatabase();
@@ -341,7 +341,43 @@ public class Sqlite_cart extends SQLiteOpenHelper {
 
 
 
+    public ArrayList<Class_retailer> getRetailerData(String s) {
+        ArrayList<Class_retailer> Carted = new ArrayList<>();
+        String query = "SELECT  *   FROM Retailer where retailer_id = "+"'"+s+"'" ;
+        SQLiteDatabase db = this.getWritableDatabase();
+        while(db.inTransaction())
+        {
 
+        }
+        db.beginTransaction();
+        Cursor cursor = db.rawQuery(query, null);
+        db.endTransaction();
+        Class_retailer tp = null;
+        if (cursor.moveToFirst()) {
+            do {
+                tp = new Class_retailer();
+                tp.id=(Integer.parseInt(cursor.getString(0)));
+                tp.retailer_name =cursor.getString(1);
+                tp.contact =cursor.getString(2);
+                tp.min_order=cursor.getString(3);
+                tp.address=cursor.getString(4);
+                tp.retailer_id=cursor.getString(5);
+                Log.e("somedatar",":"+cursor.getColumnName(0));
+                Log.e("somedatare",":"+cursor.getString(1));
+                Carted.add(tp);
+            } while (cursor.moveToNext());
+        }
+        db.close();
+
+
+
+
+        return Carted;
+
+
+
+
+    }
 
 
 
