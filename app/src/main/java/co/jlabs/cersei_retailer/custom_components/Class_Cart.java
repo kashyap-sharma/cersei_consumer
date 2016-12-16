@@ -17,6 +17,7 @@ public class Class_Cart {
     public Integer price;
     public Integer cashback;
     public Integer quantity;
+    public Integer remaining_qrcodes;
     public String img;
 
     Class_Cart(){
@@ -25,6 +26,7 @@ public class Class_Cart {
         weight= new String();
         price= new Integer("0");
         cashback = new Integer("0");
+        remaining_qrcodes = new Integer("0");
         quantity = new Integer("0");
         img= new String();
         retailer_id= new String();

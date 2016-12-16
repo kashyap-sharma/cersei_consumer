@@ -89,7 +89,7 @@ public class Fragment_Cart extends Fragment implements FragmentEventHandler{
             public void onClick(View v) {
                 Toast.makeText(getContext(),"Checkout",Toast.LENGTH_SHORT).show();
                 //check out page
-                Intent intent =new Intent(getContext(), AddressFiller.class);
+                Intent intent =new Intent(getContext(), ProcessOrder.class);
                   startActivity(intent);
 
 
@@ -118,6 +118,7 @@ public class Fragment_Cart extends Fragment implements FragmentEventHandler{
             }
             ((TextView)getView().findViewById(R.id.num_of_items_in_cart)).setText(""+total_item);
             ((TextView)layoutView.findViewById(R.id.money_foot)).setText(""+total_price);
+            StaticCatelog.setStringProperty(getContext(),"total_price",String.valueOf(total_price));
             this.total_item=total_item;
             this.total_pice=total_price;
             Adapter_Cart adapter_cart = new Adapter_Cart(getContext(),items,itema,handler);

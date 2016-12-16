@@ -231,20 +231,32 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     holder.newADD.setOnShoppingClickListener(new ShoppingView.ShoppingClickListener() {
                         @Override
                         public void onAddClick(int num) {
-                            Toast.makeText(context, "Added To Cart", Toast.LENGTH_SHORT).show();
+
                             int quantity=0;
+                            try {
+                                int remaining_qrcodes= ((JSONObject) json_offers.get(position - 1)).getInt("remaining_qrcodes");
+                                Log.e(""+position,"remaining_qrcodes:"+remaining_qrcodes);
+                                if (remaining_qrcodes>cart.findIfOfferAlreadyExistsInCart((( json_offers.getJSONObject((position - 1))).getString("offer_id")))) {
+                                    eventInitialiser.updateCart(true);
+                                    try{
 
-                            eventInitialiser.updateCart(true);
-                            try{
+                                        quantity=cart.addToCart( json_offers.getJSONObject(position - 1));
+                                        Log.e("ero","0"+ json_offers.getJSONObject(position - 1).getString("item_id"));
+                                        holder.newADD.setTextNum(quantity);
+                                        Toast.makeText(context, "Added To Cart", Toast.LENGTH_SHORT).show();
+                                    }
+                                    catch (Exception e)
+                                    {
 
-                                quantity=cart.addToCart( json_offers.getJSONObject(position - 1));
-                                Log.e("ero","0"+ json_offers.getJSONObject(position - 1).getString("item_id"));
-                                holder.newADD.setTextNum(quantity);
+                                    }
+                                } else {
+                                    holder.newADD.setTextNum(remaining_qrcodes);
+                                    Toast.makeText(context, "Limited Inventory", Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                            catch (Exception e)
-                            {
 
-                            }
                         }
 
                         @Override
@@ -254,6 +266,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
                             eventInitialiser.updateCart(false);
                             try {
+
                                 quantity=cart.removeFromCart((( json_offers.getJSONObject((position - 1))).getString("offer_id")));
                                 Log.e("somee",""+quantity);
                                 holder.newADD.setTextNum(quantity);
@@ -270,9 +283,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     JSONArray pic=((JSONObject) json_offers.get(position - 1)).getJSONArray("img");
                     String picas=pic.get(0).toString();
                     Log.e("Picas",picas);
-//                    Picasso.with(context)
-//                            .load(picas)
-//                            .into(holder.Pic);
+                    try {
+                        Picasso.with(context)
+                                .load(picas)
+                                .into(holder.Pic);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
 
 
 //                    holder.Pic.setOnImageChangeListner(new VolleyImageInterface() {
@@ -337,13 +354,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 //        v.getContext().startActivity(i);
 
 
+
+
+        /*
         Intent i = new Intent(v.getContext(),VerticalActivity.class);
         Log.e("hee","hee");
         i.putExtra("position",Integer.parseInt(v.getTag().toString()));
         i.putExtra("offers",json_offers.toString());
         //ActivityTransitionLauncher.with(getActivity(v)).from(v).launch(i);
         v.getContext().startActivity(i);
-
+      */
     }
 
     private Activity getActivity(View v) {

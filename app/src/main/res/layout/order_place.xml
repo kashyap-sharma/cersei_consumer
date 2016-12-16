@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="#EEEEEE"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:id="@+id/header"
+        android:background="#2D2D2D"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:id="@+id/back"
+            android:src="@drawable/multiply"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:paddingLeft="-5dp"
+            android:paddingRight="-5dp"
+            android:layout_height="match_parent"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:textColor="#fff"
+            android:text="Order"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        android:textSize="15sp"
+        android:id="@+id/placed_time"
+        android:text="Placed at 10:45 AM"
+        android:layout_below="@+id/header"/>
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:id="@+id/recycler_view"
+        android:background="#fff"
+        android:layout_marginBottom="15dp"
+        android:layout_below="@+id/placed_time"
+        android:layout_height="wrap_content">
+
+    </android.support.v7.widget.RecyclerView>
+</RelativeLayout>

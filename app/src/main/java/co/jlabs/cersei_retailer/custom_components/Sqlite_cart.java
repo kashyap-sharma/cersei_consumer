@@ -47,6 +47,7 @@ public class Sqlite_cart extends SQLiteOpenHelper {
                 "product_name TEXT,"+
                 "weight TEXT,"+
                 "quantity INTEGER, " +
+                "remaining_qrcodes INTEGER, " +
                 "retailer_id TEXT);";
  		db.execSQL(CREATE_CartED_TABLE);
         String CREATE_RETAILER_LIST = "CREATE TABLE Retailer ( " +
@@ -102,6 +103,7 @@ public class Sqlite_cart extends SQLiteOpenHelper {
     private static final String KEY_RETAILER_ID = "retailer_id";
     private static final String KEY_CASHBACK = "cashback";
     private static final String KEY_QUANTITY = "quantity";
+    private static final String KEY_REMAIN = "remaining_qrcodes";
     private static final String KEY_CONTACT = "contact";
     private static final String KEY_MIN_ORDER = "min_order";
     private static final String KEY_ADDRESS = "address";
@@ -142,6 +144,7 @@ public class Sqlite_cart extends SQLiteOpenHelper {
             values.put(KEY_RETAILER_ID, tp.retailer_id);
             values.put(KEY_CASHBACK, tp.cashback);
             values.put(KEY_QUANTITY, 1);
+            values.put(KEY_REMAIN, tp.remaining_qrcodes);
             db.insert(TABLE_Cart, null, values);
             values.clear();
 
@@ -213,11 +216,11 @@ public class Sqlite_cart extends SQLiteOpenHelper {
 
         try {
 
-            quantity= findIfOfferAlreadyExistsInCart(tp.getString("offer_id")+tp.getString("retailer_id"));
+            quantity= findIfOfferAlreadyExistsInCart(tp.getString("offer_id"));
 
             if(quantity>0)
             {
-                UpdateQuantity(tp.getString("offer_id")+tp.getString("retailer_id"),quantity+1);
+                UpdateQuantity(tp.getString("offer_id"),quantity+1);
                 quantity=quantity+1;
             }
             else {
@@ -229,7 +232,7 @@ public class Sqlite_cart extends SQLiteOpenHelper {
                 values.put(KEY_ITEM_ID, tp.getString("item_id"));
                 String imga=tp.getJSONArray("img").getString(0);
                 values.put(KEY_IMG, imga);
-                values.put(KEY_OFFER_ID, tp.getString("offer_id")+tp.getString("retailer_id"));
+                values.put(KEY_OFFER_ID, tp.getString("offer_id"));
                 values.put(KEY_CATEGORY_NAME, tp.getString("category_name"));
                 values.put(KEY_COMPANY_NAME, tp.getString("company_name"));
                 values.put(KEY_PRODUCT_NAME, tp.getString("product_name"));
@@ -237,6 +240,7 @@ public class Sqlite_cart extends SQLiteOpenHelper {
                 values.put(KEY_RETAILER_ID, tp.getString("retailer_id"));
                 values.put(KEY_CASHBACK, tp.getInt("cashback"));
                 values.put(KEY_QUANTITY, 1);
+                values.put(KEY_REMAIN, tp.getInt("remaining_qrcodes"));
                 db.insert(TABLE_Cart, null, values);
                 values.clear();
                 db.close();
@@ -317,7 +321,8 @@ public class Sqlite_cart extends SQLiteOpenHelper {
                 tp.product_name=cursor.getString(10);
                 tp.weight=cursor.getString(11);
                 tp.quantity=(Integer.parseInt(cursor.getString(12)));
-                tp.retailer_id=cursor.getString(13);
+                tp.remaining_qrcodes=(Integer.parseInt(cursor.getString(13)));
+                tp.retailer_id=cursor.getString(14);
                 Log.e("somedata",":"+cursor.getColumnName(0));
                 Log.e("somedata",":"+cursor.getString(1));
                 Carted.add(tp);
@@ -411,7 +416,8 @@ public class Sqlite_cart extends SQLiteOpenHelper {
                 tp.product_name=cursor.getString(10);
                 tp.weight=cursor.getString(11);
                 tp.quantity=(Integer.parseInt(cursor.getString(12)));
-                tp.retailer_id=cursor.getString(13);
+                tp.remaining_qrcodes=(Integer.parseInt(cursor.getString(13)));
+                tp.retailer_id=cursor.getString(14);
                 Carted.add(tp);
             } while (cursor.moveToNext());
         }

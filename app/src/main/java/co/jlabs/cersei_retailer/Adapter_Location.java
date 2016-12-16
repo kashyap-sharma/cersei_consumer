@@ -19,6 +19,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import co.jlabs.cersei_retailer.custom_components.TextViewModernM;
+
 
 public class Adapter_Location extends BaseAdapter {
     private Context context;
@@ -52,9 +54,9 @@ public class Adapter_Location extends BaseAdapter {
         }
         try {
             if(mainlocation)
-                ((TextView)gridView.findViewById(R.id.text)).setText(((JSONObject)jsonArray.get(position)).getString("area"));
+                ((TextViewModernM)gridView.findViewById(R.id.text)).setText(((JSONObject)jsonArray.get(position)).getString("area"));
             else
-                ((TextView)gridView.findViewById(R.id.text)).setText(((String)jsonArray.get(position)));
+                ((TextViewModernM)gridView.findViewById(R.id.text)).setText(((String)jsonArray.get(position)));
         } catch (JSONException e) {
 
         }

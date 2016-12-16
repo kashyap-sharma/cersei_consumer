@@ -200,14 +200,15 @@
                     android:textSize="15sp"
                     android:paddingLeft="20dp"
                     android:layout_height="wrap_content" />
-                <Button
+                <co.jlabs.cersei_retailer.custom_components.ButtonModarno
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:layout_marginLeft="20dp"
                     android:text="Track Order"
+                    android:textSize="18sp"
                     android:id="@+id/track"
                     android:textColor="#fff"
-                    android:background="#f26522"
+                    android:background="@color/colorPrimary"
                     android:layout_below="@+id/contact"
                     android:layout_marginRight="20dp"
                     android:layout_marginTop="50dp"

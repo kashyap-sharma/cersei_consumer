@@ -22,6 +22,10 @@
     <string name="msg_manual_otp">(Enter the OTP below in case if we fail to detect the SMS automatically)</string>
     <string name="lbl_enter_otp">Enter OTP</string>
     <string name="lbl_submit">SUBMIT</string>
+    <string name="send_conf">We will send you a confirmation \ncode to get started</string>
+    <string name="message_q">We need to verify your phone number to be able to log you in. We will never share your information with anyone</string>
+    <string name="address_demo">Kashyap Sharma \nD-71, Freedom Fighters Enclave, \nIGNOU Road, New Delhi 110068</string>
+    <string name="address_demo1">Lorem Sharma \nB-70, Freedom Fighters Enclave, \nIGNOU Road, New Delhi 110068</string>
     <string name="locat">&#xe608;</string>
     <string name="check">&#xe603;</string>
     <string name="back">&#xf14a;</string>

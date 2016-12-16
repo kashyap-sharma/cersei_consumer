@@ -103,6 +103,7 @@
             android:paddingLeft="5dp"
             android:gravity="center"
             android:id="@+id/total"
+            android:visibility="gone"
             android:textSize="12sp"
             android:layout_toRightOf="@+id/am"
             android:text="₹100"
@@ -115,7 +116,7 @@
             android:gravity="left|center_vertical"
             android:background="#D93425"
             android:textSize="12sp"
-
+            android:id="@+id/strip"
             android:text="*Add more items or call the retailer to avoid delivery charges"
             android:layout_height="wrap_content" />
         <Button

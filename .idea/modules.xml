@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Cersei_Retailer.iml" filepath="$PROJECT_DIR$/Cersei_Retailer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Cersei_Retailer - Copy 15-12-16.iml" filepath="$PROJECT_DIR$/Cersei_Retailer - Copy 15-12-16.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/infinitecycleviewpager/infinitecycleviewpager.iml" filepath="$PROJECT_DIR$/infinitecycleviewpager/infinitecycleviewpager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/material-intro-screen/material-intro-screen.iml" filepath="$PROJECT_DIR$/material-intro-screen/material-intro-screen.iml" />
     </modules>
   </component>
 </project>

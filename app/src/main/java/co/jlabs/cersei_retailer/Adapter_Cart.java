@@ -18,6 +18,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.android.volley.toolbox.ImageLoader;
+import com.github.florent37.fiftyshadesof.FiftyShadesOf;
+
 import java.util.ArrayList;
 import co.jlabs.cersei_retailer.custom_components.AddOrRemoveCart;
 import co.jlabs.cersei_retailer.custom_components.Class_Cart;
@@ -53,7 +55,7 @@ public class Adapter_Cart extends BaseAdapter {
     {
         TextView retailer_name;
         TextView minOrder;
-        TextView total,add_more;
+        TextView total,add_more,strip;
         LinearLayout min_back,father;
         Button call;
         TextView_Triangle points;
@@ -78,6 +80,7 @@ public class Adapter_Cart extends BaseAdapter {
             viewHolder.total = (TextView) gridView.findViewById(R.id.total);
             viewHolder.call = (Button) gridView.findViewById(R.id.call);
             viewHolder.add_more = (TextView) gridView.findViewById(R.id.am);
+            viewHolder.strip = (TextView) gridView.findViewById(R.id.strip);
             viewHolder.min_back = (LinearLayout) gridView.findViewById(R.id.min_order_back);
             viewHolder.father = (LinearLayout) gridView.findViewById(father);
 
@@ -100,6 +103,7 @@ public class Adapter_Cart extends BaseAdapter {
         Log.e("geet",""+ret.get(0).retailer_name);
         viewHolder.retailer_name.setText(ret.get(0).retailer_name);
         viewHolder.minOrder.setText(ret.get(0).min_order);
+
         //viewHolder.total = (TextView) gridView.findViewById(R.id.total);
         viewHolder.call.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,9 +129,11 @@ public class Adapter_Cart extends BaseAdapter {
             final TextView money = (TextView)v.findViewById(R.id.money);
             final MyImageView pic = (MyImageView) v.findViewById(R.id.pic);
             final AddOrRemoveCart addOrRemoveCart=(AddOrRemoveCart)v.findViewById(R.id.add_or_remove_cart);
+
             // set some properties of rowTextView or something
             product_name.setText(tots.get(i).product_name);
-            money.setText(""+tots.get(i).price);
+
+           // money.setText(""+tots.get(i).quantity);
             pic.setImageUrl(tots.get(i).img, imageLoader);
             // add the textview to the linearlayout
             viewHolder.father.addView(v);
@@ -135,9 +141,21 @@ public class Adapter_Cart extends BaseAdapter {
             addOrRemoveCart.addOnItemClickListner(new AddOrRemoveCart.ItemsClickListener() {
                 @Override
                 public int addItemClicked(int i) {
-                    Toast.makeText(context, "Added To Cart", Toast.LENGTH_SHORT).show();
-                    totalItemInCartTextHandler.handleText_cart(1,tots.get(i).price);
-                    return cart.addToCart(tots.get(i));
+
+
+                    if(tots.get(i).remaining_qrcodes>tots.get(i).quantity){
+                        Toast.makeText(context, "Added To Cart", Toast.LENGTH_SHORT).show();
+                        totalItemInCartTextHandler.handleText_cart(1,tots.get(i).price);
+                        money.setText(""+tots.get(i).price*tots.get(i).quantity);
+                        viewHolder.total.setText(""+tots.get(i).price*tots.get(i).quantity);
+                        return cart.addToCart(tots.get(i));
+                    }else
+                    {
+                        Toast.makeText(context, "cant add To Cart", Toast.LENGTH_SHORT).show();
+                        return cart.findIfOfferAlreadyExistsInCart(tots.get(i).offer_id);
+                    }
+
+
                 }
 
                 @Override
@@ -162,6 +180,12 @@ public class Adapter_Cart extends BaseAdapter {
                                 Log.e("dat",""+viewHolder.father.getChildCount());
                                 Log.e("dat1",""+i);
                                 tots.remove(i);
+                                try {
+                                    viewHolder.total.setText(""+tots.get(i).price*tots.get(i).quantity);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                //money.setText(""+tots.get(i).price*tots.get(i).quantity);
                                 if ( viewHolder.father.getChildCount()==1) {
                                     offers_list.remove(position);
                                 }

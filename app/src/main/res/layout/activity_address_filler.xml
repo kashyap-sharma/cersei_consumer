@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:apsv_rounded="true"
+        android:visibility="gone"
         app:apsv_shadowed="true"
         app:apsv_animated="true"
         app:apsv_dragged="true"
@@ -30,7 +31,7 @@
         app:apsv_preview_bg="#ccc"/>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:visibility="gone"
+
         android:layout_height="match_parent">
         <android.support.design.widget.AppBarLayout
             android:id="@+id/appbar"

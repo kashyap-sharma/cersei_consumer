@@ -91,7 +91,7 @@ public class LocationPopup extends Dialog {
 
     public void updateforlocation(String location)
     {
-        ((TextView)findViewById(R.id.location)).setText("(" + location + ")");
+        ((TextViewModernM)findViewById(R.id.location)).setText("(" + location + ")");
     }
 
 

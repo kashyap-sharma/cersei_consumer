@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_marginLeft="3dp"
+
+    android:layout_marginRight="3dp"
+    android:layout_marginBottom="3dp"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="5dp"
+        android:background="#90D8CA"
+        android:layout_marginLeft="3dp"
+        android:id="@+id/bar"
+        android:layout_height="56dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RETAILER"
+        android:textColor="#C1E8E1"
+        android:textSize="12sp"
+        android:paddingTop="7dp"
+        android:id="@+id/ret"
+        android:paddingLeft="10dp"
+        android:layout_toRightOf="@+id/bar"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RETAILER"
+        android:textSize="16sp"
+        android:textColor="#B6B6B6"
+        android:paddingTop="3dp"
+        android:paddingLeft="10dp"
+        android:id="@+id/retailer_name"
+        android:layout_below="@+id/ret"
+        android:layout_toRightOf="@+id/bar"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:id="@+id/ret_total"
+        android:layout_alignParentRight="true"
+        android:textColor="#C4C4C4"
+        android:gravity="center"
+        android:layout_height="56dp"
+        android:text="Rs 200"/>
+    <TextView
+        android:layout_marginTop="-1dp"
+        android:layout_below="@+id/bar"
+        android:layout_width="match_parent"
+        android:id="@+id/bar2"
+        android:background="#F9F9F9"
+        android:layout_height="1dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bar2"
+        android:paddingTop="15dp"
+        android:textSize="15sp"
+        android:id="@+id/delc"
+        android:paddingLeft="10dp"
+        android:text="Delivery Charges"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/delc"
+        android:paddingTop="5dp"
+        android:textSize="15sp"
+        android:id="@+id/order_id"
+        android:paddingLeft="10dp"
+        android:text="Order ID: A4RT89"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bar2"
+        android:paddingTop="15dp"
+        android:textColor="#23BF36"
+        android:id="@+id/delivery_charge"
+        android:layout_alignParentRight="true"
+        android:textSize="15sp"
+        android:paddingRight="10dp"
+        android:text="Free"/>
+    <TextView
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/order_id"
+        android:layout_width="match_parent"
+        android:id="@+id/bar3"
+        android:background="#F9F9F9"
+        android:layout_height="1dp" />
+     <co.jlabs.cersei_retailer.StepView.HorizontalStepView
+            android:id="@+id/step_view"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bar3"
+            />
+</RelativeLayout>
+    </android.support.v7.widget.CardView>

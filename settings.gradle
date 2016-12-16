@@ -1,1 +1,1 @@
-include ':app',':infinitecycleviewpager'
+include ':app',':infinitecycleviewpager',':material-intro-screen'
