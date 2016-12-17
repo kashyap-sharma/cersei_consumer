@@ -4,8 +4,10 @@ import android.animation.Animator;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -32,6 +34,8 @@ import android.widget.SlidingDrawer;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -44,6 +48,7 @@ import org.json.JSONObject;
 
 import co.jlabs.cersei_retailer.LoadingCool.CoolAnimView;
 
+import co.jlabs.cersei_retailer.activity.LoginNum;
 import co.jlabs.cersei_retailer.changes.*;
 import co.jlabs.cersei_retailer.custom_components.LocationPopup;
 import co.jlabs.cersei_retailer.custom_components.NoInternetDialogBox;
@@ -52,10 +57,11 @@ import co.jlabs.cersei_retailer.custom_components.PagerSlidingStrip.IconTabProvi
 import co.jlabs.cersei_retailer.custom_components.Popup_Filter;
 import co.jlabs.cersei_retailer.custom_components.SmallBang;
 import co.jlabs.cersei_retailer.custom_components.SmallBangListener;
+import co.jlabs.cersei_retailer.custom_components.Sqlite_cart;
 import co.jlabs.cersei_retailer.custom_components.TabsView;
 
 
-public class MainDashboard extends FragmentActivity implements View.OnClickListener,FragmentsEventInitialiser,Animation.AnimationListener,SlidingDrawer.OnDrawerOpenListener, LocationPopup.onLocationSelected,NoInternetDialogBox.onReloadPageSelected{
+public class MainDashboard extends FragmentActivity implements View.OnClickListener,FragmentsEventInitialiser,Animation.AnimationListener, LocationPopup.onLocationSelected,NoInternetDialogBox.onReloadPageSelected{
     static final int ITEMS = 3;
     static final int page_offers=0;
     static final int page_points=1;
@@ -106,19 +112,19 @@ public class MainDashboard extends FragmentActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.app_bar_dashboard1);
-       // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setContentView(R.layout.activity_dashboard);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         mSmallBang = SmallBang.attach2Window(this);
         selectLocation= (LinearLayout)findViewById(R.id.location);
-       // DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-//                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-//        drawer.setDrawerListener(toggle);
-//        toggle.syncState();
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
         loadingDialogBox=new ProgressDialog(this);
         loadingDialogBox.setTitle("Loading");
         loadingDialogBox.setMessage("Please Wait");
-        drwawerInitView();
+        //drwawerInitView();
 
         //Dialog Box
         RelativeLayout layout = new RelativeLayout(MainDashboard.this);
@@ -131,18 +137,18 @@ public class MainDashboard extends FragmentActivity implements View.OnClickListe
                 .create();
 
         selectLocation.setOnClickListener(this);
-       // ((TextView)selectLocation.findViewById(R.id.text_location)).setText(StaticCatelog.getStringProperty(this, "location"));
-        ((TextView)selectLocation.findViewById(R.id.text_location)).setText("Menu");
+        ((TextView)selectLocation.findViewById(R.id.text_location)).setText(StaticCatelog.getStringProperty(this, "location"));
+        ((TextView)selectLocation.findViewById(R.id.text_location)).setText(StaticCatelog.getStringProperty(this, "area"));
 
-//        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-//        navigationView.findViewById(R.id.lay_prof).setOnClickListener(this);
-//        navigationView.findViewById(R.id.lay_myorders).setOnClickListener(this);
-//        navigationView.findViewById(R.id.lay_myaddresses).setOnClickListener(this);
-//        navigationView.findViewById(R.id.lay_savedcards).setOnClickListener(this);
-//        navigationView.findViewById(R.id.lay_coupons).setOnClickListener(this);
-//        navigationView.findViewById(R.id.lay_settings).setOnClickListener(this);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.findViewById(R.id.lay_prof).setOnClickListener(this);
+        navigationView.findViewById(R.id.lay_myorders).setOnClickListener(this);
+        navigationView.findViewById(R.id.lay_myaddresses).setOnClickListener(this);
+        navigationView.findViewById(R.id.lay_savedcards).setOnClickListener(this);
+        navigationView.findViewById(R.id.lay_coupons).setOnClickListener(this);
+        navigationView.findViewById(R.id.lay_settings).setOnClickListener(this);
 
-       // filter_Icon=findViewById(R.id.filter_icon);
+        filter_Icon=findViewById(R.id.filter_icon);
 
         mAdapter = new MyAdapter(getSupportFragmentManager());
         mPager = (DeactivatableViewPager) findViewById(R.id.myviewpager);
@@ -152,7 +158,7 @@ public class MainDashboard extends FragmentActivity implements View.OnClickListe
         strip = (PagerSlidingStrip) findViewById(R.id.tabs);
         mPager.setAdapter(mAdapter);
         strip.setViewPager(mPager);
-        //strip.manageFilterIcon(filter_Icon);
+        strip.manageFilterIcon(filter_Icon);
         mPager.setOffscreenPageLimit(3);
         mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -198,88 +204,88 @@ public class MainDashboard extends FragmentActivity implements View.OnClickListe
 
 
     //Drawer
-    private void drwawerInitView() {
-        //imageView = (ImageView) findViewById(R.id.imageView);
-        handle = (LinearLayout) findViewById(R.id.handle);
-
-        fift = (LinearLayout) findViewById(R.id.fift);
-        fift.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.e("click","fift");
-            }
-        });
-        fif = (LinearLayout) findViewById(R.id.fif);
-        fif.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Log.e("click","fif");
-            }
-        });
-        fi = (LinearLayout) findViewById(R.id.fi);
-        fi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Log.e("click","fift");
-            }
-        });
-        f = (LinearLayout) findViewById(R.id.f);
-        fifth = (LinearLayout) findViewById(R.id.fifth);
-        content = (LinearLayout) findViewById(R.id.content);
-        slidingDrawer= (SlidingDrawer) findViewById(R.id.slidingDrawer);
-        animation= AnimationUtils.loadAnimation(getApplicationContext(),
-                R.anim.shake_drawer);
-
-
-        slidingDrawer.setOnDrawerScrollListener(new SlidingDrawer.OnDrawerScrollListener() {
-            @Override
-            public void onScrollStarted() {
-               // initialize();
-            }
-
-            @Override
-            public void onScrollEnded() {
-                handle.setVisibility(View.GONE);
-            }
-        });
-        slidingDrawer.setOnDrawerOpenListener(this);
-        content.setOnTouchListener(onThumbTouch );
-
-
-
-        /*
-        animation= AnimationUtils.loadAnimation(getApplicationContext(),
-                R.anim.shake);
-        animation.setAnimationListener(this);
-        slidingDrawer = (SlidingDrawer) findViewById(R.id.slidingDrawer);
-        final Handler ha = new Handler();
-        fifth.performClick();
-        content.animate().y(100).setStartDelay(1000).start();
-        fifth.setY(0);
-        f.setY(0);
-        f.animate().y(100).start();
-        fifth.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ha.postDelayed(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        fifth.startAnimation(animation);
-                        ha.postDelayed(this, 1000);
-                        fifth.animate().y(100).start();
-
-                        fif.animate().y(100).start();
-                        fifth.animate().y(100).start();
-                    }
-                }, 1000);
-
-            }
-        });
-*/
-    }
+//    private void drwawerInitView() {
+//        //imageView = (ImageView) findViewById(R.id.imageView);
+//        handle = (LinearLayout) findViewById(R.id.handle);
+//
+//        fift = (LinearLayout) findViewById(R.id.fift);
+//        fift.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Log.e("click","fift");
+//            }
+//        });
+//        fif = (LinearLayout) findViewById(R.id.fif);
+//        fif.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                Log.e("click","fif");
+//            }
+//        });
+//        fi = (LinearLayout) findViewById(R.id.fi);
+//        fi.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                Log.e("click","fift");
+//            }
+//        });
+//        f = (LinearLayout) findViewById(R.id.f);
+//        fifth = (LinearLayout) findViewById(R.id.fifth);
+//        content = (LinearLayout) findViewById(R.id.content);
+//        slidingDrawer= (SlidingDrawer) findViewById(R.id.slidingDrawer);
+//        animation= AnimationUtils.loadAnimation(getApplicationContext(),
+//                R.anim.shake_drawer);
+//
+//
+//        slidingDrawer.setOnDrawerScrollListener(new SlidingDrawer.OnDrawerScrollListener() {
+//            @Override
+//            public void onScrollStarted() {
+//               // initialize();
+//            }
+//
+//            @Override
+//            public void onScrollEnded() {
+//                handle.setVisibility(View.GONE);
+//            }
+//        });
+//        slidingDrawer.setOnDrawerOpenListener(this);
+//        content.setOnTouchListener(onThumbTouch );
+//
+//
+//
+//        /*
+//        animation= AnimationUtils.loadAnimation(getApplicationContext(),
+//                R.anim.shake);
+//        animation.setAnimationListener(this);
+//        slidingDrawer = (SlidingDrawer) findViewById(R.id.slidingDrawer);
+//        final Handler ha = new Handler();
+//        fifth.performClick();
+//        content.animate().y(100).setStartDelay(1000).start();
+//        fifth.setY(0);
+//        f.setY(0);
+//        f.animate().y(100).start();
+//        fifth.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                ha.postDelayed(new Runnable() {
+//
+//                    @Override
+//                    public void run() {
+//                        fifth.startAnimation(animation);
+//                        ha.postDelayed(this, 1000);
+//                        fifth.animate().y(100).start();
+//
+//                        fif.animate().y(100).start();
+//                        fifth.animate().y(100).start();
+//                    }
+//                }, 1000);
+//
+//            }
+//        });
+//*/
+//    }
 
     View.OnTouchListener onThumbTouch = new View.OnTouchListener() {
         float previouspoint = 0 ;
@@ -340,174 +346,176 @@ public class MainDashboard extends FragmentActivity implements View.OnClickListe
 
     }
 
-    @Override
-    public void onDrawerOpened() {
-        Log.i("Myapp","Drawer open");
-       // handle.setVisibility(View.GONE);
-//        slidingDrawer.setLayoutParams(new DrawerLayout.LayoutParams(DrawerLayout.LayoutParams.MATCH_PARENT, DrawerLayout.LayoutParams.WRAP_CONTENT));
-        showall();
-        fifth.animate()
-                .translationY(0)
-                .setDuration(450).setListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-                content.setBackgroundColor(Color.parseColor("#345E7C"));
-            }
+//    @Override
+//    public void onDrawerOpened() {
+//        Log.i("Myapp","Drawer open");
+//       // handle.setVisibility(View.GONE);
+////        slidingDrawer.setLayoutParams(new DrawerLayout.LayoutParams(DrawerLayout.LayoutParams.MATCH_PARENT, DrawerLayout.LayoutParams.WRAP_CONTENT));
+//        showall();
+//        fifth.animate()
+//                .translationY(0)
+//                .setDuration(450).setListener(new Animator.AnimatorListener() {
+//            @Override
+//            public void onAnimationStart(Animator animation) {
+//                content.setBackgroundColor(Color.parseColor("#345E7C"));
+//            }
+//
+//            @Override
+//            public void onAnimationEnd(Animator anim) {
+//                fifth.startAnimation(animation);
+//            }
+//
+//            @Override
+//            public void onAnimationCancel(Animator animation) {
+//
+//            }
+//
+//            @Override
+//            public void onAnimationRepeat(Animator animation) {
+//
+//            }
+//        })
+//                .setStartDelay(0);
+//        f.animate()
+//                .translationY(0)
+//                .setDuration(600).setListener(new Animator.AnimatorListener() {
+//            @Override
+//            public void onAnimationStart(Animator animation) {
+//                content.setBackgroundColor(Color.parseColor("#6B5C7A"));
+//            }
+//
+//            @Override
+//            public void onAnimationEnd(Animator anim) {
+//                f.startAnimation(animation);
+//            }
+//
+//            @Override
+//            public void onAnimationCancel(Animator animation) {
+//
+//            }
+//
+//            @Override
+//            public void onAnimationRepeat(Animator animation) {
+//
+//            }
+//        })
+//
+//                .setStartDelay(250);
+//        fi.animate()
+//                .translationY(0)
+//                .setDuration(450).setListener(new Animator.AnimatorListener() {
+//            @Override
+//            public void onAnimationStart(Animator animation) {
+//                content.setBackgroundColor(Color.parseColor("#BF6A83"));
+//            }
+//
+//            @Override
+//            public void onAnimationEnd(Animator anim) {
+//                fi.startAnimation(animation);
+//            }
+//
+//            @Override
+//            public void onAnimationCancel(Animator animation) {
+//
+//            }
+//
+//            @Override
+//            public void onAnimationRepeat(Animator animation) {
+//
+//            }
+//        })
+//                .setStartDelay(500);
+//        fif.animate()
+//                .translationY(0)
+//                .setDuration(450).setListener(new Animator.AnimatorListener() {
+//            @Override
+//            public void onAnimationStart(Animator animation) {
+//                content.setBackgroundColor(Color.parseColor("#F56D7F"));
+//
+//            }
+//
+//            @Override
+//            public void onAnimationEnd(Animator anim) {
+//                fif.startAnimation(animation);
+//            }
+//
+//            @Override
+//            public void onAnimationCancel(Animator animation) {
+//
+//            }
+//
+//            @Override
+//            public void onAnimationRepeat(Animator animation) {
+//
+//            }
+//        })
+//
+//                .setStartDelay(750);
+//        fift.animate()
+//                .translationY(0)
+//                .setDuration(450).setListener(new Animator.AnimatorListener() {
+//            @Override
+//            public void onAnimationStart(Animator animation) {
+//                content.setBackgroundColor(Color.parseColor("#F7B295"));
+//
+//            }
+//
+//            @Override
+//            public void onAnimationEnd(Animator anim) {
+//                fift.startAnimation(animation);
+//            }
+//
+//            @Override
+//            public void onAnimationCancel(Animator animation) {
+//
+//            }
+//
+//            @Override
+//            public void onAnimationRepeat(Animator animation) {
+//
+//            }
+//        })
+//
+//                .setStartDelay(1000);
+//    }
 
-            @Override
-            public void onAnimationEnd(Animator anim) {
-                fifth.startAnimation(animation);
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {
-
-            }
-        })
-                .setStartDelay(0);
-        f.animate()
-                .translationY(0)
-                .setDuration(600).setListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-                content.setBackgroundColor(Color.parseColor("#6B5C7A"));
-            }
-
-            @Override
-            public void onAnimationEnd(Animator anim) {
-                f.startAnimation(animation);
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {
-
-            }
-        })
-
-                .setStartDelay(250);
-        fi.animate()
-                .translationY(0)
-                .setDuration(450).setListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-                content.setBackgroundColor(Color.parseColor("#BF6A83"));
-            }
-
-            @Override
-            public void onAnimationEnd(Animator anim) {
-                fi.startAnimation(animation);
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {
-
-            }
-        })
-                .setStartDelay(500);
-        fif.animate()
-                .translationY(0)
-                .setDuration(450).setListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-                content.setBackgroundColor(Color.parseColor("#F56D7F"));
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animator anim) {
-                fif.startAnimation(animation);
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {
-
-            }
-        })
-
-                .setStartDelay(750);
-        fift.animate()
-                .translationY(0)
-                .setDuration(450).setListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-                content.setBackgroundColor(Color.parseColor("#F7B295"));
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animator anim) {
-                fift.startAnimation(animation);
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {
-
-            }
-        })
-
-                .setStartDelay(1000);
-    }
-
-    public void initialize()
-    {
-
-        hideall();
-        fifth.setY(-280);
-        f.setY(-280);
-        fi.setY(-280);
-        fif.setY(-280);
-        fift.setY(-280);
-    }
-
-    public void hideall()
-    {
-        fifth.setVisibility(View.INVISIBLE);
-        f.setVisibility(View.INVISIBLE);
-        fi.setVisibility(View.INVISIBLE);
-        fif.setVisibility(View.INVISIBLE);
-        fift.setVisibility(View.INVISIBLE);
-    }
-
-    public void showall()
-    {
-        fifth.setVisibility(View.VISIBLE);
-        f.setVisibility(View.VISIBLE);
-        fi.setVisibility(View.VISIBLE);
-        fif.setVisibility(View.VISIBLE);
-        fift.setVisibility(View.VISIBLE);
-    }
+//    public void initialize()
+//    {
+//
+//        hideall();
+//        fifth.setY(-280);
+//        f.setY(-280);
+//        fi.setY(-280);
+//        fif.setY(-280);
+//        fift.setY(-280);
+//    }
+//
+//    public void hideall()
+//    {
+//        fifth.setVisibility(View.INVISIBLE);
+//        f.setVisibility(View.INVISIBLE);
+//        fi.setVisibility(View.INVISIBLE);
+//        fif.setVisibility(View.INVISIBLE);
+//        fift.setVisibility(View.INVISIBLE);
+//    }
+//
+//    public void showall()
+//    {
+//        fifth.setVisibility(View.VISIBLE);
+//        f.setVisibility(View.VISIBLE);
+//        fi.setVisibility(View.VISIBLE);
+//        fif.setVisibility(View.VISIBLE);
+//        fift.setVisibility(View.VISIBLE);
+//    }
 
     //Drawer
     @Override
     public void onBackPressed() {
-        if (slidingDrawer.isOpened()) {
-            slidingDrawer.close();
-        } else {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        }
+        else {
             super.onBackPressed();
         }
     }
@@ -540,29 +548,62 @@ public class MainDashboard extends FragmentActivity implements View.OnClickListe
     public void onClick(View v) {
         int id = v.getId();
         String s ="";
-//        if (id == R.id.lay_prof) {
-//            s="Profile";
-//        } else if (id == R.id.lay_myorders) {
-//            s="My Orders";
-//        } else if (id == R.id.lay_myaddresses) {
-//            s="My Addresses";
-//        } else if (id == R.id.lay_savedcards) {
-//            s="Saved Cards";
-//        } else if (id == R.id.lay_coupons) {
-//            s="Coupons";
-//        } else if (id == R.id.lay_settings) {
-//            s="Settings";
-//        }
+        if (id == R.id.lay_prof) {
+            if(StaticCatelog.getStringProperty(this,"api_key")==null) {
+                Intent intent =new Intent(this, LoginNum.class);
+                intent.putExtra("from","maindash");
+                startActivity(intent);
+            }
+
+
+            s="Profile";
+        } else if (id == R.id.lay_myorders) {
+            s="My Orders";
+        } else if (id == R.id.lay_myaddresses) {
+            s="My Addresses";
+        } else if (id == R.id.lay_savedcards) {
+            s="Saved Cards";
+        } else if (id == R.id.lay_coupons) {
+            s="Coupons";
+        } else if (id == R.id.lay_settings) {
+            s="Settings";
+        }
          if (id == R.id.location) {
-            //download_locations();
+
+             new MaterialDialog.Builder(this)
+                     .title(R.string.remove_cart)
+                     .content(R.string.content)
+                     .positiveText(R.string.agree)
+                     .negativeText(R.string.disagree)
+                     .onPositive(new MaterialDialog.SingleButtonCallback() {
+                         @Override
+                         public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                             deleteAll();
+                             deleteAll1 ();
+                             download_locations();
+                             mPager.setCurrentItem(0);
+                         }
+                     }).onNegative(new MaterialDialog.SingleButtonCallback() {
+                         @Override
+                         public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            dialog.dismiss();
+                         }
+                     })
+                     .show();
+
+
+
+
+
+
 
             //develope
 
         }
-//        else if(id==R.id.filter_icon)
-//        {
-//            createFilterPopup();
-//        }
+        else if(id==R.id.filter_icon)
+        {
+            createFilterPopup();
+        }
         if(s!="")
         {
             Toast.makeText(this, "Clicked " + s, Toast.LENGTH_SHORT).show();
@@ -570,6 +611,26 @@ public class MainDashboard extends FragmentActivity implements View.OnClickListe
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
             drawer.closeDrawer(GravityCompat.START);
         }
+    }
+
+    public void deleteAll()
+    {
+        Sqlite_cart helper = new Sqlite_cart(this);
+        SQLiteDatabase db = helper.getWritableDatabase();
+        // db.delete(TABLE_NAME,null,null);
+        //db.execSQL("delete * from"+ TABLE_NAME);
+        db.delete("Cart",null,null );
+        db.close();
+    }
+
+    public void deleteAll1()
+    {
+        Sqlite_cart helper = new Sqlite_cart(this);
+        SQLiteDatabase db = helper.getWritableDatabase();
+        // db.delete(TABLE_NAME,null,null);
+        //db.execSQL("delete * from"+ TABLE_NAME);
+        db.delete("Retailer",null,null );
+        db.close();
     }
 
     @Override
@@ -602,7 +663,7 @@ public class MainDashboard extends FragmentActivity implements View.OnClickListe
 
     @Override
     public void updateCart(Boolean add) {
-        ((TabsView)tab_cart).giveCartNotification(add);
+        //((TabsView)tab_cart).giveCartNotification(add);
 
     }
 
@@ -775,11 +836,13 @@ public class MainDashboard extends FragmentActivity implements View.OnClickListe
     @Override
     public void update_location(String Area,String location) {
         Log.e("hii",""+Area+location);
-       // ((TextView)findViewById(R.id.text_location)).setText(location);
-        ((TextView)findViewById(R.id.text_location)).setText("Menu");
+        ((TextView)selectLocation.findViewById(R.id.text_location)).setText(location);
+//        ((TextView)findViewById(R.id.text_location)).setText(location);
+//        ((TextView)findViewById(R.id.text_location)).setText("Menu");
         StaticCatelog.setStringProperty(this, "area", Area);
+        StaticCatelog.setStringProperty(this, "location", location);
 //        StaticCatelog.setStringProperty(this, "location", "A Block Saket");
-        StaticCatelog.setStringProperty(this, "location", "Menu");
+      //  StaticCatelog.setStringProperty(this, "location", "Menu");
         update_ui_for_location_withevent(Area,location);
     }
 

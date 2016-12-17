@@ -4,16 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-
-
     <ScrollView
         android:layout_width="match_parent"
         android:paddingBottom="56dp"
         android:layout_height="wrap_content">
         <RelativeLayout
             android:id="@+id/activity_process_order"
-            android:paddingTop="56dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context="co.jlabs.cersei_retailer.activity.ProcessOrder">
@@ -68,6 +64,7 @@
                         android:paddingLeft="5dp"
                         android:id="@+id/input_street"
                         android:layout_marginLeft="5dp"
+                        android:visibility="gone"
                         android:layout_marginRight="5dp"
                         android:paddingRight="5dp"
                         android:layout_width="match_parent"
@@ -85,6 +82,7 @@
                         android:id="@+id/input_locality"
                         android:layout_marginRight="5dp"
                         android:paddingRight="5dp"
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                         <co.jlabs.cersei_retailer.custom_components.MEditText
@@ -164,174 +162,7 @@
 
 
 
-    <SlidingDrawer xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/slidingDrawer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
-        android:handle="@+id/handle"
-        android:content="@+id/content"
-        android:topOffset="-50dp"
-        android:rotation="180">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:orientation="horizontal"
-            android:paddingRight="10dp"
-            android:id="@+id/handle"
-            android:rotation="180"
-
-            android:paddingLeft="10dp"
-            android:background="@color/colorPrimary">
-
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:id="@+id/location"
-
-                android:orientation="horizontal"
-                android:layout_weight="1">
-                <co.jlabs.cersei_retailer.Rounded.MyIconFonts
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:paddingRight="5dp"
-                    android:paddingTop="20dp"
-                    android:textColor="#fff"
-                    android:gravity="center"
-                    android:textStyle="bold"
-                    android:text="@string/burger"/>
-                <TextView
-                    android:id="@+id/text_location"
-
-                    android:paddingTop="20dp"
-                    android:textSize="20sp"
-                    android:textColor="@color/white"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Menu"/>
-            </LinearLayout>
-
-
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:id="@+id/content"
-            android:gravity="center"
-            android:rotation="180"
-            android:orientation="vertical"
-            android:layout_height="match_parent">
-            <LinearLayout
-                android:layout_width="400dp"
-                android:layout_weight="1"
-                android:background="#F7B295"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:id="@+id/fift"
-                android:layout_height="match_parent">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:src="@drawable/ic_shopping_cart_white_24dp"/>
-                <co.jlabs.cersei_retailer.custom_components.TextViewModernM
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#fff"
-                    android:textSize="18sp"
-                    android:text="Orders"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="400dp"
-                android:layout_weight="1"
-                android:background="#F56D7F"
-                android:gravity="center"
-                android:id="@+id/fif"
-                android:layout_height="match_parent">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:padding="5dp"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_store_mall_directory_white_24dp"/>
-                <co.jlabs.cersei_retailer.custom_components.TextViewModernM
-                    android:textSize="18sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#fff"
-                    android:text="Addresses"/>
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="400dp"
-                android:layout_weight="1"
-                android:background="#BF6A83"
-                android:gravity="center"
-                android:id="@+id/fi"
-                android:layout_height="match_parent">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:src="@drawable/ic_credit_card_white_24dp"/>
-                <co.jlabs.cersei_retailer.custom_components.TextViewModernM
-                    android:textSize="18sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#fff"
-                    android:text="Saved Cards"/>
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="400dp"
-                android:layout_weight="1"
-                android:background="#6B5C7A"
-                android:id="@+id/f"
-                android:gravity="center"
-                android:layout_height="match_parent">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:src="@drawable/ic_redeem_white_24dp"/>
-                <co.jlabs.cersei_retailer.custom_components.TextViewModernM
-                    android:textSize="18sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#fff"
-                    android:text="Coupons"/>
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="400dp"
-                android:layout_weight="1"
-                android:id="@+id/fifth"
-                android:gravity="center"
-                android:background="#345E7C"
-                android:layout_height="match_parent">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:src="@drawable/ic_settings_white_24dp"/>
-                <co.jlabs.cersei_retailer.custom_components.TextViewModernM
-                    android:textSize="18sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#fff"
-                    android:text="Settings"/>
-
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </SlidingDrawer>
     <co.jlabs.cersei_retailer.custom_components.ButtonModarno
         android:layout_width="match_parent"
         android:layout_height="56dp"

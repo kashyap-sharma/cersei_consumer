@@ -92,39 +92,39 @@ public class SelectLocation extends Activity implements LocationPopup.onLocation
 
 
         // getLocation();
-        if(StaticCatelog.getStringProperty(this,"api_key")==null) {
-            ll.setVisibility(View.VISIBLE);
-            send_code.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String contactString = phone.getText().toString().trim();
-                    if (TextUtils.getTrimmedLength(contactString)!=10) {
-                        Toast.makeText(context, "Phone Number", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                    log_in();
-                    download_locations();
+//        if(StaticCatelog.getStringProperty(this,"api_key")==null) {
+//            //ll.setVisibility(View.VISIBLE);
+//            send_code.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    String contactString = phone.getText().toString().trim();
+//                    if (TextUtils.getTrimmedLength(contactString)!=10) {
+//                        Toast.makeText(context, "Phone Number", Toast.LENGTH_SHORT).show();
+//                        return;
+//                    }
+//                    log_in();
+//                   // download_locations();
+//
+//
+//
+//                }
+//            });
+//
+//
+//        }
+        download_locations();
 
-
-
-                }
-            });
-
-
+//            if(StaticCatelog.getStringProperty(this,"location")==null) {
+//                download_locations();
+//            }
+//            else
+//            {
+////            ((TextView)findViewById(R.id.select)).setText(StaticCatelog.getStringProperty(this, "location"));
+////            ((TextView)findViewById(R.id.select)).setText(StaticCatelog.getStringProperty(this, "location"));
+//                start_activity();
+//            }
         }
 
-        else {
-            if(StaticCatelog.getStringProperty(this,"location")==null) {
-                download_locations();
-            }
-            else
-            {
-//            ((TextView)findViewById(R.id.select)).setText(StaticCatelog.getStringProperty(this, "location"));
-//            ((TextView)findViewById(R.id.select)).setText(StaticCatelog.getStringProperty(this, "location"));
-                start_activity();
-            }
-        }
-    }
 
     @Override
     public void update_location(String Area,String location) {

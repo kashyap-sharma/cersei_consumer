@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="co.jlabs.cersei_retailer">
+
     <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
     <uses-feature android:name="android.hardware.camera.flash" />
+
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -58,32 +61,20 @@
             android:label="Details"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Transparent" />
-        <activity android:name=".SelectLocation">
-
-        </activity>
-
-
-
+        <activity android:name=".SelectLocation"></activity>
         <activity
             android:name=".splashIntro.SplashActivity"
-            android:theme="@style/SplashScreen">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
+            android:theme="@style/SplashScreen"></activity>
         <activity android:name=".splashIntro.MainActivity" />
-
         <activity
             android:name=".splashIntro.IntroActivity"
             android:theme="@style/Theme.Intro" />
+        <activity android:name=".Splash">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-
-
-
-        <activity android:name=".Splash" >
-
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".activity.AddressFiller"
@@ -112,9 +103,8 @@
             android:theme="@style/Theme.Transparent" />
         <activity android:name=".activity.ProcessOrder" />
         <activity android:name=".activity.Tracks" />
-        <activity android:name=".OrderPlace">
-
-        </activity>
+        <activity android:name=".OrderPlace"></activity>
+        <activity android:name=".activity.LoginNum"></activity>
     </application>
 
 </manifest>

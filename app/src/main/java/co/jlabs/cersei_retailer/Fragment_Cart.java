@@ -51,7 +51,7 @@ public class Fragment_Cart extends Fragment implements FragmentEventHandler{
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         layoutView = inflater.inflate(R.layout.cart_page, container,false);
         lv = (ListView) layoutView.findViewById(R.id.list_view);
@@ -89,12 +89,16 @@ public class Fragment_Cart extends Fragment implements FragmentEventHandler{
             public void onClick(View v) {
                 Toast.makeText(getContext(),"Checkout",Toast.LENGTH_SHORT).show();
                 //check out page
-                Intent intent =new Intent(getContext(), ProcessOrder.class);
-                  startActivity(intent);
-
-
-
-
+                    if(StaticCatelog.getStringProperty(getContext(),"api_key")==null) {
+                        Intent intent =new Intent(getContext(), LoginNum.class);
+                        intent.putExtra("from","cart");
+                        startActivity(intent);
+                    }
+                    else
+                    {
+                        Intent intent =new Intent(getContext(), ProcessOrder.class);
+                        startActivity(intent);
+                    }
             }
         });
         return layoutView;

@@ -100,7 +100,7 @@ public class Adapter_Cart extends BaseAdapter {
      final   ArrayList<Class_Cart> tots = cart.getRetailerOrderData(offers_list.get(position).retailer_id);
      final   ArrayList<Class_retailer> ret = cart.getRetailerData(offers_list.get(position).retailer_id);
         int M= ret.size();
-        Log.e("geet",""+ret.get(0).retailer_name);
+      //  Log.e("geet",""+ret.get(0).retailer_name);
         viewHolder.retailer_name.setText(ret.get(0).retailer_name);
         viewHolder.minOrder.setText(ret.get(0).min_order);
 

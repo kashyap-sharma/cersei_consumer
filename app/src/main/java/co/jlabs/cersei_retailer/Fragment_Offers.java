@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -44,6 +45,7 @@ public class Fragment_Offers extends Fragment implements FragmentEventHandler {
     Context context;
     Sqlite_cart cart;
     RecyclerView recyclerView;
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     static Fragment_Offers init(int val) {
         Fragment_Offers truitonFrag = new Fragment_Offers();
@@ -70,7 +72,17 @@ public class Fragment_Offers extends Fragment implements FragmentEventHandler {
         header = inflater.inflate(R.layout.header_xml, null, false);
 
         recyclerView = (RecyclerView) layoutView.findViewById(R.id.recycler_view);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) layoutView.findViewById(R.id.swipeRefreshLayout);
         recyclerView.setHasFixedSize(true);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Refresh items
+                refreshItems();
+            }
+        });
+
+
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 1);
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
@@ -82,6 +94,28 @@ public class Fragment_Offers extends Fragment implements FragmentEventHandler {
         recyclerView.setLayoutManager(gridLayoutManager);
         return layoutView;
     }
+
+
+    void refreshItems() {
+        // Load items
+        // ...
+        startLoadbylocation(StaticCatelog.getStringProperty(getContext(), "area"),StaticCatelog.getStringProperty(getContext(), "location"));
+        // Load complete
+        onItemsLoadComplete();
+    }
+
+    void onItemsLoadComplete() {
+        // Update the adapter and notify data set changed
+        // ...
+
+
+
+
+
+        // Stop refresh animation
+        mSwipeRefreshLayout.setRefreshing(false);
+    }
+
 
     @Override
     public void adjustCameraOrViewPager(boolean on) {
@@ -199,9 +233,11 @@ public class Fragment_Offers extends Fragment implements FragmentEventHandler {
             e.printStackTrace();
         }
         Area = URLEncoder.encode(Area);
+       // location = URLEncoder.encode(location);
 
-        url=StaticCatelog.geturl()+"cersei/consumer/list_offers?location=Dwarka&area=sector%202";
-        //url=StaticCatelog.geturl()+"cersei/consumer/list_offers?location=Dwarka"+Area+"&location="+location;
+       // url=StaticCatelog.geturl()+"cersei/consumer/list_offers?location=Dwarka&area=sector%202";
+        url=StaticCatelog.geturl()+"cersei/consumer/list_offers?location="+Area+"&area="+location;
+       // http://lannister-api.elasticbeanstalk.com/cersei/consumer/list_offers?location=Dwarka&area=sector%202
 
         Log.i("Myapp", "Calling url " + url);
         if(json==null) {
@@ -254,8 +290,9 @@ public class Fragment_Offers extends Fragment implements FragmentEventHandler {
         }
         Area = URLEncoder.encode(Area);
 
-        url=StaticCatelog.geturl()+"cersei/consumer/retailer/list_offers?location=Dwarka&area=sector%202";
-        //url=StaticCatelog.geturl()+"cersei/consumer/list_offers?location=Dwarka"+Area+"&location="+location;
+
+        url=StaticCatelog.geturl()+"cersei/consumer/retailer/list_offers?location="+Area+"&area="+location;
+
 
         Log.i("Myapp", "Calling url " + url);
         if(json==null) {

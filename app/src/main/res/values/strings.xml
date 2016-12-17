@@ -121,4 +121,12 @@
     <string name="title_activity_address_filler">AddressFiller</string>
     <string name="title_activity_swipe_test">SwipeTest</string>
 
+
+    <string name="remove_cart">Change Location?</string>
+    <string name="agree">Change</string>
+    <string name="disagree">Back</string>
+    <string name="content">Changing location will empty your cart.</string>
+    <string name="sit_back">Sit back &amp; relax! While we verify your number.</string>
+    <string name="manually">(or enter manually if it fail to detect automatically)</string>
+
 </resources>

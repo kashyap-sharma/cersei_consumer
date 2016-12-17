@@ -55,14 +55,6 @@ public class ProcessOrder extends AppCompatActivity implements View.OnClickListe
     private RelativeLayout activity_process_order;
     private TextView text_location;
     private LinearLayout location;
-    private LinearLayout handle;
-    private LinearLayout fift;
-    private LinearLayout fif;
-    private LinearLayout fi;
-    private LinearLayout f;
-    private LinearLayout fifth;
-    private LinearLayout content;
-    private SlidingDrawer slidingDrawer;
     private ButtonModarno process_order;
     Sqlite_cart cart;
     ArrayList<Class_Cart> items;
@@ -100,14 +92,6 @@ public class ProcessOrder extends AppCompatActivity implements View.OnClickListe
         activity_process_order = (RelativeLayout) findViewById(R.id.activity_process_order);
         text_location = (TextView) findViewById(R.id.text_location);
         location = (LinearLayout) findViewById(R.id.location);
-        handle = (LinearLayout) findViewById(R.id.handle);
-        fift = (LinearLayout) findViewById(R.id.fift);
-        fif = (LinearLayout) findViewById(R.id.fif);
-        fi = (LinearLayout) findViewById(R.id.fi);
-        f = (LinearLayout) findViewById(R.id.f);
-        fifth = (LinearLayout) findViewById(R.id.fifth);
-        content = (LinearLayout) findViewById(R.id.content);
-        slidingDrawer = (SlidingDrawer) findViewById(R.id.slidingDrawer);
         process_order = (ButtonModarno) findViewById(R.id.process_order);
         process_order.setOnClickListener(this);
     }
