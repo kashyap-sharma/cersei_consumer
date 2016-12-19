@@ -49,6 +49,7 @@ import org.json.JSONObject;
 import co.jlabs.cersei_retailer.LoadingCool.CoolAnimView;
 
 import co.jlabs.cersei_retailer.activity.LoginNum;
+import co.jlabs.cersei_retailer.activity.ShareNEarn;
 import co.jlabs.cersei_retailer.changes.*;
 import co.jlabs.cersei_retailer.custom_components.LocationPopup;
 import co.jlabs.cersei_retailer.custom_components.NoInternetDialogBox;
@@ -142,10 +143,11 @@ public class MainDashboard extends FragmentActivity implements View.OnClickListe
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.findViewById(R.id.lay_prof).setOnClickListener(this);
-        navigationView.findViewById(R.id.lay_myorders).setOnClickListener(this);
-        navigationView.findViewById(R.id.lay_myaddresses).setOnClickListener(this);
-        navigationView.findViewById(R.id.lay_savedcards).setOnClickListener(this);
-        navigationView.findViewById(R.id.lay_coupons).setOnClickListener(this);
+        navigationView.findViewById(R.id.lay_home).setOnClickListener(this);
+        navigationView.findViewById(R.id.lay_orders).setOnClickListener(this);
+        navigationView.findViewById(R.id.lay_address).setOnClickListener(this);
+        navigationView.findViewById(R.id.lay_share).setOnClickListener(this);
+        navigationView.findViewById(R.id.lay_mail_us).setOnClickListener(this);
         navigationView.findViewById(R.id.lay_settings).setOnClickListener(this);
 
         filter_Icon=findViewById(R.id.filter_icon);
@@ -557,14 +559,24 @@ public class MainDashboard extends FragmentActivity implements View.OnClickListe
 
 
             s="Profile";
-        } else if (id == R.id.lay_myorders) {
+        } else if (id == R.id.lay_home) {
             s="My Orders";
-        } else if (id == R.id.lay_myaddresses) {
+        } else if (id == R.id.lay_orders) {
             s="My Addresses";
-        } else if (id == R.id.lay_savedcards) {
+        } else if (id == R.id.lay_address) {
             s="Saved Cards";
-        } else if (id == R.id.lay_coupons) {
+        } else if (id == R.id.lay_share) {
+            if(StaticCatelog.getStringProperty(this,"api_key")==null) {
+                Intent intent =new Intent(this, LoginNum.class);
+                intent.putExtra("from","share");
+                startActivity(intent);
+            }else{
+                Intent intent =new Intent(this, ShareNEarn.class);
+                startActivity(intent);
+            }
             s="Coupons";
+        } else if (id == R.id.lay_mail_us) {
+            s="Settings";
         } else if (id == R.id.lay_settings) {
             s="Settings";
         }

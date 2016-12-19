@@ -10,15 +10,17 @@
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
+
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        android:background="@color/white"
+        android:background="@color/colorPrimary"
         >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
             android:orientation="vertical">
             <LinearLayout
                 android:id="@+id/lay_prof"
@@ -32,9 +34,10 @@
                 android:gravity="center">
 
 
-                <ImageView android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@android:drawable/sym_def_app_icon" android:id="@+id/imageView" />
+                <ImageView android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:src="@drawable/delivery_cart"
+                    android:id="@+id/imageView" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -47,7 +50,7 @@
                         android:layout_height="wrap_content"
                         android:text="New Here"
                         android:id="@+id/name_user"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:padding="3dp"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
@@ -56,157 +59,145 @@
                         android:layout_height="wrap_content"
                         android:padding="3dp"
                         android:layout_marginLeft="2dp"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:text="Login now"
                         android:textSize="10sp"
                         android:id="@+id/contact" />
                 </LinearLayout>
-                <co.jlabs.cersei_retailer.custom_components.TextView_White
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:gravity="center"
-                    android:textSize="22sp"
-                    android:text="@string/ico_next_ico"/>
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
+                android:background="@color/colorPrimary"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
                 <LinearLayout
-                    android:id="@+id/lay_myorders"
+                    android:id="@+id/lay_home"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+
                     android:gravity="center_vertical"
-                    android:background="@drawable/bg_selector"
+                    android:background="@color/colorPrimary"
                     android:padding="@dimen/activity_horizontal_margin">
-                    <co.jlabs.cersei_retailer.custom_components.TextView_Black
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:gravity="center"
-                        android:textSize="22sp"
-                        android:text="@string/ico_myorder"/>
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/home"/>
                     <TextView
                         android:padding="10dp"
                         android:gravity="center_vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="My Orders"/>
-                    <co.jlabs.cersei_retailer.custom_components.TextView_Black
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:gravity="center"
-                        android:textSize="22sp"
-                        android:text="@string/ico_next_ico"/>
+                        android:textColor="@color/white"
+                        android:text="Home"/>
                 </LinearLayout>
                 <LinearLayout
-                    android:id="@+id/lay_myaddresses"
+                    android:id="@+id/lay_orders"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:background="@drawable/bg_selector"
+                    android:background="@color/colorPrimary"
                     android:padding="@dimen/activity_horizontal_margin">
-                    <co.jlabs.cersei_retailer.custom_components.TextView_Black
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:gravity="center"
-                        android:textSize="22sp"
-                        android:text="@string/rating"/>
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/orders"/>
                     <TextView
                         android:padding="10dp"
                         android:gravity="center_vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="My Addresses"/>
-                    <co.jlabs.cersei_retailer.custom_components.TextView_Black
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:gravity="center"
-                        android:textSize="22sp"
-                        android:text="@string/ico_next_ico"/>
+                        android:textColor="@color/white"
+                        android:text="Orders"/>
                 </LinearLayout>
                 <LinearLayout
-                    android:id="@+id/lay_savedcards"
+                    android:id="@+id/lay_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:background="@drawable/bg_selector"
+                    android:background="@color/colorPrimary"
                     android:padding="@dimen/activity_horizontal_margin">
-                    <co.jlabs.cersei_retailer.custom_components.TextView_Black
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:gravity="center"
-                        android:textSize="22sp"
-                        android:text="@string/ico_card"/>
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/addresss"/>
                     <TextView
                         android:padding="10dp"
                         android:gravity="center_vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Saved Cards"/>
-                    <co.jlabs.cersei_retailer.custom_components.TextView_Black
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:gravity="center"
-                        android:textSize="22sp"
-                        android:text="@string/ico_next_ico"/>
+                        android:textColor="@color/white"
+                        android:text="Address"/>
                 </LinearLayout>
                 <LinearLayout
-                    android:id="@+id/lay_coupons"
+                    android:id="@+id/lay_share"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:background="@drawable/bg_selector"
+                    android:background="@color/colorPrimary"
                     android:padding="@dimen/activity_horizontal_margin">
-                    <co.jlabs.cersei_retailer.custom_components.TextView_Black
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:gravity="center"
-                        android:textSize="22sp"
-                        android:text="@string/ico_offer"/>
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/share"/>
                     <TextView
                         android:padding="10dp"
                         android:gravity="center_vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Coupons"/>
-                    <co.jlabs.cersei_retailer.custom_components.TextView_Black
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:gravity="center"
-                        android:textSize="22sp"
-                        android:text="@string/ico_next_ico"/>
+                        android:textColor="@color/white"
+                        android:text="Share &amp; Earn"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/lay_mail_us"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:background="@color/colorPrimary"
+                    android:padding="@dimen/activity_horizontal_margin">
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/emailus"/>
+                    <TextView
+                        android:padding="10dp"
+                        android:gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/white"
+                        android:text="Mail us"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/lay_settings"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:background="@drawable/bg_selector"
+                    android:background="@color/colorPrimary"
                     android:padding="@dimen/activity_horizontal_margin">
-                    <co.jlabs.cersei_retailer.custom_components.TextView_Black
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:gravity="center"
-                        android:textSize="22sp"
-                        android:text="@string/ico_setting"/>
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/settings"/>
                     <TextView
                         android:padding="10dp"
                         android:gravity="center_vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:textColor="@color/white"
                         android:text="Settings"/>
-                    <co.jlabs.cersei_retailer.custom_components.TextView_Black
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:gravity="center"
-                        android:textSize="22sp"
-                        android:text="@string/ico_next_ico"/>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

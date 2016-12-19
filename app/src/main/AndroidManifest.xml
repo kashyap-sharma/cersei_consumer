@@ -61,10 +61,10 @@
             android:label="Details"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Transparent" />
-        <activity android:name=".SelectLocation"></activity>
+        <activity android:name=".SelectLocation" />
         <activity
             android:name=".splashIntro.SplashActivity"
-            android:theme="@style/SplashScreen"></activity>
+            android:theme="@style/SplashScreen" />
         <activity android:name=".splashIntro.MainActivity" />
         <activity
             android:name=".splashIntro.IntroActivity"
@@ -103,8 +103,9 @@
             android:theme="@style/Theme.Transparent" />
         <activity android:name=".activity.ProcessOrder" />
         <activity android:name=".activity.Tracks" />
-        <activity android:name=".OrderPlace"></activity>
-        <activity android:name=".activity.LoginNum"></activity>
+        <activity android:name=".OrderPlace" />
+        <activity android:name=".activity.LoginNum" />
+        <activity android:name=".activity.ShareNEarn"></activity>
     </application>
 
 </manifest>

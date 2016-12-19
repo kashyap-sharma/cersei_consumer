@@ -114,7 +114,10 @@ public class LoginNum extends AppCompatActivity implements View.OnClickListener 
                 if (s.equals("cart")) {
                     Intent intent =new Intent(this,ProcessOrder.class);
                     startActivity(intent);
-                } else {
+                } else if(s.equals("share")) {
+                    Intent intent =new Intent(this,ShareNEarn.class);
+                    startActivity(intent);
+                } else  {
                     Intent intent =new Intent(this,MainDashboard.class);
                     startActivity(intent);
                 }

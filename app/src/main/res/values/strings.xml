@@ -129,4 +129,7 @@
     <string name="sit_back">Sit back &amp; relax! While we verify your number.</string>
     <string name="manually">(or enter manually if it fail to detect automatically)</string>
 
+
+    <string name="share_detail" formatted="false">Share this app with friends - they will get 10% off on their first order \nand you will get 10% off on your next order when your friends complete \ntheir first order.</string>
+
 </resources>
