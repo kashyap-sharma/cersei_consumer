@@ -111,11 +111,10 @@ public class BillActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.track:
-                Intent intent =new Intent(this, OrderPlace.class);
-                startActivity(intent);
+                deleteAll1();
                 break;
             case R.id.back:
-                onBackPressed();
+                deleteAll();
                 break;
         }
     }
@@ -123,8 +122,7 @@ public class BillActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onBackPressed(){
         deleteAll();
-        Intent intent =new Intent(this, MainDashboard.class);
-        startActivity(intent);
+
     }
     public void deleteAll()
     {
@@ -134,5 +132,19 @@ public class BillActivity extends AppCompatActivity implements View.OnClickListe
         //db.execSQL("delete * from"+ TABLE_NAME);
         db.delete("Cart",null,null );
         db.close();
+        Intent intent =new Intent(this, MainDashboard.class);
+        startActivity(intent);
+    }
+
+    public void deleteAll1()
+    {
+        Sqlite_cart helper = new Sqlite_cart(context);
+        SQLiteDatabase  db = helper.getWritableDatabase();
+        // db.delete(TABLE_NAME,null,null);
+        //db.execSQL("delete * from"+ TABLE_NAME);
+        db.delete("Cart",null,null );
+        db.close();
+        Intent intent =new Intent(this, OrderPlace.class);
+        startActivity(intent);
     }
 }

@@ -140,6 +140,9 @@ public class SelectLocation extends Activity implements LocationPopup.onLocation
             @Override
             public void run() {
                 Intent i = new Intent(SelectLocation.this, MainDashboard.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(i);
                 finish();
             }

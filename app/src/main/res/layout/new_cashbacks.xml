@@ -25,14 +25,14 @@
                     android:layout_width="120dp"
                     android:layout_height="120dp"
                     android:layout_gravity="center"
-                    android:visibility="gone"
-                    android:src="@drawable/jwwd"
+                    android:src="@drawable/delivery_cart"
                     app:civ_border_color="#345E7C"
                     app:civ_border_width="9dp"/>
                 <com.gigamole.library.ArcProgressStackView
                     app:apsv_draw_width="20dp"
                     app:apsv_preview_bg="#fff"
                     android:id="@+id/apsv"
+                    android:visibility="gone"
                     app:apsv_dragged="true"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -50,7 +50,7 @@
                 android:paddingTop="5dp"
                 android:textSize="12sp"
                 android:textColor="#A4A8AB"
-                android:text="Jawwad Zafar"
+                android:text="User Name"
                 android:layout_centerHorizontal="true"
                 android:layout_height="wrap_content" />
             <co.jlabs.cersei_retailer.custom_components.TextViewModernM
@@ -60,7 +60,7 @@
                 android:paddingTop="5dp"
                 android:textSize="18sp"
                 android:textColor="#EAEBEC"
-                android:text="Level 4"
+                android:text="Level 1"
                 android:textAllCaps="true"
                 android:layout_centerHorizontal="true"
                 android:layout_height="wrap_content" />
@@ -72,7 +72,7 @@
                 android:layout_marginBottom="10dp"
                 android:textSize="15sp"
                 android:textColor="#A4A8AB"
-                android:text="+35 CB untill next level"
+                android:text="+100 CB untill next level"
                 android:textAllCaps="true"
                 android:layout_centerHorizontal="true"
                 android:layout_height="wrap_content" />
@@ -124,6 +124,7 @@
                 android:layout_weight="0.5"
                 android:background="#203E53"
                 android:gravity="center"
+                android:id="@+id/achieve"
                 android:orientation="vertical"
                 android:layout_height="match_parent">
                 <co.jlabs.cersei_retailer.Rounded.MyIconFonts
@@ -145,28 +146,44 @@
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:background="#375265"/>
-            <LinearLayout
+            <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_weight="0.5"
-                    android:gravity="center"
+
                     android:background="#203E53"
-                    android:orientation="vertical"
+
                     android:layout_height="match_parent">
+                <com.haozhang.lib.SlantedTextView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:gravity="center"
+                    app:slantedBackgroundColor="@color/colorPrimary"
+                    app:slantedLength="40dp"
+                    app:slantedMode="left"
+                    app:slantedText="Coming Soon"
+                    app:slantedTextColor="@color/white"
+                    app:slantedTextSize="12sp"
+                    />
                 <co.jlabs.cersei_retailer.Rounded.MyIconFonts
                     android:layout_width="wrap_content"
                     android:textColor="#FFFFFF"
                     android:textSize="35sp"
+                    android:id="@+id/cashout"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
                     android:layout_height="wrap_content"
                     android:text="@string/cashout"/>
                 <co.jlabs.cersei_retailer.custom_components.TextViewModernM
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#fff"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/cashout"
                     android:paddingTop="5dp"
                     android:textAllCaps="true"
                     android:text="Cashout"/>
 
-            </LinearLayout>
+            </RelativeLayout>
 
         </LinearLayout>
         <TextView

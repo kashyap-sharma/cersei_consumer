@@ -238,7 +238,7 @@ public class AddressFiller extends AppCompatActivity implements NewAddress.OnFra
         public void onClick( View v )
         {
             // TODO Auto-generated method stub
-           final Intent  intent = new Intent(getApplication(), BillActivity.class);
+           final Intent  intent = new Intent(context, BillActivity.class);
             intent.putExtra("faddress",address+"\n"+pincode);
             intent.putExtra("landmark",landmark);
             intent.putExtra("contact",contact);

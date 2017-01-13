@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -48,6 +49,7 @@ import org.json.JSONObject;
 
 import co.jlabs.cersei_retailer.LoadingCool.CoolAnimView;
 
+import co.jlabs.cersei_retailer.activity.EnvelopeActivity;
 import co.jlabs.cersei_retailer.activity.LoginNum;
 import co.jlabs.cersei_retailer.activity.ShareNEarn;
 import co.jlabs.cersei_retailer.changes.*;
@@ -60,6 +62,7 @@ import co.jlabs.cersei_retailer.custom_components.SmallBang;
 import co.jlabs.cersei_retailer.custom_components.SmallBangListener;
 import co.jlabs.cersei_retailer.custom_components.Sqlite_cart;
 import co.jlabs.cersei_retailer.custom_components.TabsView;
+import co.jlabs.cersei_retailer.custom_components.TextViewModernM;
 
 
 public class MainDashboard extends FragmentActivity implements View.OnClickListener,FragmentsEventInitialiser,Animation.AnimationListener, LocationPopup.onLocationSelected,NoInternetDialogBox.onReloadPageSelected{
@@ -68,7 +71,7 @@ public class MainDashboard extends FragmentActivity implements View.OnClickListe
     static final int page_points=1;
     static final int page_barcode=3;
     static final int page_cart=2;
-
+    private Boolean exit = false;
     MyAdapter mAdapter;
     DeactivatableViewPager mPager;
     PagerSlidingStrip strip;
@@ -88,8 +91,8 @@ public class MainDashboard extends FragmentActivity implements View.OnClickListe
     NoInternetDialogBox noInternetDialogBox=null;
 
     View filter_Icon;
-
-
+    TextViewModernM name_user,contact;
+    private static final int EMAIL_ACTIVITY_REQUEST = 1;
 
 
     //Drawer
@@ -197,7 +200,13 @@ public class MainDashboard extends FragmentActivity implements View.OnClickListe
 
             }
         });
-
+        name_user=(TextViewModernM)findViewById(R.id.name_user);
+        contact=(TextViewModernM)findViewById(R.id.contact);
+        if (StaticCatelog.getStringProperty(this,"api_key")!=null){
+            Log.e("hello",""+StaticCatelog.getStringProperty(this,"api_key"));
+            name_user.setText(""+StaticCatelog.getStringProperty(this,"name"));
+            contact.setText(""+StaticCatelog.getStringProperty(this,"mobile"));
+        }
         tab_point = strip.returntab(page_points);
         tab_cart = strip.returntab(page_cart);
        // filter_Icon.setOnClickListener(this);
@@ -520,6 +529,23 @@ public class MainDashboard extends FragmentActivity implements View.OnClickListe
         else {
             super.onBackPressed();
         }
+        if (exit) {
+            finish(); // finish activity
+        } else {
+            Toast.makeText(this, "Press Back again to Exit.",
+                    Toast.LENGTH_SHORT).show();
+            exit = true;
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    exit = false;
+                }
+            }, 3 * 1000);
+
+        }
+
+
+
     }
 
     @Override
@@ -556,8 +582,6 @@ public class MainDashboard extends FragmentActivity implements View.OnClickListe
                 intent.putExtra("from","maindash");
                 startActivity(intent);
             }
-
-
             s="Profile";
         } else if (id == R.id.lay_home) {
             s="My Orders";
@@ -576,6 +600,9 @@ public class MainDashboard extends FragmentActivity implements View.OnClickListe
             }
             s="Coupons";
         } else if (id == R.id.lay_mail_us) {
+            Intent intent =new Intent(this, EnvelopeActivity.class);
+            startActivityForResult(intent, EMAIL_ACTIVITY_REQUEST);
+
             s="Settings";
         } else if (id == R.id.lay_settings) {
             s="Settings";

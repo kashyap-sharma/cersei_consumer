@@ -12,7 +12,10 @@ import android.view.View;
 import android.widget.ImageView;
 
 import co.jlabs.cersei_retailer.R;
+
+import co.jlabs.cersei_retailer.Rounded.CircularImageView;
 import co.jlabs.cersei_retailer.Rounded.RoundedImageView;
+import co.jlabs.cersei_retailer.StaticCatelog;
 import co.jlabs.cersei_retailer.custom_components.ButtonModarno;
 import co.jlabs.cersei_retailer.custom_components.TextViewModernM;
 
@@ -21,16 +24,19 @@ public class ShareNEarn extends AppCompatActivity implements View.OnClickListene
     private TextViewModernM txt;
     private CoordinatorLayout coordinatorLayout;
     private TextViewModernM ref_code;
-    private RoundedImageView logo;
+    private CircularImageView logo;
     private ImageView cross;
     private ButtonModarno share;
     String getstring;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_share_nearn);
+        context=this;
         initView();
+
     }
 
     private void initView() {
@@ -38,12 +44,16 @@ public class ShareNEarn extends AppCompatActivity implements View.OnClickListene
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id
                 .activity_share_nearn);
         ref_code = (TextViewModernM) findViewById(R.id.ref_code);
-        logo = (RoundedImageView) findViewById(R.id.logo);
+        logo = (CircularImageView) findViewById(R.id.logo);
         cross = (ImageView) findViewById(R.id.cross);
         share = (ButtonModarno) findViewById(R.id.share);
+        if(StaticCatelog.getStringProperty(context,"api_key")!=null){
+            ref_code.setText(""+StaticCatelog.getStringProperty(context,"referral_code"));
+        }
         share.setOnClickListener(this);
         ref_code.setOnClickListener(this);
         cross.setOnClickListener(this);
+
     }
 
     @Override
@@ -75,7 +85,7 @@ public class ShareNEarn extends AppCompatActivity implements View.OnClickListene
             i.setType("text/plain");
             i.putExtra(Intent.EXTRA_SUBJECT, "Thiscounts");
             String sAux = "\nDownload this app and earn cashbacks\n\n";
-            sAux = sAux + "https://play.google.com/store/apps/details?id=com.facebook.katana \n\n";
+            sAux = sAux + "http://jlabs.co/this_cus/app.apk \n\n"+"\n\nJust put this referral code: "+ref_code.getText().toString().trim();
             i.putExtra(Intent.EXTRA_TEXT, sAux);
             startActivity(Intent.createChooser(i, "Refer your friends"));
         } catch(Exception e) {

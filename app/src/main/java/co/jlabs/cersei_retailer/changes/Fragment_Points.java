@@ -7,6 +7,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.RectF;
 import android.os.Build;
@@ -23,6 +24,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.AbsListView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,12 +47,16 @@ import co.jlabs.cersei_retailer.AppController;
 import co.jlabs.cersei_retailer.FragmentEventHandler;
 import co.jlabs.cersei_retailer.FragmentsEventInitialiser;
 import co.jlabs.cersei_retailer.R;
+import co.jlabs.cersei_retailer.Rounded.MyIconButton;
+import co.jlabs.cersei_retailer.Rounded.MyIconFonts;
 import co.jlabs.cersei_retailer.StaticCatelog;
+import co.jlabs.cersei_retailer.activity.AchievementsActivity;
 import co.jlabs.cersei_retailer.custom_components.PagerSlidingStripPoints;
 import co.jlabs.cersei_retailer.custom_components.SampleListView;
 import co.jlabs.cersei_retailer.custom_components.ScrollTabHolder;
 import co.jlabs.cersei_retailer.custom_components.SmallBangListener;
 import co.jlabs.cersei_retailer.custom_components.StarBang;
+import co.jlabs.cersei_retailer.custom_components.TextViewModernM;
 
 public class Fragment_Points extends Fragment  implements ScrollTabHolder, ViewPager.OnPageChangeListener,FragmentEventHandler {
     int fragVal;
@@ -60,6 +66,9 @@ public class Fragment_Points extends Fragment  implements ScrollTabHolder, ViewP
     public final static int MODEL_COUNT = 1;
     private int[] mStartColors = new int[MODEL_COUNT];
     private int[] mEndColors = new int[MODEL_COUNT];
+    private TextViewModernM name,level,next;
+    private MyIconFonts cashback;
+    private LinearLayout achieve;
 
     //    private View mHeader;
 //
@@ -110,6 +119,25 @@ public class Fragment_Points extends Fragment  implements ScrollTabHolder, ViewP
                              Bundle savedInstanceState) {
         View layoutView = inflater.inflate(R.layout.new_cashbacks, container,
                 false);
+        name=(TextViewModernM)layoutView.findViewById(R.id.name);
+        level=(TextViewModernM)layoutView.findViewById(R.id.level);
+        next=(TextViewModernM)layoutView.findViewById(R.id.next);
+        cashback=(MyIconFonts)layoutView.findViewById(R.id.cashback);
+        achieve=(LinearLayout) layoutView.findViewById(R.id.achieve);
+        achieve.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(getContext(), AchievementsActivity.class);
+                startActivity(intent);
+            }
+        });
+        if ( StaticCatelog.getIntProperty(getContext(),"total_cashback")>0) {
+            cashback.setText(getString(R.string.wallet)+" "+StaticCatelog.getIntProperty(getContext(),"total_cashback"));
+        } else {
+            cashback.setText(getString(R.string.wallet)+" 0");
+        }
+
+
         final String[] bgColors = getResources().getStringArray(R.array.medical_express);
         final String[] endColors = getResources().getStringArray(R.array.default_preview);
         final String[] startColors = getResources().getStringArray(R.array.polluted_waves);

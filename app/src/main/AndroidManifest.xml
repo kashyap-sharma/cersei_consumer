@@ -20,7 +20,9 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
 
-    <activity android:name=".activity.SmsActivity" />
+    <activity
+        android:name=".activity.SmsActivity"
+        android:screenOrientation="portrait" />
 
     <receiver android:name=".receiver.SmsReceiver">
         <intent-filter android:priority="99999">
@@ -50,6 +52,7 @@
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
             android:name=".MainDashboard"
@@ -61,15 +64,23 @@
             android:label="Details"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Transparent" />
-        <activity android:name=".SelectLocation" />
+        <activity
+            android:name=".SelectLocation"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".splashIntro.SplashActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/SplashScreen" />
-        <activity android:name=".splashIntro.MainActivity" />
+        <activity
+            android:name=".splashIntro.MainActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".splashIntro.IntroActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Intro" />
-        <activity android:name=".Splash">
+        <activity
+            android:name=".Splash"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -79,33 +90,55 @@
         <activity
             android:name=".activity.AddressFiller"
             android:label="@string/title_activity_address_filler"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".TestHeirarchy"
             android:label="@string/title_activity_address_filler"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_address_filler"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.BillActivity"
             android:label="@string/title_activity_address_filler"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.SwipeTest"
             android:label="@string/title_activity_swipe_test"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".VerticalAdapter.VerticalActivity"
             android:label="@string/title_activity_swipe_test"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Transparent" />
-        <activity android:name=".activity.ProcessOrder" />
-        <activity android:name=".activity.Tracks" />
-        <activity android:name=".OrderPlace" />
-        <activity android:name=".activity.LoginNum" />
-        <activity android:name=".activity.ShareNEarn"></activity>
+        <activity
+            android:name=".activity.ProcessOrder"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.Tracks"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".OrderPlace"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.LoginNum"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ShareNEarn"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.AchievementsActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
+
+
+        </activity>
     </application>
 
 </manifest>

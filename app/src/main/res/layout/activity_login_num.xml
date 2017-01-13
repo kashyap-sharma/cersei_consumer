@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:background="@color/colorPrimary"
     tools:context=".SelectLocation">
     <ImageView
@@ -12,6 +11,7 @@
         android:layout_width="200dp"
         android:layout_centerHorizontal="true"
         android:layout_height="150dp"
+        android:id="@+id/img"
         android:src="@drawable/thiscounts"/>
     <LinearLayout
         android:layout_width="match_parent"
@@ -66,6 +66,7 @@
                 android:textColor="#fff"
                 android:inputType="phone"
                 android:maxEms="10"
+                android:maxLength="10"
                 android:maxLines="1"
                 android:hint="Phone Number"
                 android:textColorHint="#ffffff"
@@ -192,5 +193,13 @@
 
 
     </RelativeLayout>
+    <include android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/img"
+        android:visibility="gone"
+        android:id="@+id/content_regis"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        layout="@layout/content_login"/>
 
 </RelativeLayout>

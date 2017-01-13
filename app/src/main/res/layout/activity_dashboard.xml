@@ -46,7 +46,7 @@
                     android:layout_weight="1"
                     android:orientation="vertical">
 
-                    <TextView android:layout_width="wrap_content"
+                    <co.jlabs.cersei_retailer.custom_components.TextViewModernM android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="New Here"
                         android:id="@+id/name_user"
@@ -54,7 +54,7 @@
                         android:padding="3dp"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
-                    <TextView
+                    <co.jlabs.cersei_retailer.custom_components.TextViewModernM
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="3dp"

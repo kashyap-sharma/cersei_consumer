@@ -1,5 +1,6 @@
 package co.jlabs.cersei_retailer.activity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -61,6 +62,7 @@ public class ProcessOrder extends AppCompatActivity implements View.OnClickListe
     ArrayList<Class_Cart> itema;
     Context context;
     String url1 = StaticCatelog.geturl()+"cersei/consumer/order";
+    private ProgressDialog pdia;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -200,6 +202,9 @@ public class ProcessOrder extends AppCompatActivity implements View.OnClickListe
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            pdia = new ProgressDialog(context);
+            pdia.setMessage("Loading...");
+            pdia.show();
         }
 
         @Override
@@ -213,6 +218,11 @@ public class ProcessOrder extends AppCompatActivity implements View.OnClickListe
                     intent.putExtra("order_id",data.getString("order_id"));
                     startActivity(intent);
                 }
+                else {
+                    Intent intent =new Intent(context, LoginNum.class);
+                    intent.putExtra("from","process");
+                    startActivity(intent);
+                }
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -223,6 +233,7 @@ public class ProcessOrder extends AppCompatActivity implements View.OnClickListe
         @Override
         protected void onPostExecute(Void val) {
             super.onPostExecute(val);
+            pdia.dismiss();
             Toast.makeText(context, "Data Posted.", Toast.LENGTH_LONG).show();
 
         }

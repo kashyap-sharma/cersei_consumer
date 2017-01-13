@@ -1,23 +1,30 @@
 package co.jlabs.cersei_retailer.splashIntro;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.FloatRange;
 import android.support.annotation.Nullable;
 import android.view.View;
-import android.widget.Toast;
-
 import agency.tango.materialintroscreen.MaterialIntroActivity;
 import agency.tango.materialintroscreen.MessageButtonBehaviour;
 import agency.tango.materialintroscreen.SlideFragmentBuilder;
 import agency.tango.materialintroscreen.animations.IViewTranslation;
 import co.jlabs.cersei_retailer.R;
 import co.jlabs.cersei_retailer.SelectLocation;
+import co.jlabs.cersei_retailer.custom_components.Sqlite_cart;
 
 public class IntroActivity extends MaterialIntroActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        try {
+            deleteAll();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
         enableLastSlideAlphaExitTransition(true);
 
         getBackButtonTranslationWrapper()
@@ -102,5 +109,21 @@ public class IntroActivity extends MaterialIntroActivity {
         super.onFinish();
         Intent intent =new Intent(this, SelectLocation.class);
         startActivity(intent);
+    }
+
+
+    public void deleteAll()
+    {
+        try {
+            Sqlite_cart helper = new Sqlite_cart(this);
+            SQLiteDatabase db = helper.getWritableDatabase();
+            // db.delete(TABLE_NAME,null,null);
+            //db.execSQL("delete * from"+ TABLE_NAME);
+            db.delete("Cart",null,null );
+            db.delete("Retailer",null,null );
+            db.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

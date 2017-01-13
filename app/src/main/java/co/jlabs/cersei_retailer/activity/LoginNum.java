@@ -1,6 +1,7 @@
 package co.jlabs.cersei_retailer.activity;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -17,6 +18,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.appnirman.vaidationutils.ValidationUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,19 +40,23 @@ import co.jlabs.cersei_retailer.otp.OtpView;
 public class LoginNum extends AppCompatActivity implements View.OnClickListener {
 
     private TextViewModernM code;
-    private MEditText phone;
+    private MEditText phone,fname, lname, email, reff_code;
     private Button que_but;
     private TextView bar;
-    private ButtonModarno send_code;
+    private ButtonModarno send_code,regi_conf ;
     private LinearLayout login_window;
     private ButtonModarno submit;
     private TextView sitback;
     private TextView or;
     private OtpView otpview;
     private RelativeLayout otp;
+    private View content_regis;
     Context context;
     String s;
-    String url1 = StaticCatelog.geturl()+"cersei/auth/ulogin";
+    String url1 = StaticCatelog.geturl()+"cersei/consumer/phone";
+    String url2 = StaticCatelog.geturl()+"cersei/consumer/register";
+    private ProgressDialog pdia;
+    private ValidationUtils validationUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,11 +69,18 @@ public class LoginNum extends AppCompatActivity implements View.OnClickListener 
     }
 
     private void initView() {
+        validationUtils = new ValidationUtils(context);
         code = (TextViewModernM) findViewById(R.id.code);
         phone = (MEditText) findViewById(R.id.phone);
+        fname  = (MEditText) findViewById(R.id.fname);
+        lname = (MEditText) findViewById(R.id.lname);
+        email  = (MEditText) findViewById(R.id.email);
+        content_regis=findViewById(R.id.content_regis);
+        reff_code  = (MEditText) findViewById(R.id.reff_code);
         que_but = (Button) findViewById(R.id.que_but);
         bar = (TextView) findViewById(R.id.bar);
         send_code = (ButtonModarno) findViewById(R.id.send_code);
+        regi_conf  = (ButtonModarno) findViewById(R.id.regi_conf);
         login_window = (LinearLayout) findViewById(R.id.login_window);
         submit = (ButtonModarno) findViewById(R.id.submit);
         sitback = (TextView) findViewById(R.id.sitback);
@@ -78,6 +92,7 @@ public class LoginNum extends AppCompatActivity implements View.OnClickListener 
         que_but.setOnClickListener(this);
         send_code.setOnClickListener(this);
         submit.setOnClickListener(this);
+        regi_conf.setOnClickListener(this);
     }
 
     @Override
@@ -103,39 +118,90 @@ public class LoginNum extends AppCompatActivity implements View.OnClickListener 
             case R.id.send_code:
                 submit();
                 break;
+            case R.id.regi_conf:
+                submit1();
+//                submit();
+                break;
             case R.id.submit:
                 String otpM = otpview.getOTP();
                 if (TextUtils.getTrimmedLength(otpM)<4) {
                     Toast.makeText(this, "OTP invalid", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
-
-                if (s.equals("cart")) {
-                    Intent intent =new Intent(this,ProcessOrder.class);
-                    startActivity(intent);
-                } else if(s.equals("share")) {
-                    Intent intent =new Intent(this,ShareNEarn.class);
-                    startActivity(intent);
-                } else  {
-                    Intent intent =new Intent(this,MainDashboard.class);
-                    startActivity(intent);
+                log_in();
+                if(StaticCatelog.getStringProperty(context,"api_key")==null){
+                    login_window.setVisibility(View.GONE);
+                    otp.setVisibility(View.GONE);
+                    content_regis.setVisibility(View.VISIBLE);
+                }else{
+                    if (s.equals("cart")) {
+                        Intent intent =new Intent(this,ProcessOrder.class);
+                        startActivity(intent);
+                    } else if(s.equals("share")) {
+                        Intent intent =new Intent(this,ShareNEarn.class);
+                        startActivity(intent);
+                    }   else if(s.equals("process")) {
+                        Intent intent =new Intent(this,ProcessOrder.class);
+                        startActivity(intent);
+                    } else  {
+                        Intent intent =new Intent(this,MainDashboard.class);
+                        startActivity(intent);
+                    }
                 }
                 break;
         }
     }
 
+
+
+
     private void submit() {
         // validate
-        String phoneString = phone.getText().toString().trim();
-        if (TextUtils.getTrimmedLength(phoneString)!=10) {
-            Toast.makeText(context, "Phone Number", Toast.LENGTH_SHORT).show();
+
+        if (!validationUtils.isValidMobile(phone.getText().toString())) {
+            phone.setError("Enter valid mobile number");
             return;
         }
-        log_in();
+        login_window.setVisibility(View.GONE);
+        otp.setVisibility(View.VISIBLE);
+
 
 
         // TODO validate success, do something
+
+
+    }
+
+    private void submit1() {
+        // validate
+        if (!validationUtils.isValidFirstName(fname.getText().toString().trim())) {
+            fname.setError("Enter valid first name");
+            return;
+        }
+        if (!validationUtils.isValidFirstName(lname.getText().toString().trim())) {
+            lname.setError("Enter valid last name");
+            return;
+        }
+
+        if (!validationUtils.isValidEmail(email.getText().toString().trim())) {
+            email.setError("Enter valid email");
+            return;
+        }
+        String ref=reff_code.getText().toString().trim();
+        String phoneString = phone.getText().toString().trim();
+        JSONObject jsonObject1 =new JSONObject();
+        try {
+            jsonObject1.put("name",fname.getText().toString().trim()+" "+lname.getText().toString().trim());
+            jsonObject1.put("mobile_no",phoneString);
+            jsonObject1.put("email",email.getText().toString().trim());
+            jsonObject1.put("referral_code",ref);
+            Log.e("apss",":"+jsonObject1.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        new LoginPost1(jsonObject1).execute();
+        Log.e("apss",":"+StaticCatelog.getStringProperty(context,"api_key"));
 
 
     }
@@ -146,13 +212,13 @@ public class LoginNum extends AppCompatActivity implements View.OnClickListener 
         String contactString = phone.getText().toString().trim();
         JSONObject jsonObject =new JSONObject();
         try {
-            jsonObject.put("username","9711940752");
-            jsonObject.put("password","827ccb0eea8a706c4c34a16891f84e7b");
-            jsonObject.put("user_type","user");
+            jsonObject.put("mobile_no",contactString);
+            jsonObject.put("otp","5555");
         } catch (JSONException e) {
             e.printStackTrace();
         }
         Log.i("Myapp", "Calling url " + url1);
+        Log.i("Myapp", "Calling url " + url2 );
         new LoginPost(jsonObject).execute();
     }
 
@@ -167,6 +233,9 @@ public class LoginNum extends AppCompatActivity implements View.OnClickListener 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            pdia = new ProgressDialog(context);
+            pdia.setMessage("Loading...");
+            pdia.show();
         }
 
         @Override
@@ -175,16 +244,28 @@ public class LoginNum extends AppCompatActivity implements View.OnClickListener 
             try {
                 if (obj.getBoolean("success")) {
                     JSONObject data=obj.getJSONObject("data");
+                    if(obj.getJSONObject("data").getBoolean("new_user")){
+                        StaticCatelog.setStringProperty(context,"api_key","12");
+                    }
+                    else
+                    {
+                    StaticCatelog.setBooleanProperty(context,"new_user",data.getBoolean("new_user"));
                     StaticCatelog.setStringProperty(context,"name",data.getString("name"));
                     StaticCatelog.setStringProperty(context,"mobile",data.getString("mobile_no"));
                     StaticCatelog.setStringProperty(context,"email",data.getString("email"));
                     StaticCatelog.setStringProperty(context,"api_key",data.getString("api_key"));
-                    Log.e("api:  ",""+data.getString("api_key"));
+                    StaticCatelog.setIntProperty(context,"total_cashback",data.getInt("total_cashback"));
+                    //Log.e("total_cashback:  ",""+StaticCatelog.getStringProperty(context,"total_cashback"));
                     StaticCatelog.setStringProperty(context,"user_id",data.getString("user_id"));
-                } else {
-
-                    Toast.makeText(context,"You did something wrong.",Toast.LENGTH_SHORT).show();
-
+                    StaticCatelog.setStringProperty(context,"referral_code",data.getString("referral_code"));
+                    }
+                }
+                else {
+                    try {
+                        Toast.makeText(context,"You did something wrong.",Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
 
             } catch (JSONException e) {
@@ -196,11 +277,82 @@ public class LoginNum extends AppCompatActivity implements View.OnClickListener 
         @Override
         protected void onPostExecute(Void val) {
             super.onPostExecute(val);
+            pdia.dismiss();
             if(StaticCatelog.getStringProperty(context,"api_key")!=null){
                 Toast.makeText(context, "Logged in.", Toast.LENGTH_LONG).show();
-                login_window.setVisibility(View.GONE);
-                otp.setVisibility(View.VISIBLE);
+
             }
+        }
+    }
+
+
+
+    private class LoginPost1 extends AsyncTask<String,Void,Void>
+    {
+        JSONObject object;
+        LoginPost1(JSONObject obj)
+        {
+            object=obj;
+        }
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pdia = new ProgressDialog(context);
+            pdia.setMessage("Loading...");
+            pdia.show();
+        }
+
+        @Override
+        protected Void doInBackground(String... args) {
+            JSONObject obj= JSONfunctions.makenewHttpRequest(context, url2, object);
+            try {
+                if (obj.getBoolean("success")) {
+                        JSONObject data=obj.getJSONObject("data");
+                        StaticCatelog.setStringProperty(context,"name",data.getString("name"));
+                        StaticCatelog.setStringProperty(context,"mobile",data.getString("mobile_no"));
+                        StaticCatelog.setStringProperty(context,"email",data.getString("email"));
+                        StaticCatelog.setStringProperty(context,"api_key",data.getString("api_key"));
+                        Log.e("api:  ",""+data.getString("api_key"));
+                        StaticCatelog.setStringProperty(context,"user_id",data.getString("user_id"));
+                        StaticCatelog.setStringProperty(context,"referral_code",data.getString("referral_code"));
+
+                }
+                else {
+                    try {
+                        Toast.makeText(context,"You did something wrong.",Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void val) {
+            super.onPostExecute(val);
+            pdia.dismiss();
+            Log.e("dipasds",""+StaticCatelog.getStringProperty(context,"api_key"));
+            if(!(StaticCatelog.getStringProperty(context,"api_key").equals("12"))){
+                if (s.equals("cart")) {
+                    Intent intent =new Intent(LoginNum.this,ProcessOrder.class);
+                    startActivity(intent);
+                } else if(s.equals("share")) {
+                    Intent intent =new Intent(LoginNum.this,ShareNEarn.class);
+                    startActivity(intent);
+                }   else if(s.equals("process")) {
+                    Intent intent =new Intent(LoginNum.this,ProcessOrder.class);
+                    startActivity(intent);
+                } else  {
+                    Intent intent =new Intent(LoginNum.this,MainDashboard.class);
+                    startActivity(intent);
+                }
+
+            }
+
         }
     }
     private final TextWatcher passwordWatcher = new TextWatcher() {
@@ -220,6 +372,8 @@ public class LoginNum extends AppCompatActivity implements View.OnClickListener 
                 inputManager.hideSoftInputFromWindow(
                         getCurrentFocus().getWindowToken(),
                         InputMethodManager.HIDE_NOT_ALWAYS);
+
+
             }
         }
     };

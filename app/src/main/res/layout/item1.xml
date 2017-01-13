@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#152A38"
+    android:id="@+id/parentPanel">
+    <co.jlabs.cersei_retailer.DisplayConnectorView2
+        android:id="@+id/__leak_canary_row_connector"
+        android:layout_width="16dp"
+        android:layout_height="48dp"
+
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"/>
+
+    <co.jlabs.cersei_retailer.custom_components.TextViewModernM
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="December 2016"
+        android:textColor="#ffffff"
+        android:layout_toRightOf="@+id/__leak_canary_row_connector"
+        android:id="@+id/month"
+        android:paddingLeft="10dp"
+        android:gravity="center_vertical"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_toRightOf="@+id/__leak_canary_row_connector"
+        android:id="@+id/bar" android:visibility="gone"
+        android:layout_below="@+id/month"
+        android:background="#132734"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/father"
+
+        android:layout_below="@+id/bar"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>

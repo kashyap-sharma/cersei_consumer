@@ -78,6 +78,18 @@ public class OrderPlace extends AppCompatActivity {
 
 
     }
+    @Override
+    public void onBackPressed(){
+
+
+        Intent i = new Intent(OrderPlace.this, MainDashboard.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(i);
+        //startActivity(intent);
+
+    }
 
 
     private static class RecyclerViewAdapter extends RecyclerView.Adapter<FakeViewHolder> {

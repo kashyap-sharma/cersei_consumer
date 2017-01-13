@@ -110,6 +110,49 @@ public class StaticCatelog {
             editor.commit();
         }
     }
+
+
+    public static int getIntProperty(Context context,String key) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("preferences", Activity.MODE_PRIVATE);
+        int res = 0;
+        if (sharedPreferences != null) {
+            res = sharedPreferences.getInt(key, 0);
+        }
+        return res;
+    }
+
+    public static void setIntProperty(Context context,String key, int value) {
+        SharedPreferences  sharedPreferences = context.getSharedPreferences("preferences", Activity.MODE_PRIVATE);
+        if (sharedPreferences != null) {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putInt(key, value);
+            editor.commit();
+        }
+    }
+
+    public static Boolean getBooleanProperty(Context context,String key) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("preferences", Activity.MODE_PRIVATE);
+        Boolean res = null;
+        if (sharedPreferences != null) {
+            res = sharedPreferences.getBoolean(key, false);
+        }
+        return res;
+    }
+
+    public static void setBooleanProperty(Context context,String key, Boolean value) {
+        SharedPreferences  sharedPreferences = context.getSharedPreferences("preferences", Activity.MODE_PRIVATE);
+        if (sharedPreferences != null) {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean(key, value);
+            editor.commit();
+        }
+    }
+
+
+
+
+
+
     public static String geturl()
     {
         //return "http://192.168.0.13:8000/";

@@ -41,15 +41,15 @@
         android:layout_centerHorizontal="true"
         android:text="Kash250er"/>
 
-    <co.jlabs.cersei_retailer.Rounded.RoundedImageView
+    <co.jlabs.cersei_retailer.Rounded.CircularImageView
         android:layout_width="150dp"
         android:layout_centerHorizontal="true"
         android:layout_height="150dp"
         android:id="@+id/logo"
-        android:padding="5dp"
-        android:layout_margin="5dp"
+        android:padding="15dp"
+
+        android:layout_margin="15dp"
         android:layout_below="@+id/ref_code"
-        android:scaleType="centerCrop"
         android:src="@drawable/logo1"/>
     <co.jlabs.cersei_retailer.custom_components.TextViewModernM
         android:layout_width="match_parent"

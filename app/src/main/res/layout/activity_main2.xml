@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_main2"
+    android:layout_width="match_parent"
+    android:background="#152A38"
+    android:layout_height="match_parent">
+
+    <co.jlabs.cersei_retailer.custom_components.TextViewModernM
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:textColor="#fff"
+        android:id="@+id/acq"
+        android:textSize="15sp"
+        android:layout_height="wrap_content"
+        android:text="So far you have acquired"/>
+    <co.jlabs.cersei_retailer.custom_components.TextViewModernM
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:textColor="#00FFFF"
+        android:id="@+id/total"
+        android:layout_below="@+id/acq"
+        android:textSize="25sp"
+        app:fontname="lb"
+        android:layout_height="wrap_content"
+        android:text="75"/>
+    <co.jlabs.cersei_retailer.custom_components.TextViewModernM
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:textColor="#fff"
+        android:id="@+id/cas"
+        android:layout_below="@+id/total"
+        android:textSize="14sp"
+        android:layout_height="wrap_content"
+        android:paddingBottom="7dp"
+        android:text="cashback"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_below="@+id/cas"
+        android:id="@+id/recyclerview"
+        android:layout_height="match_parent"/>
+
+    <ProgressBar
+        android:id="@+id/progress"
+        android:visibility="gone"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
+</RelativeLayout>
