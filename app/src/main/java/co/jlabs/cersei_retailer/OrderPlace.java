@@ -34,12 +34,14 @@ import co.jlabs.cersei_retailer.StepView.HorizontalStepView;
 import co.jlabs.cersei_retailer.StepView.bean.StepBean;
 import co.jlabs.cersei_retailer.activity.ProcessOrder;
 import co.jlabs.cersei_retailer.custom_components.Class_Cart;
+import co.jlabs.cersei_retailer.sunburn.SunBabyLoadingView;
 
 public class OrderPlace extends AppCompatActivity {
     Context context;
     private ImageView back;
     private LinearLayout header;
     private TextView placed_time;
+
     private RecyclerView recyclerView;
     public JSONArray data;
     String url1 = StaticCatelog.geturl()+"cersei/consumer/order/list";
@@ -67,6 +69,7 @@ public class OrderPlace extends AppCompatActivity {
         back = (ImageView) findViewById(R.id.back);
         header = (LinearLayout) findViewById(R.id.header);
         placed_time = (TextView) findViewById(R.id.placed_time);
+
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         back.setOnClickListener(new View.OnClickListener() {

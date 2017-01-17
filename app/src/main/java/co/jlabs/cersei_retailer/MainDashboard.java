@@ -584,8 +584,18 @@ public class MainDashboard extends FragmentActivity implements View.OnClickListe
             }
             s="Profile";
         } else if (id == R.id.lay_home) {
-            s="My Orders";
+           // s="My Orders";
+
         } else if (id == R.id.lay_orders) {
+            if(StaticCatelog.getStringProperty(this,"api_key")==null) {
+                Intent intent =new Intent(this, LoginNum.class);
+                intent.putExtra("from","tracker");
+                startActivity(intent);
+            }else{
+                Intent intent =new Intent(this, OrderPlace.class);
+                startActivity(intent);
+            }
+
             s="My Addresses";
         } else if (id == R.id.lay_address) {
             s="Saved Cards";
@@ -702,7 +712,7 @@ public class MainDashboard extends FragmentActivity implements View.OnClickListe
 
     @Override
     public void updateCart(Boolean add) {
-        //((TabsView)tab_cart).giveCartNotification(add);
+        ((TabsView)tab_cart).giveCartNotification(add);
 
     }
 

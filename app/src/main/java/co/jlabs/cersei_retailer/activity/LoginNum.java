@@ -29,6 +29,7 @@ import java.util.TimerTask;
 
 import co.jlabs.cersei_retailer.JSONfunctions;
 import co.jlabs.cersei_retailer.MainDashboard;
+import co.jlabs.cersei_retailer.OrderPlace;
 import co.jlabs.cersei_retailer.R;
 import co.jlabs.cersei_retailer.SelectLocation;
 import co.jlabs.cersei_retailer.StaticCatelog;
@@ -36,6 +37,7 @@ import co.jlabs.cersei_retailer.custom_components.ButtonModarno;
 import co.jlabs.cersei_retailer.custom_components.MEditText;
 import co.jlabs.cersei_retailer.custom_components.TextViewModernM;
 import co.jlabs.cersei_retailer.otp.OtpView;
+import co.jlabs.cersei_retailer.sunburn.SunBabyLoadingView;
 
 public class LoginNum extends AppCompatActivity implements View.OnClickListener {
 
@@ -56,6 +58,7 @@ public class LoginNum extends AppCompatActivity implements View.OnClickListener 
     String url1 = StaticCatelog.geturl()+"cersei/consumer/phone";
     String url2 = StaticCatelog.geturl()+"cersei/consumer/register";
     private ProgressDialog pdia;
+    SunBabyLoadingView sblv;
     private ValidationUtils validationUtils;
 
     @Override
@@ -142,6 +145,10 @@ public class LoginNum extends AppCompatActivity implements View.OnClickListener 
                         startActivity(intent);
                     }   else if(s.equals("process")) {
                         Intent intent =new Intent(this,ProcessOrder.class);
+                        startActivity(intent);
+                    }
+                    else if(s.equals("tracker")) {
+                        Intent intent =new Intent(this, OrderPlace.class);
                         startActivity(intent);
                     } else  {
                         Intent intent =new Intent(this,MainDashboard.class);
