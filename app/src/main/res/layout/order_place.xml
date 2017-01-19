@@ -34,6 +34,7 @@
         android:layout_height="48dp"
         android:gravity="center_vertical"
         android:padding="10dp"
+        android:visibility="gone"
         android:textSize="15sp"
         android:id="@+id/placed_time"
         android:text="Placed at 10:45 AM"

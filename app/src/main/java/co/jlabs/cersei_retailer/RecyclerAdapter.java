@@ -228,6 +228,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         }
 
                     }
+                   // holder.newADD.setTextNum(cart.addToCart( json_offers.getJSONObject(position - 1)));
                     holder.newADD.setOnShoppingClickListener(new ShoppingView.ShoppingClickListener() {
                         @Override
                         public void onAddClick(int num) {

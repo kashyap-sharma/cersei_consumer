@@ -77,7 +77,7 @@ public class TabsView extends LinearLayout{
     {
         if(add) {
             num = num + 1;
-            no_notification.setText("");
+            no_notification.setText(""+num);
             notification.setVisibility(VISIBLE);
         }
         else
@@ -85,7 +85,7 @@ public class TabsView extends LinearLayout{
             if(num>1)
             {
                 num = num - 1;
-                no_notification.setText("");
+                no_notification.setText(""+num);
                 notification.setVisibility(VISIBLE);
             }
             else

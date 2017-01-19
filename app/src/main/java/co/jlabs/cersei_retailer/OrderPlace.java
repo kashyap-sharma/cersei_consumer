@@ -108,8 +108,6 @@ public class OrderPlace extends AppCompatActivity {
 
         public RecyclerViewAdapter(int index, JSONArray data ) {
             this.data=data;
-            Log.e("one",""+data.toString());
-            Log.e("onee",""+this.data.toString());
 
             if (index==1) {
 //                drawables = new int[] {

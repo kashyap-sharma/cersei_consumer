@@ -3,6 +3,7 @@ package co.jlabs.cersei_retailer;
 /**
  * Created by Pradeep on 12/25/2015.
  */
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 
 import co.jlabs.cersei_retailer.activity.*;
 import co.jlabs.cersei_retailer.activity.AddressFiller;
+import co.jlabs.cersei_retailer.custom_components.ButtonModarno;
 import co.jlabs.cersei_retailer.custom_components.Class_Cart;
 import co.jlabs.cersei_retailer.custom_components.Sqlite_cart;
 
@@ -34,6 +36,8 @@ public class Fragment_Cart extends Fragment implements FragmentEventHandler{
     double total_pice=0.0;
     View checkout_lay,checkout;
     View layoutView;
+    buttonClick click;
+    ButtonModarno foo;
 
     static Fragment_Cart init(int val) {
         Fragment_Cart truitonFrag = new Fragment_Cart();
@@ -80,8 +84,15 @@ public class Fragment_Cart extends Fragment implements FragmentEventHandler{
             }
         };
         View no_item_cart_view = layoutView.findViewById(R.id.emptycartview);
+         foo=(ButtonModarno)layoutView.findViewById(R.id.back_to_offers);
+        foo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                click.buttonClicked(v);
+            }
+        });
         lv.setEmptyView(no_item_cart_view);
-        Adapter_Cart adapter_cart = new Adapter_Cart(getContext(),items,itema,handler);
+        Adapter_Cart adapter_cart = new Adapter_Cart(getContext(),items,itema,handler,eventInitialiser);
         lv.setAdapter(adapter_cart);
         handleCheckoutVisibility();
         checkout.setOnClickListener(new View.OnClickListener() {
@@ -103,7 +114,16 @@ public class Fragment_Cart extends Fragment implements FragmentEventHandler{
         });
         return layoutView;
     }
+    interface buttonClick {
+        void buttonClicked(View v);
+    }
 
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        click = (buttonClick) activity;
+    }
 
     @Override
     public void adjustCameraOrViewPager(boolean on) {
@@ -125,7 +145,7 @@ public class Fragment_Cart extends Fragment implements FragmentEventHandler{
             StaticCatelog.setStringProperty(getContext(),"total_price",String.valueOf(total_price));
             this.total_item=total_item;
             this.total_pice=total_price;
-            Adapter_Cart adapter_cart = new Adapter_Cart(getContext(),items,itema,handler);
+            Adapter_Cart adapter_cart = new Adapter_Cart(getContext(),items,itema,handler,eventInitialiser);
             lv.setAdapter(adapter_cart);
             handleCheckoutVisibility();
         }

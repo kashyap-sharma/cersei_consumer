@@ -80,6 +80,7 @@
     <!--<string name="take_photo">&#xe911;</string>-->
     <string name="rating">&#xe918;</string>
     <string name="rupee">&#8377;</string>
+    <string name="ico_potli">&#xe800;</string>
 
     <string name="rating_points">&#xe918;12.0</string>
 
@@ -121,7 +122,8 @@
     <string name="title_activity_address_filler">AddressFiller</string>
     <string name="title_activity_swipe_test">SwipeTest</string>
     <string name="support_email">team@jlabs.co</string>
-
+    <string name="empty">Looks like you haven\'t made\n your choices yet&#8230;</string>
+    <string name="desc">Check what we have got for you</string>
     <string name="remove_cart">Change Location?</string>
     <string name="agree">Change</string>
     <string name="disagree">Back</string>

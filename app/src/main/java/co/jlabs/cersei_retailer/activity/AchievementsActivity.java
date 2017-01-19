@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -16,6 +18,8 @@ import org.json.JSONObject;
 import co.jlabs.cersei_retailer.JSONfunctions;
 import co.jlabs.cersei_retailer.R;
 import co.jlabs.cersei_retailer.StaticCatelog;
+import co.jlabs.cersei_retailer.custom_components.TextViewModernM;
+import co.jlabs.cersei_retailer.fragmentsInitialiser.Image;
 import co.jlabs.cersei_retailer.trey.MultiTypeDemoAdapter;
 import co.jlabs.cersei_retailer.trey.StickyHeaderLayoutManager;
 
@@ -24,6 +28,8 @@ public class AchievementsActivity extends AppCompatActivity {
     public JSONObject data;
     String url1 =  "http://lannister-api.elasticbeanstalk.com/cersei/consumer/account";
     Context context;
+    ImageView back;
+    TextViewModernM total;
     private static final String STATE_SCROLL_POSITION = "DemoActivity.STATE_SCROLL_POSITION";
     RecyclerView recyclerView;
     ProgressBar progressBar;
@@ -35,9 +41,15 @@ public class AchievementsActivity extends AppCompatActivity {
         getAch();
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         progressBar = (ProgressBar) findViewById(R.id.progress);
+        back=(ImageView)findViewById(R.id.back);
         recyclerView.setLayoutManager(new StickyHeaderLayoutManager());
-
-
+        total=(TextViewModernM)findViewById(R.id.total);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         //Log.e("check1",""+data.toString());
 //        ItemAdapter adapter = new ItemAdapter(context,data);
@@ -98,7 +110,11 @@ public class AchievementsActivity extends AppCompatActivity {
             super.onPostExecute(val);
             Log.e("datata",""+data.toString());
             Toast.makeText(context, "Data Posted.", Toast.LENGTH_LONG).show();
-
+            try {
+                total.setText("₹"+data.getInt("total_cashback"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             recyclerView.setAdapter(new MultiTypeDemoAdapter(data));
 //            Intent intent =new Intent(context, OrderPlace.class);
 //            startActivity(intent);

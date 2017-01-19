@@ -65,7 +65,7 @@ import co.jlabs.cersei_retailer.custom_components.TabsView;
 import co.jlabs.cersei_retailer.custom_components.TextViewModernM;
 
 
-public class MainDashboard extends FragmentActivity implements View.OnClickListener,FragmentsEventInitialiser,Animation.AnimationListener, LocationPopup.onLocationSelected,NoInternetDialogBox.onReloadPageSelected{
+public class MainDashboard extends FragmentActivity implements View.OnClickListener,FragmentsEventInitialiser,Animation.AnimationListener,Fragment_Cart.buttonClick, LocationPopup.onLocationSelected,NoInternetDialogBox.onReloadPageSelected{
     static final int ITEMS = 3;
     static final int page_offers=0;
     static final int page_points=1;
@@ -90,7 +90,7 @@ public class MainDashboard extends FragmentActivity implements View.OnClickListe
 
     NoInternetDialogBox noInternetDialogBox=null;
 
-    View filter_Icon;
+   // View filter_Icon;
     TextViewModernM name_user,contact;
     private static final int EMAIL_ACTIVITY_REQUEST = 1;
 
@@ -153,7 +153,7 @@ public class MainDashboard extends FragmentActivity implements View.OnClickListe
         navigationView.findViewById(R.id.lay_mail_us).setOnClickListener(this);
         navigationView.findViewById(R.id.lay_settings).setOnClickListener(this);
 
-        filter_Icon=findViewById(R.id.filter_icon);
+       // filter_Icon=findViewById(R.id.filter_icon);
 
         mAdapter = new MyAdapter(getSupportFragmentManager());
         mPager = (DeactivatableViewPager) findViewById(R.id.myviewpager);
@@ -163,7 +163,7 @@ public class MainDashboard extends FragmentActivity implements View.OnClickListe
         strip = (PagerSlidingStrip) findViewById(R.id.tabs);
         mPager.setAdapter(mAdapter);
         strip.setViewPager(mPager);
-        strip.manageFilterIcon(filter_Icon);
+        //strip.manageFilterIcon(filter_Icon);
         mPager.setOffscreenPageLimit(3);
         mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -173,6 +173,7 @@ public class MainDashboard extends FragmentActivity implements View.OnClickListe
 
             @Override
             public void onPageSelected(int position) {
+
                 if (position == page_offers) {
                     //redText(tab_point);
                     ViewpagerHandler.adjustCameraOrViewPager(true);
@@ -191,7 +192,7 @@ public class MainDashboard extends FragmentActivity implements View.OnClickListe
                     //(tab_point);
                     if(CartHandler!=null)
                     CartHandler.adjustCameraOrViewPager(true);
-                    ((TabsView) tab_cart).removeCartNotification();
+                   // ((TabsView) tab_cart).removeCartNotification();
                 }
             }
 
@@ -649,10 +650,10 @@ public class MainDashboard extends FragmentActivity implements View.OnClickListe
             //develope
 
         }
-        else if(id==R.id.filter_icon)
-        {
-            createFilterPopup();
-        }
+//        else if(id==R.id.filter_icon)
+//        {
+//            createFilterPopup();
+//        }
         if(s!="")
         {
             Toast.makeText(this, "Clicked " + s, Toast.LENGTH_SHORT).show();
@@ -721,6 +722,11 @@ public class MainDashboard extends FragmentActivity implements View.OnClickListe
         update_ui_for_location_withevent(StaticCatelog.getStringProperty(this, "area"),StaticCatelog.getStringProperty(this, "location"));
     }
 
+
+    public void buttonClicked(View v){
+        //get your viewPager var
+        mPager.setCurrentItem(0);
+    }
 
     public class MyAdapter extends FragmentPagerAdapter implements IconTabProvider {
 

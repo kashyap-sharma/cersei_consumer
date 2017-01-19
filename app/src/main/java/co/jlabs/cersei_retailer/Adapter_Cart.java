@@ -40,15 +40,17 @@ public class Adapter_Cart extends BaseAdapter {
     Fragment_Cart.Total_item_in_cart_text_handler totalItemInCartTextHandler;
     private int lastPosition = -1;
     Animation animation;
+    FragmentsEventInitialiser eventInitialiser;
 
 
-    public Adapter_Cart(Context context,ArrayList<Class_Cart>  offers_list,ArrayList<Class_Cart>  retailer_list,Fragment_Cart.Total_item_in_cart_text_handler handler) {
+    public Adapter_Cart(Context context,ArrayList<Class_Cart>  offers_list,ArrayList<Class_Cart>  retailer_list,Fragment_Cart.Total_item_in_cart_text_handler handler,FragmentsEventInitialiser eventInitialiser) {
         this.context = context;
         cart=new Sqlite_cart(context);
         this.offers_list=retailer_list;
         this.retailer_list=retailer_list;
         this.totalItemInCartTextHandler=handler;
         imageLoader = AppController.getInstance().getImageLoader();
+        this.eventInitialiser=eventInitialiser;
     }
 
     static class ViewHolder
@@ -148,6 +150,7 @@ public class Adapter_Cart extends BaseAdapter {
                         totalItemInCartTextHandler.handleText_cart(1,tots.get(i).price);
                         money.setText(""+tots.get(i).price*tots.get(i).quantity);
                         viewHolder.total.setText(""+tots.get(i).price*tots.get(i).quantity);
+                        eventInitialiser.updateCart(true);
                         return cart.addToCart(tots.get(i));
                     }else
                     {
@@ -200,6 +203,7 @@ public class Adapter_Cart extends BaseAdapter {
                         });
 
                     }
+                    eventInitialiser.updateCart(false);
                     totalItemInCartTextHandler.handleText_cart(-1,-tots.get(i).price);
                     return quantity;
                 }

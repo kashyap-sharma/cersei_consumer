@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -35,6 +36,7 @@ import java.util.TimerTask;
 import co.jlabs.cersei_retailer.custom_components.ButtonModarno;
 import co.jlabs.cersei_retailer.custom_components.LocationPopup;
 import co.jlabs.cersei_retailer.custom_components.MEditText;
+import co.jlabs.cersei_retailer.custom_components.Sqlite_cart;
 import co.jlabs.cersei_retailer.custom_components.TextViewModernM;
 
 public class SelectLocation extends Activity implements LocationPopup.onLocationSelected {
@@ -55,7 +57,6 @@ public class SelectLocation extends Activity implements LocationPopup.onLocation
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.select_location);
-
         context=this;
         ll=(LinearLayout)findViewById(R.id.login_window);
         phone=(MEditText) findViewById(R.id.phone);
@@ -72,11 +73,8 @@ public class SelectLocation extends Activity implements LocationPopup.onLocation
                 AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
                 builder.setMessage(getString(R.string.message_q));
                 builder.setCancelable(true);
-
                 final AlertDialog closedialog= builder.create();
-
                 closedialog.show();
-
                 final Timer timer2 = new Timer();
                 timer2.schedule(new TimerTask() {
                     public void run() {
@@ -88,7 +86,11 @@ public class SelectLocation extends Activity implements LocationPopup.onLocation
             }
         });
 
-
+        try {
+            deleteAll();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
         // getLocation();
@@ -134,6 +136,18 @@ public class SelectLocation extends Activity implements LocationPopup.onLocation
         start_activity();
     }
 
+
+    public void deleteAll()
+    {
+        Sqlite_cart helper = new Sqlite_cart(context);
+        SQLiteDatabase db = helper.getWritableDatabase();
+        // db.delete(TABLE_NAME,null,null);
+        //db.execSQL("delete * from"+ TABLE_NAME);
+        db.delete("Cart",null,null );
+        db.close();
+
+    }
+
     public void start_activity(){
         new Handler().postDelayed(new Runnable() {
 
@@ -160,7 +174,7 @@ public class SelectLocation extends Activity implements LocationPopup.onLocation
         }
         if(dialog==null)
             dialog = new LocationPopup(context, R.style.alert_dialog);
-
+            dialog.setCanceledOnTouchOutside(false);
         if(success==1)
         {
             findViewById(R.id.select).setOnClickListener(new View.OnClickListener() {
@@ -169,6 +183,7 @@ public class SelectLocation extends Activity implements LocationPopup.onLocation
                     if(!dialog.isShowing())
                     dialog = new LocationPopup(context, R.style.alert_dialog);
                     dialog.BuildDialog(SelectLocation.this, json);
+                    dialog.setCanceledOnTouchOutside(false);
                 }
             });
             dialog.BuildDialog(SelectLocation.this, json);

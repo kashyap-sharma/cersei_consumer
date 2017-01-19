@@ -98,12 +98,12 @@ public class LocationPopup extends Dialog {
     public void BuildDialog(onLocationSelected LocationInterface,JSONObject json)
     {
         setContentView(R.layout.select_location_popup);
-        findViewById(R.id.dismissifclickedhere).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
+//        findViewById(R.id.dismissifclickedhere).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                dismiss();
+//            }
+//        });
         this.locationInterface=LocationInterface;
         lv = (ListView) findViewById(R.id.listview);
         try {
@@ -138,12 +138,12 @@ public class LocationPopup extends Dialog {
     {
         setContentView(R.layout.select_location_popup);
        // findViewById(R.id.dismissifclickedhere).setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-        findViewById(R.id.dismissifclickedhere).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
+//        findViewById(R.id.dismissifclickedhere).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                dismiss();
+//            }
+//        });
         updateforlocation(obj);
         lv = (ListView) findViewById(R.id.listview);
         lv.setAdapter(new Adapter_Location(getContext(), data, false));
