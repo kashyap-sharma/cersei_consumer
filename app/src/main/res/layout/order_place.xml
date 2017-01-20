@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="#EEEEEE"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#fff"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -43,10 +44,88 @@
         android:layout_width="match_parent"
         android:id="@+id/recycler_view"
         android:background="#fff"
+
         android:layout_marginBottom="15dp"
         android:layout_below="@+id/placed_time"
         android:layout_height="wrap_content">
 
     </android.support.v7.widget.RecyclerView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:background="#EEEEEE"
+        android:visibility="gone"
+        android:id="@+id/something_wrong"
+        android:layout_below="@+id/header"
+        android:layout_height="match_parent"
+        >
+        <co.jlabs.cersei_retailer.sunburn.SunBabyLoadingView
+            android:layout_width="wrap_content"
+            android:layout_marginTop="150dp"
+            android:layout_height="wrap_content" />
+        <co.jlabs.cersei_retailer.custom_components.TextViewModernM
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="#000"
+            app:fontname="lb"
+            android:text="@string/oops"/>
+        <co.jlabs.cersei_retailer.custom_components.TextViewModernM
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:textColor="#000"
+            android:text="@string/oops1"/>
+        <co.jlabs.cersei_retailer.custom_components.ButtonModarno
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:id="@+id/login"
+            android:layout_margin="10dp"
+            android:textColor="#fff"
+            android:background="@color/colorPrimary"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:id="@+id/no_orders"
+        android:visibility="gone"
+        android:layout_below="@+id/header"
+        android:layout_height="match_parent"
+        >
+       <ImageView
+           android:layout_width="200dp"
+           android:src="@drawable/youchai"
+            android:layout_marginTop="50dp"
+           android:layout_height="200dp" />
+        <co.jlabs.cersei_retailer.custom_components.TextViewModernM
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="#000"
+            app:fontname="lb"
+
+            android:text="@string/norders"/>
+        <co.jlabs.cersei_retailer.custom_components.TextViewModernM
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:textColor="#000"
+            android:text="@string/norders1"/>
+        <co.jlabs.cersei_retailer.custom_components.ButtonModarno
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Make orders"
+            android:textAllCaps="false"
+            android:layout_margin="10dp"
+            android:id="@+id/make_orders"
+            android:textColor="#fff"
+            android:background="@color/colorPrimary"/>
+    </LinearLayout>
 
 </RelativeLayout>

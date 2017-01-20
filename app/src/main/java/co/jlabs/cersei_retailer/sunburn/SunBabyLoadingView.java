@@ -55,7 +55,7 @@ public class SunBabyLoadingView extends View {
     /**
      * 背景色
      */
-    private static final String BG_COLOR = "#F4C042";
+    private static final String BG_COLOR = "#EEEEEE";
 
     /**
      * 太阳圆弧与光芒的空隙间距

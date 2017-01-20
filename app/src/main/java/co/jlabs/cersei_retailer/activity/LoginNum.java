@@ -132,29 +132,7 @@ public class LoginNum extends AppCompatActivity implements View.OnClickListener 
                     return;
                 }
                 log_in();
-                if(StaticCatelog.getStringProperty(context,"api_key")==null){
-                    login_window.setVisibility(View.GONE);
-                    otp.setVisibility(View.GONE);
-                    content_regis.setVisibility(View.VISIBLE);
-                }else{
-                    if (s.equals("cart")) {
-                        Intent intent =new Intent(this,ProcessOrder.class);
-                        startActivity(intent);
-                    } else if(s.equals("share")) {
-                        Intent intent =new Intent(this,ShareNEarn.class);
-                        startActivity(intent);
-                    }   else if(s.equals("process")) {
-                        Intent intent =new Intent(this,ProcessOrder.class);
-                        startActivity(intent);
-                    }
-                    else if(s.equals("tracker")) {
-                        Intent intent =new Intent(this, OrderPlace.class);
-                        startActivity(intent);
-                    } else  {
-                        Intent intent =new Intent(this,MainDashboard.class);
-                        startActivity(intent);
-                    }
-                }
+
                 break;
         }
     }
@@ -252,7 +230,7 @@ public class LoginNum extends AppCompatActivity implements View.OnClickListener 
                 if (obj.getBoolean("success")) {
                     JSONObject data=obj.getJSONObject("data");
                     if(obj.getJSONObject("data").getBoolean("new_user")){
-                        StaticCatelog.setStringProperty(context,"api_key","12");
+                        StaticCatelog.setStringProperty(context,"api_key",null);
                     }
                     else
                     {
@@ -285,9 +263,33 @@ public class LoginNum extends AppCompatActivity implements View.OnClickListener 
         protected void onPostExecute(Void val) {
             super.onPostExecute(val);
             pdia.dismiss();
-            if(StaticCatelog.getStringProperty(context,"api_key")!=null){
-                Toast.makeText(context, "Logged in.", Toast.LENGTH_LONG).show();
+//            if(StaticCatelog.getStringProperty(context,"api_key")!=null){
+//                Toast.makeText(context, "Logged in.", Toast.LENGTH_LONG).show();
+//
+//            }
 
+            if((StaticCatelog.getStringProperty(context,"api_key")==null)){
+                login_window.setVisibility(View.GONE);
+                otp.setVisibility(View.GONE);
+                content_regis.setVisibility(View.VISIBLE);
+            }else{
+                Toast.makeText(context, "Logged in.", Toast.LENGTH_LONG).show();
+                if (s.equals("cart")) {
+                    Intent intent =new Intent(context,ProcessOrder.class);
+                    startActivity(intent);
+                } else if(s.equals("share")) {
+                    Intent intent =new Intent(context,ShareNEarn.class);
+                    startActivity(intent);
+                }   else if(s.equals("process")) {
+                    Intent intent =new Intent(context,ProcessOrder.class);
+                    startActivity(intent);
+                }  else if(s.equals("tracker")) {
+                    Intent intent =new Intent(context, OrderPlace.class);
+                    startActivity(intent);
+                } else  {
+                    Intent intent =new Intent(context,MainDashboard.class);
+                    startActivity(intent);
+                }
             }
         }
     }
@@ -352,6 +354,9 @@ public class LoginNum extends AppCompatActivity implements View.OnClickListener 
                     startActivity(intent);
                 }   else if(s.equals("process")) {
                     Intent intent =new Intent(LoginNum.this,ProcessOrder.class);
+                    startActivity(intent);
+                }  else if(s.equals("tracker")) {
+                    Intent intent =new Intent(context, OrderPlace.class);
                     startActivity(intent);
                 } else  {
                     Intent intent =new Intent(LoginNum.this,MainDashboard.class);

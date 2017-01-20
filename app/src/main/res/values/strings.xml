@@ -132,6 +132,10 @@
     <string name="manually">(or enter manually if it fail to detect automatically)</string>
     <string name="tell_us">Tell us about you</string>
     <string name="tell_us1">We would like to know you so we can serve you better</string>
+    <string name="oops">Oops, something went wrong&#8230;</string>
+    <string name="oops1">Keep calm, light a fire and login again.</string>
+    <string name="norders1">Seems like you have not placed any order yet&#8230;</string>
+    <string name="norders">Empty order history</string>
 
 
     <string name="share_detail" formatted="false">Share this app with friends - they will get 10% off on their first order \nand you will get 10% off on your next order when your friends complete \ntheir first order.</string>

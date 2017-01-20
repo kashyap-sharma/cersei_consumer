@@ -32,44 +32,51 @@ import java.util.concurrent.TimeUnit;
 
 import co.jlabs.cersei_retailer.StepView.HorizontalStepView;
 import co.jlabs.cersei_retailer.StepView.bean.StepBean;
+import co.jlabs.cersei_retailer.activity.LoginNum;
 import co.jlabs.cersei_retailer.activity.ProcessOrder;
+import co.jlabs.cersei_retailer.custom_components.ButtonModarno;
 import co.jlabs.cersei_retailer.custom_components.Class_Cart;
 import co.jlabs.cersei_retailer.sunburn.SunBabyLoadingView;
 
 public class OrderPlace extends AppCompatActivity {
     Context context;
     private ImageView back;
-    private LinearLayout header;
+    private LinearLayout header,noOrders,somethingWrong;
     private TextView placed_time;
-
+    ButtonModarno login,make_orders;
     private RecyclerView recyclerView;
     public JSONArray data;
+    RecyclerView.LayoutManager layoutManager;
     String url1 = StaticCatelog.geturl()+"cersei/consumer/order/list";
-
+    ScheduledExecutorService scheduleTaskExecutor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context=this;
         setContentView(R.layout.order_place);
-        ScheduledExecutorService scheduleTaskExecutor = Executors.newScheduledThreadPool(5);
-
-        // This schedule a runnable task every 2 minutes
+        scheduleTaskExecutor = Executors.newScheduledThreadPool(5);
         scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
             public void run() {
                 getOrders();
                 initView();
             }
         }, 0, 30, TimeUnit.SECONDS);
+        // This schedule a runnable task every 2 minutes
+
 
 
 
     }
 
     private void initView() {
+        layoutManager = new GridLayoutManager(getApplicationContext(),1);
         back = (ImageView) findViewById(R.id.back);
         header = (LinearLayout) findViewById(R.id.header);
+        noOrders = (LinearLayout) findViewById(R.id.no_orders);
+        somethingWrong = (LinearLayout) findViewById(R.id.something_wrong);
         placed_time = (TextView) findViewById(R.id.placed_time);
-
+        login = (ButtonModarno) findViewById(R.id.login);
+        make_orders = (ButtonModarno) findViewById(R.id.make_orders);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         back.setOnClickListener(new View.OnClickListener() {
@@ -78,20 +85,37 @@ public class OrderPlace extends AppCompatActivity {
                 onBackPressed();
             }
         });
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recyclerView.setVisibility(View.VISIBLE);
+                noOrders.setVisibility(View.GONE);
+                somethingWrong.setVisibility(View.GONE);
+                Intent intent =new Intent(context, LoginNum.class);
+                intent.putExtra("from","tracker");
+                startActivity(intent);
+
+            }
+        });
+        make_orders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+
 
 
     }
     @Override
     public void onBackPressed(){
-
-
         Intent i = new Intent(OrderPlace.this, MainDashboard.class);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(i);
         //startActivity(intent);
-
     }
 
 
@@ -280,6 +304,7 @@ public class OrderPlace extends AppCompatActivity {
     private class OrderList extends AsyncTask<String,Void,Void>
     {
         JSONObject object;
+        boolean success=false;
         OrderList(JSONObject obj)
         {
             object=obj;
@@ -293,9 +318,10 @@ public class OrderPlace extends AppCompatActivity {
         protected Void doInBackground(String... args) {
             JSONObject obj= JSONfunctions.makenewHttpRequest(context, url1, object);
             try {
+                success=obj.getBoolean("success");
                 if (obj.getBoolean("success")) {
                     data=obj.getJSONArray("data");
-                    Log.e("datata",""+data.toString());
+                    Log.e("datata"+data.length(),""+data.toString());
                 }
 
             } catch (JSONException e) {
@@ -308,13 +334,42 @@ public class OrderPlace extends AppCompatActivity {
         protected void onPostExecute(Void val) {
             super.onPostExecute(val);
            // Toast.makeText(context, "Data Posted.", Toast.LENGTH_LONG).show();
+            if(success){
+                if(data.length()==0){
+                    somethingWrong.setVisibility(View.GONE);
+                    noOrders.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.GONE);
+                }else{
+                    somethingWrong.setVisibility(View.GONE);
+                    noOrders.setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.VISIBLE);
+                    recyclerView.setAdapter(new RecyclerViewAdapter(1,data));
+                    recyclerView.setLayoutManager(layoutManager);
+                }
+            }
+            else{
+                recyclerView.setVisibility(View.GONE);
+                noOrders.setVisibility(View.GONE);
+                somethingWrong.setVisibility(View.VISIBLE);
 
-            RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(),1);
-            recyclerView.setAdapter(new RecyclerViewAdapter(1,data));
-            recyclerView.setLayoutManager(layoutManager);
+            }
+
 
 //            Intent intent =new Intent(context, OrderPlace.class);
 //            startActivity(intent);
+        }
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==RESULT_OK){
+            Log.e("hello","onactivityresult");
+            onCreate(null);
+//            Intent refresh = new Intent(this, OrderPlace.class);
+//            startActivity(refresh);
+//            this.finish();
         }
     }
 

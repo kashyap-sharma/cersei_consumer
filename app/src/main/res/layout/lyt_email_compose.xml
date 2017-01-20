@@ -44,7 +44,7 @@
         android:textColor="@android:color/black"
 
         />
-    <co.jlabs.ordering.Ripple.MaterialRippleLayout
+    <co.jlabs.cersei_retailer.Ripple.MaterialRippleLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
@@ -56,5 +56,5 @@
         android:layout_height="wrap_content"
 
         android:text="Send" />
-</co.jlabs.ordering.Ripple.MaterialRippleLayout>
+</co.jlabs.cersei_retailer.Ripple.MaterialRippleLayout>
 </LinearLayout>
