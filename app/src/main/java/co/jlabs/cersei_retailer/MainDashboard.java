@@ -141,8 +141,8 @@ public class MainDashboard extends FragmentActivity implements View.OnClickListe
                 .create();
 
         selectLocation.setOnClickListener(this);
-        ((TextView)selectLocation.findViewById(R.id.text_location)).setText(StaticCatelog.getStringProperty(this, "location"));
-        ((TextView)selectLocation.findViewById(R.id.text_location)).setText(StaticCatelog.getStringProperty(this, "area"));
+        ((TextViewModernM)selectLocation.findViewById(R.id.text_location)).setText(StaticCatelog.getStringProperty(this, "location"));
+        ((TextViewModernM)selectLocation.findViewById(R.id.text_location)).setText(StaticCatelog.getStringProperty(this, "area"));
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.findViewById(R.id.lay_prof).setOnClickListener(this);
@@ -630,6 +630,7 @@ public class MainDashboard extends FragmentActivity implements View.OnClickListe
                          public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                              deleteAll();
                              deleteAll1 ();
+                             ((TabsView)tab_cart).removeCartNotification();
                              download_locations();
                              mPager.setCurrentItem(0);
                          }
@@ -714,6 +715,7 @@ public class MainDashboard extends FragmentActivity implements View.OnClickListe
     @Override
     public void updateCart(Boolean add) {
         ((TabsView)tab_cart).giveCartNotification(add);
+
 
     }
 
@@ -891,7 +893,7 @@ public class MainDashboard extends FragmentActivity implements View.OnClickListe
     @Override
     public void update_location(String Area,String location) {
         Log.e("hii",""+Area+location);
-        ((TextView)selectLocation.findViewById(R.id.text_location)).setText(location);
+        ((TextViewModernM)selectLocation.findViewById(R.id.text_location)).setText(location);
 //        ((TextView)findViewById(R.id.text_location)).setText(location);
 //        ((TextView)findViewById(R.id.text_location)).setText("Menu");
         StaticCatelog.setStringProperty(this, "area", Area);
