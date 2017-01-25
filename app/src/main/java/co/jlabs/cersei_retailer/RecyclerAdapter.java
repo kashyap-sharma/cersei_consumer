@@ -172,6 +172,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 try {
                     //holder.deliverable.setTextColor(((JSONObject) json_offers.get(position - 1)).getBoolean("delivery") ? appcolor : 0xfff20022);
                    // JSONObject json=((JSONObject) json_offers.get(position - 1)).getJSONObject("item");
+
                     int points= ((JSONObject) json_offers.get(position - 1)).getInt("cashback");
 
                     //TO DO later
@@ -357,14 +358,15 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
 
 
-        /*
+
         Intent i = new Intent(v.getContext(),VerticalActivity.class);
-        Log.e("hee","hee");
+        Log.e(" SearchableSpinner",""+json_offers.toString());
+        Log.e(" SearchableSpinner",""+1);
         i.putExtra("position",Integer.parseInt(v.getTag().toString()));
         i.putExtra("offers",json_offers.toString());
         //ActivityTransitionLauncher.with(getActivity(v)).from(v).launch(i);
         v.getContext().startActivity(i);
-      */
+
     }
 
     private Activity getActivity(View v) {

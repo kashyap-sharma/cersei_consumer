@@ -41,7 +41,7 @@
                     android:textSize="20sp"
 
                     android:text="15% off on Maggi Noodles"/>
-                <TextView
+                <co.jlabs.cersei_retailer.custom_components.TextViewModernM
                     android:id="@+id/price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
                     android:paddingLeft="5dp"
 
                     android:layout_alignParentRight="true"
-                    android:textSize="20sp"
+                    android:textSize="25sp"
                     android:textColor="@color/white"
                     android:text="Rs 180"/>
                 <LinearLayout
@@ -85,7 +85,7 @@
                     android:textColor="#fff"
                     android:id="@+id/des"
                     android:text="Description"/>
-                <TextView
+                <co.jlabs.cersei_retailer.custom_components.TextViewModernM
                     android:layout_width="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"

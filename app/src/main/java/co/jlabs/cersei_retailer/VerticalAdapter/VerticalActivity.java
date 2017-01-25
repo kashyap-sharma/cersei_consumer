@@ -9,6 +9,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,13 +33,14 @@ import co.jlabs.cersei_retailer.Rounded.CircularImageView;
 import co.jlabs.cersei_retailer.custom_components.AddOrRemoveCart;
 import co.jlabs.cersei_retailer.custom_components.ShoppingView;
 import co.jlabs.cersei_retailer.custom_components.Sqlite_cart;
+import co.jlabs.cersei_retailer.custom_components.TextViewModernM;
 import co.jlabs.cersei_retailer.custom_components.transforms.MyCubeOutTransformer;
 
 import static co.jlabs.cersei_retailer.VerticalAdapter.Utils.setupImage;
 
 
 /**
- * Created by GIGAMOLE on 8/18/16.
+ * Created by Kashyap on 8/18/16.
  */
 public class VerticalActivity extends Activity {
 
@@ -52,28 +54,23 @@ public class VerticalActivity extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_vertical);
-
         JSONArray offers=null;
         context=this;
         int position=getIntent().getIntExtra("position",1);
         try {
             offers = new JSONArray(getIntent().getStringExtra("offers"));
+            Log.e("point1",""+offers.toString());
             num_item=offers.length();
         } catch (JSONException e) {
             e.printStackTrace();
         }
         cart=new Sqlite_cart(this);
-
         final HorizontalInfiniteCycleViewPager verticalInfiniteCycleViewPager =
                 (HorizontalInfiniteCycleViewPager) findViewById(R.id.vicvp);
         tv_position = (TextView) findViewById(R.id.position);
-
-
         verticalInfiniteCycleViewPager.setAdapter(new VerticalPagerAdapter(this, offers));
         verticalInfiniteCycleViewPager.setCurrentItem(position - 1);
-
         tv_position.setVisibility(View.GONE);
-
         verticalInfiniteCycleViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -97,12 +94,6 @@ public class VerticalActivity extends Activity {
             }
         });
     }
-
-
-
-
-
-
     public class VerticalPagerAdapter extends PagerAdapter {
 
 
@@ -137,27 +128,29 @@ public class VerticalActivity extends Activity {
             // Inflate the layout for the page
             View itemView = mLayoutInflater.inflate(R.layout.adap_details, container, false);
             try {
-                JSONObject json=((JSONObject)offers.get(position)).getJSONObject("item");
-                int points= ((JSONObject) offers.get(position)).getInt("points");
+                //JSONObject json=((JSONObject)offers.get(position)).getJSONObject("item");
+                int points= ((JSONObject) offers.get(position)).getInt("cashback");
+                Log.e("points",""+points);
+                Log.e("points",""+offers.toString());
                 TextView title=(TextView) itemView.findViewById(R.id.title);
                 TextView cashback=(TextView) itemView.findViewById(R.id.cashback);
                 CircularImageView pica=(CircularImageView) itemView.findViewById(R.id.pica);
                 ShoppingView newADD=(ShoppingView) itemView.findViewById(R.id.newAdd);
                 CardView card_view=  (CardView) itemView.findViewById(R.id.card_view);
-                ((NetworkImageView) itemView.findViewById(R.id.pic)).setImageUrl(json.getString("img"), imageLoader);
-                title.setText(json.getString("name"));
+//                ((NetworkImageView) itemView.findViewById(R.id.pic)).setImageUrl(json.getString("img"), imageLoader);
+               title.setText(((JSONObject) offers.get(position)).getString("product_name"));
                 cashback.setText(points+"%");
                 pica.setShadowColor(Color.parseColor("#000000"));
 
 
 
-                if(position==2){
+                if(position==1){
                         card_view.setCardBackgroundColor(Color.parseColor("#F56D7F"));
                         pica.setBorderColor(Color.parseColor("#F56D7F"));
                         newADD.mPaintBg.setColor(Color.parseColor("#F56D7F"));
                         newADD.mPaintMinus.setColor(Color.parseColor("#F56D7F"));
                 }
-                else if(position==3){
+                else if(position==2){
                         card_view.setCardBackgroundColor(Color.parseColor("#BF6A83"));
                         pica.setBorderColor(Color.parseColor("#BF6A83"));
                         newADD.mPaintBg.setColor(Color.parseColor("#BF6A83"));
@@ -167,14 +160,15 @@ public class VerticalActivity extends Activity {
 
 
 
-
+                JSONArray pic=((JSONObject) offers.get(position)).getJSONArray("img");
+                String picas=pic.get(0).toString();
                 Picasso.with(context)
-                        .load(json.getString("img"))
+                        .load(picas)
                         .into( ((CircularImageView) itemView.findViewById(R.id.pica)));
 
               //  ((CircularImageView) itemView.findViewById(R.id.pica)).setText(points+"% off on "+json.getString("name"));
-                ((TextView) itemView.findViewById(R.id.descri)).setText(json.getString("desc"));
-                ((TextView) itemView.findViewById(R.id.price)).setText("₹"+json.getString("price"));
+               ((TextViewModernM) itemView.findViewById(R.id.descri)).setText(  ((JSONObject) offers.get(position)).getString("detail"));
+                ((TextViewModernM) itemView.findViewById(R.id.price)).setText("₹"+((JSONObject) offers.get(position)).getInt("price")+"");
                 ((AddOrRemoveCart)itemView.findViewById(R.id.add_or_remove_cart)).addOnItemClickListner(new AddOrRemoveCart.ItemsClickListener() {
                     @Override
                     public int addItemClicked(int position) {
