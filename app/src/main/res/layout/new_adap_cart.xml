@@ -10,13 +10,13 @@
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TextView
+        <co.jlabs.cersei_retailer.custom_components.TextViewModernM
             android:layout_width="5dp"
             android:background="#90D8CA"
             android:layout_marginLeft="3dp"
             android:id="@+id/bar"
             android:layout_height="56dp" />
-        <TextView
+        <co.jlabs.cersei_retailer.custom_components.TextViewModernM
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="RETAILER"
@@ -26,7 +26,7 @@
             android:id="@+id/ret"
             android:paddingLeft="10dp"
             android:layout_toRightOf="@+id/bar"/>
-        <TextView
+        <co.jlabs.cersei_retailer.custom_components.TextViewModernM
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="RETAILER"
@@ -45,14 +45,14 @@
             android:id="@+id/min_order_back"
             android:layout_alignParentRight="true"
             android:layout_height="56dp">
-            <TextView
+            <co.jlabs.cersei_retailer.custom_components.TextViewModernM
                 android:layout_width="wrap_content"
                 android:paddingRight="10dp"
                 android:paddingLeft="10dp"
                 android:textColor="#ffffff"
                 android:layout_height="wrap_content"
                 android:text="Min Order"/>
-            <TextView
+            <co.jlabs.cersei_retailer.custom_components.TextViewModernM
                 android:layout_width="wrap_content"
                 android:paddingRight="10dp"
                 android:paddingLeft="10dp"
@@ -62,7 +62,7 @@
                 android:text="Rs 200"/>
 
         </LinearLayout>
-        <TextView
+        <co.jlabs.cersei_retailer.custom_components.TextViewModernM
             android:layout_marginTop="-1dp"
             android:layout_below="@+id/bar"
             android:layout_width="match_parent"
@@ -86,17 +86,16 @@
 
 
         </ListView>
-        <TextView
+        <co.jlabs.cersei_retailer.custom_components.TextViewModernM
             android:layout_width="wrap_content"
             android:textColor="#A3A3A3"
             android:layout_below="@+id/father"
             android:paddingLeft="5dp"
             android:id="@+id/am"
             android:gravity="center"
-            android:textSize="10sp"
-            android:text="TOTAL AMOUNT"
+            android:textSize="15sp"
             android:layout_height="56dp" />
-        <TextView
+        <co.jlabs.cersei_retailer.custom_components.TextViewModernM
             android:layout_width="wrap_content"
             android:textColor="#C7EBE5"
             android:layout_below="@+id/father"
@@ -108,11 +107,12 @@
             android:layout_toRightOf="@+id/am"
             android:text="₹100"
             android:layout_height="56dp" />
-        <TextView
+        <co.jlabs.cersei_retailer.custom_components.TextViewModernM
             android:layout_width="match_parent"
             android:textColor="#ffffff"
             android:layout_below="@+id/am"
             android:padding="5dp"
+            android:visibility="gone"
             android:gravity="left|center_vertical"
             android:background="#D93425"
             android:textSize="12sp"

@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 
+import co.jlabs.cersei_retailer.MainDashboard;
 import co.jlabs.cersei_retailer.R;
 
 import co.jlabs.cersei_retailer.Rounded.CircularImageView;
@@ -91,5 +92,10 @@ public class ShareNEarn extends AppCompatActivity implements View.OnClickListene
         } catch(Exception e) {
             //e.toString();
         }
+    }
+    @Override
+    public void onBackPressed(){
+        Intent intent =new Intent(this, MainDashboard.class);
+        startActivity(intent);
     }
 }

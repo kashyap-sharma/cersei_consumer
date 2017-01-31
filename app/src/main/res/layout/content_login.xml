@@ -91,7 +91,7 @@
             android:layout_marginLeft="5dp"
             android:background="@android:color/transparent"
             android:textColor="#fff"
-            android:inputType="textPersonName"
+            android:inputType="textEmailAddress"
             android:maxLines="1"
             android:textColorHint="#ffffff"
             />
@@ -115,7 +115,6 @@
             android:layout_marginLeft="5dp"
             android:background="@android:color/transparent"
             android:textColor="#fff"
-            android:inputType="textPersonName"
             android:maxLines="1"
             android:textColorHint="#ffffff"
             />

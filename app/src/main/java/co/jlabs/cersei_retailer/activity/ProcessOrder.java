@@ -19,6 +19,8 @@ import android.widget.SlidingDrawer;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.appnirman.vaidationutils.ValidationUtils;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -63,7 +65,7 @@ public class ProcessOrder extends AppCompatActivity implements View.OnClickListe
     Context context;
     String url1 = StaticCatelog.geturl()+"cersei/consumer/order";
     private ProgressDialog pdia;
-
+    ValidationUtils validationUtils;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +77,7 @@ public class ProcessOrder extends AppCompatActivity implements View.OnClickListe
 
     private void initView() {
         cart=new Sqlite_cart(context);
+        validationUtils = new ValidationUtils(context);
         items = cart.getAllCart();
         itema = cart.getDistinctRetailer();
         name = (MEditText) findViewById(R.id.name);
@@ -146,6 +149,21 @@ public class ProcessOrder extends AppCompatActivity implements View.OnClickListe
     }
 
     private void getOrderReady(){
+
+
+        if (!validationUtils.isEmptyEditText(name.getText().toString())) {
+            name.setError("Enter valid name");
+            return;
+        }
+        if (!validationUtils.isValidAddress(flat.getText().toString())) {
+            flat.setError("Enter valid address");
+            return;
+        }
+        if (!validationUtils.isValidPincode(pincode.getText().toString())) {
+            pincode.setError("Enter valid pincode");
+            return;
+        }
+
         for (int i=0;i< itema.size();i++){
             Log.e("process1: ",""+itema.get(i).retailer_id);
         }
@@ -156,9 +174,10 @@ public class ProcessOrder extends AppCompatActivity implements View.OnClickListe
 
         JSONObject jsonObject=new JSONObject();
         try {
-            jsonObject.put("name", StaticCatelog.getStringProperty(context,"name"));
-            jsonObject.put("address", StaticCatelog.getStringProperty(context,"name"));
-            jsonObject.put("email", StaticCatelog.getStringProperty(context,"name"));
+            jsonObject.put("name", name.getText().toString().trim());
+            jsonObject.put("address", flat.getText().toString().trim()+", "+StaticCatelog.getStringProperty(this, "area")+", "+StaticCatelog.getStringProperty(this, "location")+", "+flat.getText().toString().trim());
+            StaticCatelog.setStringProperty(context,"addr", flat.getText().toString().trim()+", "+StaticCatelog.getStringProperty(this, "location")+", "+StaticCatelog.getStringProperty(this, "area")+", "+pincode.getText().toString().trim());
+            jsonObject.put("email", StaticCatelog.getStringProperty(context,"email"));
             jsonObject.put("phone", StaticCatelog.getStringProperty(context,"mobile"));
             jsonObject.put("api_key", StaticCatelog.getStringProperty(context,"api_key"));
             jsonObject.put("user_type", "user");

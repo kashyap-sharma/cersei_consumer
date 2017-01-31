@@ -8,7 +8,7 @@
         android:layout_margin="10dp"
         android:layout_height="56dp"
         android:scaleType="fitXY" />
-    <TextView
+    <co.jlabs.cersei_retailer.custom_components.TextViewModernM
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#535353"
@@ -19,7 +19,7 @@
         android:id="@+id/product_name"
         android:layout_marginLeft="10dp"
         android:text="Product Name"/>
-    <TextView
+    <co.jlabs.cersei_retailer.custom_components.TextViewModernM
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#858585"
@@ -29,7 +29,7 @@
         android:layout_toLeftOf="@+id/add_or_remove_cart"
         android:textSize="16sp"
         android:id="@+id/money"
-        android:visibility="gone"
+
         android:layout_marginLeft="10dp"
         android:text="₹100"/>
     <co.jlabs.cersei_retailer.custom_components.AddOrRemoveCart
@@ -41,7 +41,7 @@
         android:layout_alignParentRight="true"
         android:layout_height="wrap_content"/>
 
-    <TextView
+    <co.jlabs.cersei_retailer.custom_components.TextViewModernM
         android:layout_marginTop="-1dp"
         android:layout_below="@+id/pic"
         android:layout_width="match_parent"

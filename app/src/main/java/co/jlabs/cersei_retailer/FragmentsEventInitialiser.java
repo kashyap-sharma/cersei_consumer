@@ -7,4 +7,5 @@ public interface FragmentsEventInitialiser {
     void registerMyevent(int position,FragmentEventHandler eventHandler);
     void MyloadingCompleted(int position,Boolean Successfull);
     void updateCart(Boolean add);
+    void updateCart1(Boolean add,int tots);
 }

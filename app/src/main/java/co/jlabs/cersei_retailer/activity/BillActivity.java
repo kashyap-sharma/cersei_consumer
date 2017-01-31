@@ -90,7 +90,7 @@ public class BillActivity extends AppCompatActivity implements View.OnClickListe
 
         add_name = (MyTextView) findViewById(R.id.add_name);
         address = (MyTextView) findViewById(R.id.address);
-        address.setText(StaticCatelog.getStringProperty(context,"name")+"\n"+110068);
+        address.setText(StaticCatelog.getStringProperty(context,"addr"));
 
 
         con_name = (MyTextView) findViewById(R.id.con_name);

@@ -15,7 +15,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.TextView;
+
 import android.widget.Toast;
 import com.android.volley.toolbox.ImageLoader;
 import com.github.florent37.fiftyshadesof.FiftyShadesOf;
@@ -26,6 +26,7 @@ import co.jlabs.cersei_retailer.custom_components.Class_Cart;
 import co.jlabs.cersei_retailer.custom_components.Class_retailer;
 import co.jlabs.cersei_retailer.custom_components.MyImageView;
 import co.jlabs.cersei_retailer.custom_components.Sqlite_cart;
+import co.jlabs.cersei_retailer.custom_components.TextViewModernM;
 import co.jlabs.cersei_retailer.custom_components.TextView_Triangle;
 import static co.jlabs.cersei_retailer.R.id.father;
 
@@ -37,6 +38,7 @@ public class Adapter_Cart extends BaseAdapter {
     ArrayList<Class_Cart> retailer_list;
     Sqlite_cart cart;
       int N=0;
+    int qu=0;
     Fragment_Cart.Total_item_in_cart_text_handler totalItemInCartTextHandler;
     private int lastPosition = -1;
     Animation animation;
@@ -55,9 +57,9 @@ public class Adapter_Cart extends BaseAdapter {
 
     static class ViewHolder
     {
-        TextView retailer_name;
-        TextView minOrder;
-        TextView total,add_more,strip;
+        co.jlabs.cersei_retailer.custom_components.TextViewModernM retailer_name;
+        co.jlabs.cersei_retailer.custom_components.TextViewModernM minOrder;
+        co.jlabs.cersei_retailer.custom_components.TextViewModernM total,add_more,strip;
         LinearLayout min_back,father;
         Button call;
         TextView_Triangle points;
@@ -77,12 +79,12 @@ public class Adapter_Cart extends BaseAdapter {
 
             gridView = inflater.inflate(R.layout.new_adap_cart, null);
             viewHolder = new ViewHolder();
-            viewHolder.retailer_name = (TextView) gridView.findViewById(R.id.retailer_name);
-            viewHolder.minOrder = (TextView) gridView.findViewById(R.id.min_order);
-            viewHolder.total = (TextView) gridView.findViewById(R.id.total);
+            viewHolder.retailer_name = (co.jlabs.cersei_retailer.custom_components.TextViewModernM) gridView.findViewById(R.id.retailer_name);
+            viewHolder.minOrder = (co.jlabs.cersei_retailer.custom_components.TextViewModernM) gridView.findViewById(R.id.min_order);
+            viewHolder.total = (co.jlabs.cersei_retailer.custom_components.TextViewModernM) gridView.findViewById(R.id.total);
             viewHolder.call = (Button) gridView.findViewById(R.id.call);
-            viewHolder.add_more = (TextView) gridView.findViewById(R.id.am);
-            viewHolder.strip = (TextView) gridView.findViewById(R.id.strip);
+            viewHolder.add_more = (co.jlabs.cersei_retailer.custom_components.TextViewModernM) gridView.findViewById(R.id.am);
+            viewHolder.strip = (co.jlabs.cersei_retailer.custom_components.TextViewModernM) gridView.findViewById(R.id.strip);
             viewHolder.min_back = (LinearLayout) gridView.findViewById(R.id.min_order_back);
             viewHolder.father = (LinearLayout) gridView.findViewById(father);
 
@@ -106,7 +108,7 @@ public class Adapter_Cart extends BaseAdapter {
         viewHolder.retailer_name.setText(ret.get(0).retailer_name);
         viewHolder.minOrder.setText(ret.get(0).min_order);
 
-        //viewHolder.total = (TextView) gridView.findViewById(R.id.total);
+        //viewHolder.total = (co.jlabs.cersei_retailer.custom_components.TextViewModernM) gridView.findViewById(R.id.total);
         viewHolder.call.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,11 +116,11 @@ public class Adapter_Cart extends BaseAdapter {
                 context.startActivity(callIntent);
             }
         });
-//        viewHolder.add_more = (TextView) gridView.findViewById(R.id.am);
+//        viewHolder.add_more = (co.jlabs.cersei_retailer.custom_components.TextViewModernM) gridView.findViewById(R.id.am);
 //        viewHolder.min_back = (LinearLayout) gridView.findViewById(R.id.min_order_back);
         N=tots.size();
 
-       //final TextView[] myTextViews = new TextView[N];
+       //final co.jlabs.cersei_retailer.custom_components.TextViewModernM[] myTextViews = new co.jlabs.cersei_retailer.custom_components.TextViewModernM[N];
 
 
         for (int i = 0; i < N; i++) {
@@ -127,8 +129,8 @@ public class Adapter_Cart extends BaseAdapter {
             LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View v = vi.inflate(R.layout.new_adap_adap_cart, null);
             // create a new textview
-            final TextView product_name = (TextView)v.findViewById(R.id.product_name);
-            final TextView money = (TextView)v.findViewById(R.id.money);
+            final TextViewModernM product_name = (TextViewModernM)v.findViewById(R.id.product_name);
+            final TextViewModernM money = (TextViewModernM)v.findViewById(R.id.money);
             final MyImageView pic = (MyImageView) v.findViewById(R.id.pic);
             final AddOrRemoveCart addOrRemoveCart=(AddOrRemoveCart)v.findViewById(R.id.add_or_remove_cart);
 
@@ -139,7 +141,11 @@ public class Adapter_Cart extends BaseAdapter {
             pic.setImageUrl(tots.get(i).img, imageLoader);
             // add the textview to the linearlayout
             viewHolder.father.addView(v);
+             qu=tots.get(i).quantity;
+            money.setText(""+tots.get(i).price);
 
+            viewHolder.add_more.setText("Rs"+tots.get(i).price*tots.get(i).quantity);
+            eventInitialiser.updateCart1(true,tots.get(i).price*tots.get(i).quantity);
             addOrRemoveCart.addOnItemClickListner(new AddOrRemoveCart.ItemsClickListener() {
                 @Override
                 public int addItemClicked(int i) {
@@ -148,9 +154,12 @@ public class Adapter_Cart extends BaseAdapter {
                     if(tots.get(i).remaining_qrcodes>tots.get(i).quantity){
                         Toast.makeText(context, "Added To Cart", Toast.LENGTH_SHORT).show();
                         totalItemInCartTextHandler.handleText_cart(1,tots.get(i).price);
-                        money.setText(""+tots.get(i).price*tots.get(i).quantity);
-                        viewHolder.total.setText(""+tots.get(i).price*tots.get(i).quantity);
+                        tots.get(i).quantity++;
+                       // money.setText(""+tots.get(i).price);
+                        Log.e("summ",""+tots.get(i).quantity);
+                        viewHolder.add_more.setText("Rs"+tots.get(i).price*tots.get(i).quantity);
                         eventInitialiser.updateCart(true);
+                        eventInitialiser.updateCart1(true,tots.get(i).price*tots.get(i).quantity);
                         return cart.addToCart(tots.get(i));
                     }else
                     {
@@ -166,6 +175,7 @@ public class Adapter_Cart extends BaseAdapter {
                     Toast.makeText(context, "Removed From Cart", Toast.LENGTH_SHORT).show();
 
                     int quantity = cart.removeFromCart(tots.get(i).offer_id);
+
                     if (quantity == 0) {
                         View main = ((ViewGroup) v.getParent().getParent().getParent().getParent().getParent().getParent().getParent());
                         //Log.i("Myapp", "" + main.getId());
@@ -204,10 +214,16 @@ public class Adapter_Cart extends BaseAdapter {
 
                     }
                     eventInitialiser.updateCart(false);
+                    eventInitialiser.updateCart1(true,tots.get(i).price*tots.get(i).quantity);
+                    tots.get(i).quantity--;
+                   // money.setText(""+tots.get(i).price);
+                    Log.e("summ",""+tots.get(i).quantity);
+                    viewHolder.add_more.setText("Rs"+tots.get(i).price*tots.get(i).quantity);
                     totalItemInCartTextHandler.handleText_cart(-1,-tots.get(i).price);
                     return quantity;
                 }
             }, i, tots.get(i).quantity);
+
 
             // save a reference to the textview for later
             //myTextViews[i] = rowTextView;
@@ -225,7 +241,7 @@ public class Adapter_Cart extends BaseAdapter {
 
 
 
-//        viewHolder.price.setText("Rs " + offers_list.get(position).price);
+     //  viewHolder.add_more.setText("Rs " + offers_list.get(position).price);
 //        viewHolder.points.setText("" + context.getResources().getString(R.string.rating) + offers_list.get(position).cashback);
  //       viewHolder.Pic.setImageUrl(offers_list.get(position).img, imageLoader);
 //        viewHolder.Close.setTag(position);

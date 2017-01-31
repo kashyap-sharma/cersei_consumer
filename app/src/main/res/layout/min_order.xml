@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@null"
+    android:layout_height="wrap_content">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:background="@drawable/bummer1"
+        android:id="@+id/upper"
+        android:layout_marginTop="100dp"
+        android:layout_height="80dp">
+    </FrameLayout>
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:rotation="340"
+        android:src="@drawable/transport"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@drawable/bummer"
+        android:layout_below="@+id/upper"
+
+        android:layout_marginBottom="0dp"
+        android:layout_height="wrap_content">
+        <co.jlabs.cersei_retailer.custom_components.TextViewModernM
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bummer!"
+            android:id="@+id/bummer"
+            android:padding="5dp"
+            android:textColor="#000"
+
+            android:textSize="40sp"
+            android:layout_centerHorizontal="true"/>
+        <co.jlabs.cersei_retailer.custom_components.TextViewModernM
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:padding="10dp"
+            android:visibility="gone"
+            android:text="1/2"
+            android:layout_alignParentRight="true"/>
+        <co.jlabs.cersei_retailer.custom_components.TextViewModernM
+            android:layout_width="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="@string/looks"
+            android:id="@+id/looks"
+          android:layout_below="@+id/bummer"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textColor="#000"
+            android:textSize="20sp"
+            android:layout_height="wrap_content" />
+        <co.jlabs.cersei_retailer.custom_components.TextViewModernM
+            android:layout_width="wrap_content"
+            android:textColor="#ED1F24"
+            android:layout_below="@+id/looks"
+            android:textSize="20sp"
+            android:visibility="gone"
+            android:id="@+id/retailer"
+            android:layout_centerHorizontal="true"
+            android:text="Retailer: Sumit Stores(min.200)"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#ECECEC"
+            android:id="@+id/bar"
+            android:layout_below="@+id/retailer"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+           />
+        <co.jlabs.cersei_retailer.custom_components.ButtonModarno
+            android:layout_width="wrap_content"
+            android:layout_height="56dp"
+            android:text="GO back"
+            android:padding="5dp"
+            android:id="@+id/go_back"
+            android:layout_margin="10dp"
+            android:textSize="20sp"
+            android:background="#00000000"
+         android:layout_below="@+id/bar"
+            android:textColor="#ED1F24"/>
+        <co.jlabs.cersei_retailer.custom_components.ButtonModarno
+            android:layout_width="wrap_content"
+            android:layout_height="56dp"
+            android:text="continue to checkout"
+            android:padding="5dp"
+            android:id="@+id/checkout"
+            android:layout_alignParentRight="true"
+            android:layout_margin="10dp"
+            android:textSize="20sp"
+            android:background="#00000000"
+            android:layout_below="@+id/bar"
+            android:textColor="#000000"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

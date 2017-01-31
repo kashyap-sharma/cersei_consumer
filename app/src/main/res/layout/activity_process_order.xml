@@ -103,6 +103,7 @@
                         <co.jlabs.cersei_retailer.custom_components.MEditText
                             android:layout_width="match_parent"
                             android:hint="Pincode"
+                            android:inputType="number"
                             android:id="@+id/pincode"
                             android:maxLines="1"
                             android:layout_height="wrap_content" />

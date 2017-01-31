@@ -718,6 +718,12 @@ public class MainDashboard extends FragmentActivity implements View.OnClickListe
 
 
     }
+    @Override
+    public void updateCart1(Boolean add,int s) {
+        //((TabsView)tab_cart).giveCartNotification(add);
+
+
+    }
 
     @Override
     public void Reload_No_Internet() {

@@ -1,9 +1,11 @@
 package co.jlabs.cersei_retailer.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
@@ -11,6 +13,8 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -21,7 +25,7 @@ public class EnvelopeActivity extends Activity {
 
     private static final int ANIMATION_DURATION = 1500;
     private static final int ANIMATION_OFFSET = 250;
-
+    EditText email_subject_box,email_msg_box;
 
 
     @Override
@@ -32,12 +36,25 @@ public class EnvelopeActivity extends Activity {
 
         Animation slideAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_in_bottom);
         slideAnimation.setDuration(ANIMATION_DURATION/2);
-
+        email_subject_box=(EditText)findViewById(R.id.email_subject_box);
+        email_msg_box=(EditText)findViewById(R.id.email_msg_box);
         findViewById(R.id.lyt_card).startAnimation(slideAnimation);
 
         findViewById(R.id.send_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+               if(TextUtils.isEmpty(email_msg_box.getText())){
+                   return;
+               }
+                if(TextUtils.isEmpty(email_subject_box.getText())){
+                    return;
+                }
+                View view = getCurrentFocus();
+                if (view != null) {
+                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
                 animate();
             }
         });

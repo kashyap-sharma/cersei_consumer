@@ -4,7 +4,9 @@ package co.jlabs.cersei_retailer;
  * Created by Pradeep on 12/25/2015.
  */
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -98,8 +100,9 @@ public class Fragment_Cart extends Fragment implements FragmentEventHandler{
         checkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(),"Checkout",Toast.LENGTH_SHORT).show();
-                //check out page
+                if(total_pice>=100){
+                    Toast.makeText(getContext(),"Checkout",Toast.LENGTH_SHORT).show();
+                    //check out page
                     if(StaticCatelog.getStringProperty(getContext(),"api_key")==null) {
                         Intent intent =new Intent(getContext(), LoginNum.class);
                         intent.putExtra("from","cart");
@@ -110,6 +113,49 @@ public class Fragment_Cart extends Fragment implements FragmentEventHandler{
                         Intent intent =new Intent(getContext(), ProcessOrder.class);
                         startActivity(intent);
                     }
+                }
+                else{
+                    final Dialog dialog = new Dialog(getContext());
+                    // Include dialog.xml file
+                    dialog.setContentView(R.layout.min_order);
+                    // Set dialog title
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                    // set values for custom dialog components - text, image and button
+                   // TextView text = (TextView) dialog.findViewById(R.id.textDialog);
+                   // text.setText("Custom dialog Android example.");
+                   // ImageView image = (ImageView) dialog.findViewById(R.id.imageDialog);
+                   // image.setImageResource(R.drawable.image0);
+
+                    dialog.show();
+
+                    ButtonModarno declineButton = (ButtonModarno) dialog.findViewById(R.id.go_back);
+                    ButtonModarno checkout = (ButtonModarno) dialog.findViewById(R.id.checkout);
+                    // if decline button is clicked, close the custom dialog
+                    declineButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            // Close dialog
+                            dialog.dismiss();
+                        }
+                    });
+                    checkout.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if(StaticCatelog.getStringProperty(getContext(),"api_key")==null) {
+                                Intent intent =new Intent(getContext(), LoginNum.class);
+                                intent.putExtra("from","cart");
+                                startActivity(intent);
+                            }
+                            else
+                            {
+                                Intent intent =new Intent(getContext(), ProcessOrder.class);
+                                startActivity(intent);
+                            }
+
+                        }
+                    });
+                }
+
             }
         });
         return layoutView;

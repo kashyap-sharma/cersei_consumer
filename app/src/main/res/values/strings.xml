@@ -136,6 +136,7 @@
     <string name="oops1">Keep calm, light a fire and login again.</string>
     <string name="norders1">Seems like you have not placed any order yet&#8230;</string>
     <string name="norders">Empty order history</string>
+    <string name="looks">Looks like you didn\'t meet the minimum order for some retailer \nOrder more to avoid delivery charges</string>
 
 
     <string name="share_detail" formatted="false">Share this app with friends - they will get 10% off on their first order \nand you will get 10% off on your next order when your friends complete \ntheir first order.</string>

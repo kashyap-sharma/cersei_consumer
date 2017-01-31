@@ -178,6 +178,7 @@ public class LoginNum extends AppCompatActivity implements View.OnClickListener 
         try {
             jsonObject1.put("name",fname.getText().toString().trim()+" "+lname.getText().toString().trim());
             jsonObject1.put("mobile_no",phoneString);
+            StaticCatelog.setStringProperty(context,"email",email.getText().toString().trim());
             jsonObject1.put("email",email.getText().toString().trim());
             jsonObject1.put("referral_code",ref);
             Log.e("apss",":"+jsonObject1.toString());
