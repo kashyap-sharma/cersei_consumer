@@ -38,31 +38,29 @@ public class IntroActivity extends MaterialIntroActivity {
         addSlide(new SlideFragmentBuilder()
                         .backgroundColor(R.color.first_slide_background)
                         .buttonsColor(R.color.first_slide_buttons)
-                        .image(R.drawable.search)
-                        .title("Buy your groceries with us")
-                        .description("Would you try?")
-                        .build(),
-                new MessageButtonBehaviour(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showMessage("We provide maximum cashback on our products.");
-                    }
-                }, "Amazing Offers"));
+                        .image(R.drawable.assets_one)
+                        .title("Apke products. Aapke stores.\nAapki savings.")
+                        .build()
+                );
 
         addSlide(new SlideFragmentBuilder()
                         .backgroundColor(R.color.second_slide_background)
                         .buttonsColor(R.color.second_slide_buttons)
-                        .image(R.drawable.cart)
-                        .title("Fill your cart with unbeatable offers")
-                        .description("We are sirius")
+                        .image(R.drawable.asset_store)
+                        .title("Buy groceries from your nearby stores.")
                         .build());
 
         addSlide(new SlideFragmentBuilder()
                 .backgroundColor(R.color.third_slide_background)
                 .buttonsColor(R.color.third_slide_buttons)
-                .image(R.drawable.money)
-                .title("Save money on every purchase")
-                .description("and earn with referrals too")
+                .image(R.drawable.asset_cart)
+                .title("Discover amazing offers on all purchases")
+                .build());
+        addSlide(new SlideFragmentBuilder()
+                .backgroundColor(R.color.fourth_slide_background)
+                .buttonsColor(R.color.fourth_slide_buttons)
+                .image(R.drawable.asset_tag)
+                .title("Save on your order.")
                 .build());
 //                new MessageButtonBehaviour(new View.OnClickListener() {
 //                    @Override
@@ -96,12 +94,7 @@ public class IntroActivity extends MaterialIntroActivity {
 //                    }
 //                }, "Tools"));
 
-        addSlide(new SlideFragmentBuilder()
-                .backgroundColor(R.color.fourth_slide_background)
-                .buttonsColor(R.color.fourth_slide_buttons)
-                .title("That's it")
-                .description("Would you join us?")
-                .build());
+
     }
 
     @Override
