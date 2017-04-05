@@ -359,13 +359,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
 
 
-//        Intent i = new Intent(v.getContext(),VerticalActivity.class);
-//        Log.e(" SearchableSpinner",""+json_offers.toString());
-//        Log.e(" SearchableSpinner",""+1);
-//        i.putExtra("position",Integer.parseInt(v.getTag().toString()));
-//        i.putExtra("offers",json_offers.toString());
-//        //ActivityTransitionLauncher.with(getActivity(v)).from(v).launch(i);
-//        v.getContext().startActivity(i);
+        Intent i = new Intent(v.getContext(),VerticalActivity.class);
+        Log.e(" SearchableSpinner",""+json_offers.toString());
+        Log.e(" SearchableSpinner",""+1);
+        i.putExtra("position",Integer.parseInt(v.getTag().toString()));
+        i.putExtra("offers",json_offers.toString());
+        //ActivityTransitionLauncher.with(getActivity(v)).from(v).launch(i);
+        v.getContext().startActivity(i);
 
     }
 

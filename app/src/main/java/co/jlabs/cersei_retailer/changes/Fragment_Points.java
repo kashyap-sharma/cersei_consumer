@@ -25,6 +25,7 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.AbsListView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,6 +52,8 @@ import co.jlabs.cersei_retailer.Rounded.MyIconButton;
 import co.jlabs.cersei_retailer.Rounded.MyIconFonts;
 import co.jlabs.cersei_retailer.StaticCatelog;
 import co.jlabs.cersei_retailer.activity.AchievementsActivity;
+import co.jlabs.cersei_retailer.activity.LoginNum;
+import co.jlabs.cersei_retailer.custom_components.ButtonModarno;
 import co.jlabs.cersei_retailer.custom_components.PagerSlidingStripPoints;
 import co.jlabs.cersei_retailer.custom_components.SampleListView;
 import co.jlabs.cersei_retailer.custom_components.ScrollTabHolder;
@@ -69,6 +72,8 @@ public class Fragment_Points extends Fragment  implements ScrollTabHolder, ViewP
     private TextViewModernM name,level,next;
     private MyIconFonts cashback;
     private LinearLayout achieve;
+    private RelativeLayout rl;
+    private ButtonModarno loginf;
 
     //    private View mHeader;
 //
@@ -123,14 +128,41 @@ public class Fragment_Points extends Fragment  implements ScrollTabHolder, ViewP
         level=(TextViewModernM)layoutView.findViewById(R.id.level);
         next=(TextViewModernM)layoutView.findViewById(R.id.next);
         cashback=(MyIconFonts)layoutView.findViewById(R.id.cashback);
+        rl=(RelativeLayout)layoutView.findViewById(R.id.rl);
+        loginf=(ButtonModarno) layoutView.findViewById(R.id.loginf);
         achieve=(LinearLayout) layoutView.findViewById(R.id.achieve);
         achieve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent= new Intent(getContext(), AchievementsActivity.class);
+
+                if(StaticCatelog.getStringProperty(getContext(),"api_key")==null) {
+                    Toast.makeText(getActivity(), "You need to be logged in to see this.",
+                            Toast.LENGTH_LONG).show();
+                }else{
+                    Intent intent= new Intent(getContext(), AchievementsActivity.class);
+                    startActivity(intent);
+                }
+
+            }
+        });
+
+        if(StaticCatelog.getStringProperty(getContext(),"api_key")==null) {
+          rl.setVisibility(View.GONE);
+          loginf.setVisibility(View.VISIBLE);
+        }else{
+            rl.setVisibility(View.VISIBLE);
+            loginf.setVisibility(View.GONE);
+        }
+        loginf.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(getContext(), LoginNum.class);
+                intent.putExtra("from","points");
                 startActivity(intent);
             }
         });
+
+
         if ( StaticCatelog.getIntProperty(getContext(),"total_cashback")>0) {
             cashback.setText(getString(R.string.wallet)+" "+StaticCatelog.getIntProperty(getContext(),"total_cashback"));
         } else {

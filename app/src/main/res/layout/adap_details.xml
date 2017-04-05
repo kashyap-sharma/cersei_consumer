@@ -19,10 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-
-
                 >
-
                 <com.android.volley.toolbox.NetworkImageView
                     android:id="@+id/pic"
                     android:visibility="gone"
@@ -30,6 +27,224 @@
                     android:layout_height="200dp"
 
                     />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#fff"
+                    android:layout_marginTop="80dp"
+                    android:layout_marginLeft="10dp"
+                    android:textStyle="bold"
+                    android:id="@+id/store_name"
+                    android:textSize="13sp"
+                    android:text="Sumit Store"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#fff"
+                    android:layout_marginLeft="10dp"
+                    android:layout_below="@+id/store_name"
+                    android:id="@+id/delby"
+                    android:textSize="10sp"
+                    android:text="Delivered by store"/>
+                <LinearLayout
+                    android:layout_width="60dp"
+                    android:background="@drawable/percentage"
+                    android:layout_height="60dp"
+                    android:shadowColor="#000000"
+                    android:shadowDx="51"
+                    android:shadowDy="1"
+                    android:layout_marginRight="10dp"
+                    android:shadowRadius="4"
+                    android:gravity="center"
+                    android:layout_marginTop="50dp"
+                    android:layout_alignParentRight="true"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#B65F4A"
+                        android:id="@+id/cashback"
+                        android:textSize="15sp"
+                        android:text="OK"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="10sp"
+                        android:textColor="#B65F4A"
+                        android:text="Cashback"/>
+
+                </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:id="@+id/bar1"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="120dp"
+                    android:background="#50ffffff"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_below="@+id/bar1"
+                    android:text="Gillete Saving Gel"
+                    android:textColor="#fff"
+                    android:textSize="18sp"
+                    android:id="@+id/product_name"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_height="wrap_content" />
+                <co.jlabs.cersei_retailer.custom_components.TextViewModernM
+                    android:id="@+id/price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/product_name"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:text="Rs 180"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:id="@+id/addd"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/bar1"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/percentage"
+                    android:layout_height="wrap_content">
+                    <co.jlabs.cersei_retailer.custom_components.ShoppingView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/add"
+                        app:sv_bg_color="#6B5C7A"
+                        android:id="@+id/newAdd"
+                        android:layout_margin="3dp"
+                        app:sv_text="ADD"
+                        app:sv_text_size="15sp" />
+                </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:id="@+id/bar2"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                   android:layout_below="@+id/addd"
+                    android:layout_marginTop="15dp"
+
+                    android:background="#50ffffff"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_below="@+id/bar2"
+                    android:text="Unit size"
+                    android:textColor="#fff"
+                    android:textSize="18sp"
+                    android:id="@+id/unitsize"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_height="wrap_content"  />
+                <TextView
+                    android:layout_width="70dp"
+                    android:layout_height="20dp"
+                    android:gravity="center"
+                    android:id="@+id/unity"
+                    android:background="@drawable/unisi"
+                    android:layout_marginLeft="10dp"
+                    android:text="7 oz"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@+id/unitsize"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:id="@+id/bar3"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginRight="1dp"
+                    android:layout_below="@+id/unity"
+                    android:layout_marginTop="10dp"
+                    android:background="#50ffffff"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_below="@+id/bar3"
+                    android:text="Highlights"
+                    android:textColor="#fff"
+                    android:textSize="18sp"
+                    android:id="@+id/high"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_height="wrap_content"  />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:id="@+id/bar4"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_below="@+id/high"
+                    android:layout_marginTop="10dp"
+                    android:background="#50ffffff"/>
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="2dp"
+                    android:id="@+id/bar5"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_below="@+id/high"
+                    android:layout_marginTop="10dp"
+                    android:background="#ffffff"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="#50000000"
+                    android:text="Description"
+                    android:textSize="16sp"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/descr"
+                    android:layout_marginBottom="5dp"
+                    android:layout_below="@+id/bar5"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_below="@+id/descr"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="14sp"
+                    android:id="@+id/descrip"
+                    android:textColor="#fff"
+
+                    android:text="Gillete shaving gel for sensitive skin for bettre lorem"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:id="@+id/bar6"
+                    android:layout_marginLeft="10dp"
+
+                    android:layout_marginRight="10dp"
+                    android:layout_below="@+id/descrip"
+                    android:layout_marginTop="10dp"
+                    android:background="#50ffffff"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="#50000000"
+                    android:text="Key features"
+                    android:textSize="16sp"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/keyf"
+                    android:layout_marginBottom="5dp"
+                    android:layout_below="@+id/bar6"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_below="@+id/keyf"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="14sp"
+                    android:id="@+id/keyfeatures"
+                    android:textColor="#fff"
+                    android:layout_marginBottom="20dp"
+                    android:text="3x action formula hydrates lorem, ipsum , sit and doler"
+                    android:layout_height="wrap_content" />
+
                 <TextView
                     android:id="@+id/title"
                     android:textColor="@color/white"
@@ -39,21 +254,9 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="140dp"
                     android:textSize="20sp"
-
+                    android:visibility="invisible"
                     android:text="15% off on Maggi Noodles"/>
-                <co.jlabs.cersei_retailer.custom_components.TextViewModernM
-                    android:id="@+id/price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="15dp"
-                    android:paddingBottom="15dp"
-                    android:paddingRight="15dp"
-                    android:paddingLeft="5dp"
 
-                    android:layout_alignParentRight="true"
-                    android:textSize="25sp"
-                    android:textColor="@color/white"
-                    android:text="Rs 180"/>
                 <LinearLayout
                     android:paddingTop="8dp"
                     android:layout_width="match_parent"
@@ -83,6 +286,7 @@
                     android:layout_marginTop="35dp"
                     android:layout_below="@+id/title"
                     android:textColor="#fff"
+                    android:visibility="invisible"
                     android:id="@+id/des"
                     android:text="Description"/>
                 <co.jlabs.cersei_retailer.custom_components.TextViewModernM
@@ -90,6 +294,7 @@
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
                     android:gravity="center"
+                    android:visibility="invisible"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:padding="5dp"
@@ -99,54 +304,9 @@
                     android:textColor="#fff"
                     android:text="50% less fat. 30% fewer calories.* 100% butter flavor."/>
 
-                <LinearLayout
-                    android:layout_width="90dp"
-                    android:background="@drawable/percentage"
-                    android:layout_height="90dp"
-                    android:shadowColor="#000000"
-                    android:shadowDx="51"
-                    android:shadowDy="1"
-                    android:shadowRadius="4"
-                    android:gravity="center"
-                    android:layout_marginTop="30dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginBottom="15dp"
-                    android:layout_below="@+id/descri"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="#fff"
-                        android:id="@+id/cashback"
-                        android:textSize="18sp"
-                        android:text="OK"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="14sp"
-                        android:textColor="#fff"
-                        android:text="Cashback"/>
 
-                </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_marginTop="59dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_below="@+id/descri"
-                    android:layout_marginRight="20dp"
-                    android:background="@drawable/percentage"
-                    android:layout_height="wrap_content">
-                    <co.jlabs.cersei_retailer.custom_components.ShoppingView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/add"
-                        app:sv_bg_color="#6B5C7A"
-                        android:id="@+id/newAdd"
-                        android:layout_margin="3dp"
-                        app:sv_text="ADD"
-                        app:sv_text_size="15sp" />
-                </LinearLayout>
+
             </RelativeLayout>
         </android.support.v7.widget.CardView>
     </LinearLayout>
