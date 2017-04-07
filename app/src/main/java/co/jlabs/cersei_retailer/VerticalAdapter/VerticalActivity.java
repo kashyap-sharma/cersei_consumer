@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,7 +49,7 @@ public class VerticalActivity extends Activity {
     int num_item=0;
     Context context;
     Sqlite_cart cart;
-
+    int so=0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,6 +61,7 @@ public class VerticalActivity extends Activity {
         try {
             offers = new JSONArray(getIntent().getStringExtra("offers"));
             Log.e("point1",""+offers.toString());
+            so=getIntent().getIntExtra("so",1);
             num_item=offers.length();
         } catch (JSONException e) {
             e.printStackTrace();
@@ -132,31 +134,34 @@ public class VerticalActivity extends Activity {
                 int points= ((JSONObject) offers.get(position)).getInt("cashback");
                 Log.e("points",""+points);
                 Log.e("points",""+offers.toString());
-                TextView title=(TextView) itemView.findViewById(R.id.title);
-                TextView cashback=(TextView) itemView.findViewById(R.id.cashback);
+
+
+                TextViewModernM title=(TextViewModernM) itemView.findViewById(R.id.product_name);
+
+                TextViewModernM cashback=(TextViewModernM) itemView.findViewById(R.id.cashback);
                 CircularImageView pica=(CircularImageView) itemView.findViewById(R.id.pica);
                 ShoppingView newADD=(ShoppingView) itemView.findViewById(R.id.newAdd);
                 CardView card_view=  (CardView) itemView.findViewById(R.id.card_view);
 //                ((NetworkImageView) itemView.findViewById(R.id.pic)).setImageUrl(json.getString("img"), imageLoader);
-               title.setText(((JSONObject) offers.get(position)).getString("product_name"));
+                title.setText(((JSONObject) offers.get(position)).getString("product_name"));
                 cashback.setText(points+"%");
                 pica.setShadowColor(Color.parseColor("#000000"));
 
 
 
                 if(position==1){
-                        card_view.setCardBackgroundColor(Color.parseColor("#F56D7F"));
-                        pica.setBorderColor(Color.parseColor("#F56D7F"));
-                        newADD.mPaintBg.setColor(Color.parseColor("#F56D7F"));
-                        newADD.mPaintMinus.setColor(Color.parseColor("#F56D7F"));
+                        card_view.setCardBackgroundColor(Color.parseColor("#57C7D3"));
+                        pica.setBorderColor(Color.parseColor("#57C7D3"));
+                        newADD.mPaintBg.setColor(Color.parseColor("#57C7D3"));
+                        newADD.mPaintMinus.setColor(Color.parseColor("#57C7D3"));
                 }
                 else if(position==2){
-                        card_view.setCardBackgroundColor(Color.parseColor("#BF6A83"));
-                        pica.setBorderColor(Color.parseColor("#BF6A83"));
-                        newADD.mPaintBg.setColor(Color.parseColor("#BF6A83"));
-                        newADD.mPaintMinus.setColor(Color.parseColor("#BF6A83"));
+                        card_view.setCardBackgroundColor(Color.parseColor("#F3CC02"));
+                        pica.setBorderColor(Color.parseColor("#F3CC02"));
+                        newADD.mPaintBg.setColor(Color.parseColor("#F3CC02"));
+                        newADD.mPaintMinus.setColor(Color.parseColor("#F3CC02"));
                 }
-
+                newADD.setTextNum(so);
 
 
 
@@ -167,36 +172,38 @@ public class VerticalActivity extends Activity {
                         .into( ((CircularImageView) itemView.findViewById(R.id.pica)));
 
               //  ((CircularImageView) itemView.findViewById(R.id.pica)).setText(points+"% off on "+json.getString("name"));
-               ((TextViewModernM) itemView.findViewById(R.id.descri)).setText(  ((JSONObject) offers.get(position)).getString("detail"));
+               ((TextViewModernM) itemView.findViewById(R.id.descrip)).setText(  ((JSONObject) offers.get(position)).getString("detail"));
+               ((TextViewModernM) itemView.findViewById(R.id.unity)).setText(  ((JSONObject) offers.get(position)).getString("weight"));
+               ((TextViewModernM) itemView.findViewById(R.id.store_name)).setText(  ((JSONObject) offers.get(position)).getString("retailer_name"));
                 ((TextViewModernM) itemView.findViewById(R.id.price)).setText("₹"+((JSONObject) offers.get(position)).getInt("price")+"");
-                ((AddOrRemoveCart)itemView.findViewById(R.id.add_or_remove_cart)).addOnItemClickListner(new AddOrRemoveCart.ItemsClickListener() {
-                    @Override
-                    public int addItemClicked(int position) {
-                        Toast.makeText(context, "Added To Cart", Toast.LENGTH_SHORT).show();
-                        int quantity = 0;
-
-                        try {
-
-                            quantity = cart.addToCart(((JSONObject) offers.get(position)));
-                        } catch (Exception e) {
-
-                        }
-
-                        return quantity;
-                    }
-                    @Override
-                    public int removeItemClicked(View v,int position) {
-                        Toast.makeText(context, "Removed From Cart", Toast.LENGTH_SHORT).show();
-                        int quantity = 0;
-
-                        try {
-                            quantity = cart.removeFromCart(((JSONObject) offers.get((position))).getString("detail"));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        return quantity;
-                    }
-                }, position, cart.findIfOfferAlreadyExistsInCart(((JSONObject) offers.get((position))).getString("detail")));
+//                ((AddOrRemoveCart)itemView.findViewById(R.id.add_or_remove_cart)).addOnItemClickListner(new AddOrRemoveCart.ItemsClickListener() {
+//                    @Override
+//                    public int addItemClicked(int position) {
+//                        Toast.makeText(context, "Added To Cart", Toast.LENGTH_SHORT).show();
+//                        int quantity = 0;
+//
+//                        try {
+//
+//                            quantity = cart.addToCart(((JSONObject) offers.get(position)));
+//                        } catch (Exception e) {
+//
+//                        }
+//
+//                        return quantity;
+//                    }
+//                    @Override
+//                    public int removeItemClicked(View v,int position) {
+//                        Toast.makeText(context, "Removed From Cart", Toast.LENGTH_SHORT).show();
+//                        int quantity = 0;
+//
+//                        try {
+//                            quantity = cart.removeFromCart(((JSONObject) offers.get((position))).getString("detail"));
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                        return quantity;
+//                    }
+//                }, position, cart.findIfOfferAlreadyExistsInCart(((JSONObject) offers.get((position))).getString("detail")));
             } catch (JSONException e) {
                 e.printStackTrace();
             }

@@ -17,18 +17,31 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#152A38">
-
             <FrameLayout
-                android:id="@+id/pica"
+                android:id="@+id/pica1"
+                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true">
 
 
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="160dp"
+                    android:layout_height="160dp"
+                    android:src="@drawable/thiscounts" />
+
+            </FrameLayout>
+            <FrameLayout
+                android:id="@+id/pica"
+                android:layout_below="@+id/pica1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true">
 
                 <co.jlabs.cersei_retailer.Rounded.CircularImageView
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
+                    android:layout_width="160dp"
+                    android:layout_height="160dp"
                     android:layout_gravity="center"
                     android:src="@drawable/crown_level_one"
                     app:civ_border_color="#00000000"
@@ -36,14 +49,28 @@
 
                 <com.gigamole.library.ArcProgressStackView
                     android:id="@+id/apsv"
-                    android:layout_width="160dp"
-                    android:layout_height="160dp"
-                    app:apsv_dragged="true"
+                    android:layout_width="155dp"
+                    android:layout_height="155dp"
+                    app:apsv_dragged="false"
                     app:apsv_draw_width="5dp"
-
+                    app:apsv_animation_duration="1000"
+                    app:apsv_start_angle="270"
+                    app:apsv_sweep_angle="360"
+                    android:visibility="gone"
                     app:apsv_model_bg_enabled="true"
                     app:apsv_preview_bg="#fff"
                     app:apsv_preview_colors="@array/polluted_waves" />
+                <ProgressBar
+                    android:id="@+id/circular_progress_bar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="160dp"
+                    android:layout_height="160dp"
+                    android:padding="5dp"
+                    android:rotation="270"
+                    android:indeterminate="false"
+                    android:max="1000"
+                    android:progress="645"
+                    android:progressDrawable="@drawable/circle" />
 
             </FrameLayout>
             <co.jlabs.cersei_retailer.custom_components.ButtonModarno
@@ -51,6 +78,7 @@
                 android:layout_height="56dp"
                 android:text="Login"
                 android:textSize="20sp"
+
                 android:id="@+id/loginf"
                 app:fontname="lb"
                 android:background="#01FAFA"
@@ -61,6 +89,7 @@
                 android:layout_below="@+id/pica"
                 android:visibility="gone"
                 android:id="@+id/rl"
+                android:paddingTop="5dp"
                 android:layout_marginTop="-10dp"
                 android:layout_height="wrap_content">
                 <co.jlabs.cersei_retailer.custom_components.TextViewModernM
@@ -109,7 +138,7 @@
             android:layout_below="@+id/upper"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="10dp"
-            android:paddingTop="8dp"
+            android:paddingTop="2dp"
             android:text="Cashback Available"
             android:textAllCaps="false"
             android:textColor="#12A7AE"
@@ -122,8 +151,7 @@
             android:layout_below="@+id/avail"
             android:layout_centerHorizontal="true"
             android:text="@string/wallet"
-            android:textColor="#00FFFF"
-            android:textSize="25sp" />
+            android:textColor="#00FFFF" />
 
     </RelativeLayout>
 

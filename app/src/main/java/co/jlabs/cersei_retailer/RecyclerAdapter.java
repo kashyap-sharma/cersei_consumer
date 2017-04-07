@@ -61,7 +61,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     FragmentsEventInitialiser eventInitialiser;
     //private int lastPosition = -1;
     int appcolor;
-
+    int so=0;
 //Changes
 
     private ArrayList<Card> al;
@@ -243,6 +243,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                                     try{
 
                                         quantity=cart.addToCart( json_offers.getJSONObject(position - 1));
+                                        so=quantity;
                                         Log.e("ero","0"+ json_offers.getJSONObject(position - 1).getString("item_id"));
                                         holder.newADD.setTextNum(quantity);
                                         Toast.makeText(context, "Added To Cart", Toast.LENGTH_SHORT).show();
@@ -270,6 +271,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                             try {
 
                                 quantity=cart.removeFromCart((( json_offers.getJSONObject((position - 1))).getString("offer_id")));
+                                so=quantity;
                                 Log.e("somee",""+quantity);
                                 holder.newADD.setTextNum(quantity);
                             } catch (JSONException e) {
@@ -363,6 +365,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         Log.e(" SearchableSpinner",""+json_offers.toString());
         Log.e(" SearchableSpinner",""+1);
         i.putExtra("position",Integer.parseInt(v.getTag().toString()));
+        i.putExtra("so",so);
         i.putExtra("offers",json_offers.toString());
         //ActivityTransitionLauncher.with(getActivity(v)).from(v).launch(i);
         v.getContext().startActivity(i);

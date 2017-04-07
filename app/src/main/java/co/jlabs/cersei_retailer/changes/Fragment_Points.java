@@ -24,7 +24,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.AbsListView;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -73,7 +75,9 @@ public class Fragment_Points extends Fragment  implements ScrollTabHolder, ViewP
     private MyIconFonts cashback;
     private LinearLayout achieve;
     private RelativeLayout rl;
+    private FrameLayout pica1,pica;
     private ButtonModarno loginf;
+    private ProgressBar circular_progress_bar;
 
     //    private View mHeader;
 //
@@ -131,6 +135,9 @@ public class Fragment_Points extends Fragment  implements ScrollTabHolder, ViewP
         rl=(RelativeLayout)layoutView.findViewById(R.id.rl);
         loginf=(ButtonModarno) layoutView.findViewById(R.id.loginf);
         achieve=(LinearLayout) layoutView.findViewById(R.id.achieve);
+        pica1=(FrameLayout) layoutView.findViewById(R.id.pica1);
+        pica=(FrameLayout) layoutView.findViewById(R.id.pica);
+        circular_progress_bar=(ProgressBar) layoutView.findViewById(R.id.circular_progress_bar);
         achieve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -149,9 +156,13 @@ public class Fragment_Points extends Fragment  implements ScrollTabHolder, ViewP
         if(StaticCatelog.getStringProperty(getContext(),"api_key")==null) {
           rl.setVisibility(View.GONE);
           loginf.setVisibility(View.VISIBLE);
+            pica1.setVisibility(View.VISIBLE);
+            pica.setVisibility(View.GONE);
         }else{
             rl.setVisibility(View.VISIBLE);
             loginf.setVisibility(View.GONE);
+            pica.setVisibility(View.VISIBLE);
+            pica1.setVisibility(View.GONE);
         }
         loginf.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,6 +180,12 @@ public class Fragment_Points extends Fragment  implements ScrollTabHolder, ViewP
             cashback.setText(getString(R.string.wallet)+" 0");
         }
 
+        Log.e("data@1",""+StaticCatelog.getIntProperty(getContext(),"total_cashback")%1000);
+        Log.e("data@1",""+(1000-StaticCatelog.getIntProperty(getContext(),"total_cashback")/1000));
+        Log.e("data@1",""+StaticCatelog.getIntProperty(getContext(),"total_cashback"));
+        level.setText("Level "+(1+StaticCatelog.getIntProperty(getContext(),"total_cashback")/1000));
+        next.setText("+"+(1000-StaticCatelog.getIntProperty(getContext(),"total_cashback")%1000)+" CB until next level");
+        circular_progress_bar.setProgress(StaticCatelog.getIntProperty(getContext(),"total_cashback")%1000);
 
         final String[] bgColors = getResources().getStringArray(R.array.medical_express);
         final String[] endColors = getResources().getStringArray(R.array.default_preview);
