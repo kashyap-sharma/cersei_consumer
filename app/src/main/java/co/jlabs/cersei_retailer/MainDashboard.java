@@ -16,6 +16,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 
+import android.util.SparseArray;
 import android.view.MotionEvent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -30,6 +31,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.SlidingDrawer;
 import android.widget.TextView;
@@ -63,6 +65,8 @@ import co.jlabs.cersei_retailer.custom_components.SmallBangListener;
 import co.jlabs.cersei_retailer.custom_components.Sqlite_cart;
 import co.jlabs.cersei_retailer.custom_components.TabsView;
 import co.jlabs.cersei_retailer.custom_components.TextViewModernM;
+
+import static co.jlabs.cersei_retailer.RecyclerAdapter.mPopupWindow;
 
 
 public class MainDashboard extends FragmentActivity implements View.OnClickListener,FragmentsEventInitialiser,Animation.AnimationListener,Fragment_Cart.buttonClick, LocationPopup.onLocationSelected,NoInternetDialogBox.onReloadPageSelected{
@@ -110,7 +114,7 @@ public class MainDashboard extends FragmentActivity implements View.OnClickListe
     Animation animation = null;
     //Drawer
 
-
+    SparseArray<Fragment> registeredFragments = new SparseArray<Fragment>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -521,11 +525,33 @@ public class MainDashboard extends FragmentActivity implements View.OnClickListe
 //    }
 
     //Drawer
+    public boolean onBackPresseds() {
+        // currently visible tab Fragment
+        OnBackPressListener currentFragment = (OnBackPressListener) getRegisteredFragment(mPager.getCurrentItem());
+
+        if (currentFragment != null) {
+            // Log.e("not","sa");
+            // lets see if the currentFragment or any of its childFragment can handle onBackPressed
+            return currentFragment.onBackPressed();
+        }
+        Log.e("not","sad");
+        // this Fragment couldn't handle the onBackPressed call
+        return false;
+    }
+
+    public Fragment getRegisteredFragment(int position) {
+        return registeredFragments.get(position);
+    }
     @Override
     public void onBackPressed() {
+
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
+        }
+        else if(mPopupWindow.isShowing()){
+            mPopupWindow.dismiss();
         }
         else {
             super.onBackPressed();

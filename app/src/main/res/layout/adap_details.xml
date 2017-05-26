@@ -4,11 +4,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center_vertical"
     android:background="#00000000"
-    android:layout_height="match_parent">
+
+    android:layout_height="wrap_content">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
+        android:layout_marginTop="40dp"
         android:id="@+id/container">
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
@@ -108,7 +111,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_below="@+id/bar1"
                     android:layout_marginTop="10dp"
-                    android:visibility="invisible"
+
                     android:layout_marginRight="10dp"
                     android:background="@drawable/percentage"
                     android:layout_height="wrap_content">
@@ -312,11 +315,11 @@
         </android.support.v7.widget.CardView>
     </LinearLayout>
     <co.jlabs.cersei_retailer.Rounded.CircularImageView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:paddingTop="20dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="-80dp"
+            android:layout_marginTop="-10dp"
             android:src="@drawable/icon"
             app:civ_border_color="#6B5C7A"
             app:civ_shadow="true"

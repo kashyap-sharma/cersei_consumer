@@ -136,6 +136,9 @@ public class Fragment_Cart extends Fragment implements FragmentEventHandler{
                         public void onClick(View v) {
                             // Close dialog
                             dialog.dismiss();
+
+                            click.buttonClicked(v);
+
                         }
                     });
                     checkout.setOnClickListener(new View.OnClickListener() {

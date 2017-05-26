@@ -66,6 +66,7 @@ public class VerticalActivity extends Activity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
         cart=new Sqlite_cart(this);
         final HorizontalInfiniteCycleViewPager verticalInfiniteCycleViewPager =
                 (HorizontalInfiniteCycleViewPager) findViewById(R.id.vicvp);

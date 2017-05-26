@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -34,7 +36,7 @@ import co.jlabs.cersei_retailer.custom_components.Sqlite_cart;
 import co.jlabs.cersei_retailer.custom_components.transforms.*;
 
 
-public class Fragment_Offers extends Fragment implements FragmentEventHandler {
+public class Fragment_Offers extends Fragment implements OnBackPressListener, FragmentEventHandler {
     int fragVal;
   //  AutoScrollViewPager vpPager=null;
     FragmentsEventInitialiser eventInitialiser=null;
@@ -46,6 +48,7 @@ public class Fragment_Offers extends Fragment implements FragmentEventHandler {
     Sqlite_cart cart;
     RecyclerView recyclerView;
     SwipeRefreshLayout mSwipeRefreshLayout;
+    public static  RelativeLayout mRelativeLayout;
 
     static Fragment_Offers init(int val) {
         Fragment_Offers truitonFrag = new Fragment_Offers();
@@ -62,12 +65,18 @@ public class Fragment_Offers extends Fragment implements FragmentEventHandler {
 
         fragVal = getArguments() != null ? getArguments().getInt("val") : 0;
     }
+    @Override
+    public boolean onBackPressed() {
+        return new BackPressImpl(this).onBackPressed();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View layoutView = inflater.inflate(R.layout.firstpage, container,
                 false);
+
+        mRelativeLayout=(RelativeLayout) layoutView.findViewById(R.id.mRelativeLayout);
         cart = new Sqlite_cart(getContext());
         header = inflater.inflate(R.layout.header_xml, null, false);
 
@@ -133,6 +142,8 @@ public class Fragment_Offers extends Fragment implements FragmentEventHandler {
         download_retailer(Area,location);
 
     }
+
+
 
  /*   class CustomPagerAdapter extends PagerAdapter {
 
@@ -222,6 +233,10 @@ public class Fragment_Offers extends Fragment implements FragmentEventHandler {
         }, 1000);
 
     }
+
+
+
+
 
 
     private void download_offers(String Area,String location) {

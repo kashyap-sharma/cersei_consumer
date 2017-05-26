@@ -6,14 +6,25 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
+import android.os.Handler;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +41,7 @@ import java.util.ArrayList;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import co.jlabs.cersei_retailer.ActivityTransition.ActivityTransitionLauncher;
+import co.jlabs.cersei_retailer.Rounded.CircularImageView;
 import co.jlabs.cersei_retailer.Rounded.RoundedImageView;
 import co.jlabs.cersei_retailer.VerticalAdapter.VerticalActivity;
 import co.jlabs.cersei_retailer.activity.SwipeTest;
@@ -43,6 +55,9 @@ import co.jlabs.cersei_retailer.swipecardlib.SwipeCardView;
 import co.jlabs.cersei_retailer.swiper.Card;
 import co.jlabs.cersei_retailer.swiper.CardsAdapter;
 
+import static android.content.Context.LAYOUT_INFLATER_SERVICE;
+import static co.jlabs.cersei_retailer.Fragment_Offers.mRelativeLayout;
+
 
 /**
  * Created by Pradeep on 12/31/2015.
@@ -53,6 +68,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private static final int VIEW_NORMAL = 1;
     private View headerView;
     ImageLoader imageLoader;
+    public static PopupWindow mPopupWindow;
 
     JSONArray json_offers;
     Sqlite_cart cart;
@@ -62,6 +78,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     //private int lastPosition = -1;
     int appcolor;
     int so=0;
+    int pos=0;
+
 //Changes
 
     private ArrayList<Card> al;
@@ -340,6 +358,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
                 holder.upper.setOnClickListener(this);
                 holder.upper.setTag(position);
+
             }
 
 //            Animation animation = AnimationUtils.loadAnimation(context, (position > lastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
@@ -348,7 +367,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
 
     @Override
-    public void onClick(View v) {
+    public void onClick(final View v) {
 //        eventHandler.adjustCameraOrViewPager(false);
 //        Intent i = new Intent(v.getContext(),SwipeTest.class);
 //        Log.e("hee","hee");
@@ -359,18 +378,124 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
 
 
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
 
+        // Inflate the custom layout/view
+        View itemView = inflater.inflate(R.layout.adap_details,null);
+        TextViewModernM title=(TextViewModernM) itemView.findViewById(R.id.product_name);
 
-        Intent i = new Intent(v.getContext(),VerticalActivity.class);
-        Log.e(" SearchableSpinner",""+json_offers.toString());
-        Log.e(" SearchableSpinner",""+1);
-        i.putExtra("position",Integer.parseInt(v.getTag().toString()));
-        i.putExtra("so",so);
-        i.putExtra("offers",json_offers.toString());
-        //ActivityTransitionLauncher.with(getActivity(v)).from(v).launch(i);
-        v.getContext().startActivity(i);
+        TextViewModernM cashback=(TextViewModernM) itemView.findViewById(R.id.cashback);
+        CircularImageView pica=(CircularImageView) itemView.findViewById(R.id.pica);
+       final ShoppingView newADD=(ShoppingView) itemView.findViewById(R.id.newAdd);
+        CardView card_view=  (CardView) itemView.findViewById(R.id.card_view);
+//                ((NetworkImageView) itemView.findViewById(R.id.pic)).setImageUrl(json.getString("img"), imageLoader);
+        try {
+            int points= ((JSONObject) json_offers.get(Integer.parseInt(v.getTag().toString()))).getInt("cashback");
+            title.setText(((JSONObject) json_offers.get(Integer.parseInt(v.getTag().toString()))).getString("product_name"));
+            cashback.setText(points+"%");
+            pica.setShadowColor(Color.parseColor("#000000"));
+            newADD.setOnShoppingClickListener(new ShoppingView.ShoppingClickListener() {
+                @Override
+                public void onAddClick(int num) {
 
+                    int quantity=0;
+                    try {
+                        int remaining_qrcodes= ((JSONObject) json_offers.get(Integer.parseInt(v.getTag().toString()) - 1)).getInt("remaining_qrcodes");
+                        Log.e(""+Integer.parseInt(v.getTag().toString()),"remaining_qrcodes:"+remaining_qrcodes);
+                        if (remaining_qrcodes>cart.findIfOfferAlreadyExistsInCart((( json_offers.getJSONObject((Integer.parseInt(v.getTag().toString()) - 1))).getString("offer_id")))) {
+                            eventInitialiser.updateCart(true);
+                            try{
+
+                                quantity=cart.addToCart( json_offers.getJSONObject(Integer.parseInt(v.getTag().toString()) - 1));
+                                so=quantity;
+                                Log.e("ero","0"+ json_offers.getJSONObject(Integer.parseInt(v.getTag().toString()) - 1).getString("item_id"));
+                                newADD.setTextNum(quantity);
+                                Toast.makeText(context, "Added To Cart", Toast.LENGTH_SHORT).show();
+                            }
+                            catch (Exception e)
+                            {
+
+                            }
+                        } else {
+                            newADD.setTextNum(remaining_qrcodes);
+                            Toast.makeText(context, "Limited Inventory", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+                @Override
+                public void onMinusClick(int num) {
+                    Toast.makeText(context,"Removed From Cart",Toast.LENGTH_SHORT).show();
+                    int quantity=0;
+
+                    eventInitialiser.updateCart(false);
+                    try {
+
+                        quantity=cart.removeFromCart((( json_offers.getJSONObject((Integer.parseInt(v.getTag().toString()) - 1))).getString("offer_id")));
+                        so=quantity;
+                        Log.e("somee",""+quantity);
+                        newADD.setTextNum(quantity);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Log.e("somee1",""+quantity);
+                    }
+                }
+            });
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+                /*
+                    public PopupWindow (View contentView, int width, int height)
+                        Create a new non focusable popup window which can display the contentView.
+                        The dimension of the window must be passed to this constructor.
+
+                        The popup does not provide any background. This should be handled by
+                        the content view.
+
+                    Parameters
+                        contentView : the popup's content
+                        width : the popup's width
+                        height : the popup's height
+                */
+        // Initialize a new instance of popup window
+        mPopupWindow = new PopupWindow(
+                itemView,
+                LayoutParams.WRAP_CONTENT,
+                LayoutParams.WRAP_CONTENT
+        );
+
+        // Set an elevation value for popup window
+        // Call requires API level 21
+        if(Build.VERSION.SDK_INT>=21){
+            mPopupWindow.setElevation(5.0f);
+        }
+        mPopupWindow.showAtLocation(mRelativeLayout, Gravity.CENTER,0,0);
+        // Get a reference for the custom view close button
+        mPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                mPopupWindow.dismiss();
+            }
+        });
     }
+
+
+
+
+//        Intent i = new Intent(v.getContext(),NewTsk.class);
+//        Log.e(" SearchableSpinner",""+json_offers.toString());
+//        Log.e(" SearchableSpinner",""+1);
+//        i.putExtra("position",Integer.parseInt(v.getTag().toString()));
+//        i.putExtra("so",so);
+//        i.putExtra("offers",json_offers.toString());
+//        //ActivityTransitionLauncher.with(getActivity(v)).from(v).launch(i);
+//        v.getContext().startActivity(i);
+
+
 
     private Activity getActivity(View v) {
         Context context = v.getContext();
